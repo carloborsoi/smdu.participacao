@@ -1,0 +1,4 @@
+graft src/smdu
+graft docs
+include *.rst
+global-exclude *.pyc
