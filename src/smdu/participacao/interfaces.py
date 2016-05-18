@@ -22,3 +22,8 @@ class IMinuta(Interface):
         title=_(u"Description"),
         required=False,
     )
+
+    text = schema.Text(
+        title=_(u"Rich Text"),
+        required=False
+    )
