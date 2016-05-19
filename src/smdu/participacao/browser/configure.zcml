@@ -21,8 +21,16 @@
       name="votaview"
       for="smdu.participacao.interfaces.IMinuta"
       layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
-      class=".views.VotaView"
+      class=".votaview.VotaView"
       template="templates/votaview.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="avaliacaoview"
+      for="smdu.participacao.interfaces.IMinuta"
+      layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
+      class=".votaview.AvaliacaoView"
       permission="zope2.View"
       />
 

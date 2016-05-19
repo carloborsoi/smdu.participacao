@@ -4,9 +4,15 @@
     i18n:domain="smdu.participacao">
 <body>
     <metal:content-core fill-slot="content-core">
-        <p tal:content="context/Title"></p>
-        <p tal:content="context/Description"></p>
-        <div tal:content="structure view/minuta" />
+        <h1 class="documentFirstHeading" tal:content="context/Title">
+            Titulo
+        </h1>
+        <div class="documentDescription description" tal:content="context/Description">
+            Descricao
+        </div>
+        <div id="content-core">
+            <div id="parent-fieldname-text" tal:content="structure view/texto" />
+        </div>
     </metal:content-core>
 </body>
 </html>

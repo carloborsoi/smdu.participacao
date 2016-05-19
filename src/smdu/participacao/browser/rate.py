@@ -28,7 +28,7 @@ def setupAnnotations(context):
     return annotations
 
 
-def getTally(context):
+def getTotal(context):
     """
     Return a dictionary of total likes and dislikes
     """
@@ -57,7 +57,7 @@ def getMyVote(context, paragraph_id=None, userid=None):
     if userid in annotations[yays][paragraph_id]:
         return 1
 
-    if userid in annotations[nays]:
+    if userid in annotations[nays][paragraph_id]:
         return -1
 
     return 0
