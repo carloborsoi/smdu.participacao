@@ -1,6 +1,7 @@
 from BTrees.OIBTree import OIBTree
 from zope.annotation.interfaces import IAnnotations
-
+from Products.CMFCore.utils import getToolByName
+from pyquery import PyQuery as pq
 
 yays = 'cioppino.twothumbs.yays'
 nays = 'cioppino.twothumbs.nays'
@@ -14,11 +15,15 @@ def setupAnnotations(context):
     """
     annotations = IAnnotations(context)
 
-    if yays not in annotations:
-        annotations[yays] = OIBTree()
+    text = context.text
+    d = pq(text)
+    paragraphs = d('p[class^=paragrafo-]')
 
-    if nays not in annotations:
-        annotations[nays] = OIBTree()
+    for p in paragraphs:
+        if yays not in annotations:
+            annotations[yays][p] = OIBTree()
+        if nays not in annotations:
+            annotations[nays][p] = OIBTree()
 
     return annotations
 
@@ -36,7 +41,7 @@ def getTally(context):
     }
 
 
-def getMyVote(context, userid=None):
+def getMyVote(context, paragraph_id=None, userid=None):
     """
     If the user liked this item, then return 1. If they
     did not like it, -1, and if they didn't vote: 0.
@@ -49,7 +54,7 @@ def getMyVote(context, userid=None):
         mtool = getToolByName(context, 'portal_membership')
         userid = mtool.getAuthenticatedMember().id
 
-    if userid in annotations[yays]:
+    if userid in annotations[yays][paragraph_id]:
         return 1
 
     if userid in annotations[nays]:

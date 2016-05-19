@@ -54,7 +54,8 @@ setup(
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
             'eea.annotator',
-            'cioppino.twothumbs'
+            'cioppino.twothumbs',
+            'pyquery'
         ],
     },
     entry_points="""

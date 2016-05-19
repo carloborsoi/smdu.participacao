@@ -6,7 +6,7 @@
     <metal:content-core fill-slot="content-core">
         <p tal:content="context/Title"></p>
         <p tal:content="context/Description"></p>
-        <div tal:content="structure context/text" />
+        <div tal:content="structure view/minuta" />
     </metal:content-core>
 </body>
 </html>
