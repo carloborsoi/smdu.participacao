@@ -1,6 +1,6 @@
 from BTrees.OIBTree import OIBTree
 from zope.annotation.interfaces import IAnnotations
-from Products.CMFCore.utils import getToolByName
+from plone import api
 from pyquery import PyQuery as pq
 
 yays = 'cioppino.twothumbs.yays'
@@ -51,7 +51,7 @@ def getMyVote(context, paragraph_id=None, userid=None):
     annotations = IAnnotations(context)
 
     if not userid:
-        mtool = getToolByName(context, 'portal_membership')
+        mtool = api.portal.get_tool('portal_membership')
         userid = mtool.getAuthenticatedMember().id
 
     if userid in annotations[yays][paragraph_id]:
