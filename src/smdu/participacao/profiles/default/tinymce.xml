@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <object>
- <layout>
-  <styles>
-   <element value="Paragrafo avaliavel|p|paragrafo"/>
-  </styles>
- </layout>
+  <layout>
+    <styles>
+      <element value="Paragrafo avaliavel|p|paragrafo"/>
+      <element value="Paragrafo avaliavel|span|paragrafo"/>
+    </styles>
+  </layout>
 </object>
