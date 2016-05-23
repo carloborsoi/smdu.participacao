@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+  <stylesheet id="++resource++smdu.participacao/minuta.css"/>
+</object>
