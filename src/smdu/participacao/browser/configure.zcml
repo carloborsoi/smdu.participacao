@@ -17,21 +17,31 @@
       directory="static"
       />
 
+  <!-- Minuta content-type main view -->
   <browser:page
-      name="votaview"
+      name="view"
       for="smdu.participacao.interfaces.IMinuta"
       layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
-      class=".votaview.VotaView"
-      template="templates/votaview.pt"
+      class=".views.MinutaView"
+      template="templates/minuta.pt"
       permission="zope2.View"
       />
 
+  <!-- Minuta content-type "macro" view -->
   <browser:page
-      name="avaliacaoview"
+      name="avaliacao"
       for="smdu.participacao.interfaces.IMinuta"
       layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
       class=".votaview.AvaliacaoView"
+      template="templates/avaliacao.pt"
       permission="zope2.View"
       />
+
+  <!-- Workflow event -->
+  <!-- <subscriber
+      for="smdu.participacao.interfaces.IMinuta
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".events.notifyUser"
+      /> -->
 
 </configure>

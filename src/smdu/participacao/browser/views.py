@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from zope.component import getMultiAdapter
 from Products.Five.browser import BrowserView
+# from plone.dexterity.browser.view import DefaultView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from cioppino.twothumbs.browser.like import LikeWidgetView
 from smdu.participacao.browser import rate
@@ -8,16 +9,16 @@ from smdu.participacao.browser import rate
 
 COOKIENAME = 'smdu_minuta_avaliacao'
 
-
 class VotaView(BrowserView):
+# class MinutaView(DefaultView): # 'view/w' not needed at this point
     """ This does nothing so far
     """
 
     def texto(self):
         pq_texto = pq(self.context.text)
-        avaliacao = self.context.restrictedTraverse('@@avaliacaoview')()
-        [pq(p).addClass("paragrafo-{0:02}".format(i)).after(avaliacao)
-            for i, p in enumerate(pq_texto.children('p:not(.discreet)'))]
+        avaliacao = self.context.restrictedTraverse('@@avaliacao')()
+        [pq(p).addClass("paragrafo-{0:02}".format(i + 1)).after(avaliacao)
+            for i, p in enumerate(pq_texto.children('.paragrafo'))]
 
         return pq_texto.html()
 
@@ -25,8 +26,6 @@ class VotaView(BrowserView):
 class AvaliacaoView(LikeWidgetView):
     """ This does nothing so far
     """
-
-    index = ViewPageTemplateFile('templates/avaliacao.pt')
 
     # def __init__(self, context, request):
     #     super(AvaliacaoView, self).__init__(context, request)
