@@ -9,8 +9,8 @@ from smdu.participacao.browser import rate
 
 COOKIENAME = 'smdu_minuta_avaliacao'
 
-class VotaView(BrowserView):
 # class MinutaView(DefaultView): # 'view/w' not needed at this point
+class MinutaView(BrowserView):
     """ This does nothing so far
     """
 
