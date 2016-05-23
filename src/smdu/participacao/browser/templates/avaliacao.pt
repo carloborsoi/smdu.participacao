@@ -18,7 +18,7 @@
                         action  string:${context/absolute_url}/you-know-you-like-it;">
         <span tal:replace="structure context/@@authenticator/authenticator"/>
         <span
-            tal:attributes="class   python:'thumbs-up' + (myVote==1 and ' selected' or '')">
+            tal:attributes="class python:'thumbs-up' + (' selected' if myVote == 1 else '')">
             <input type="submit" name="form.lovinit" value="Like"
                 class="allowMultiSubmit like-button" title="I like this (click again to undo)"
                 i18n:attributes="value; title"
@@ -28,7 +28,7 @@
             </span>
         </span>
         <span
-            tal:attributes="class   python:'thumbs-down' + (myVote==-1 and ' selected' or '')">
+            tal:attributes="class python:'thumbs-down' + (' selected' if myVote == -1 else '')">
             <input type="submit" name="form.hatedit" value="Ugh"
                 class="allowMultiSubmit dislike-button" title="I dislike this (click again to undo)"
                 i18n:attributes="value; title"
@@ -36,7 +36,6 @@
             <span class="total-thumbs-down" title="">
                 <span class="tally-total" tal:content="stats/downs" />
             </span>
-
         </span>
     </form>
 </div>

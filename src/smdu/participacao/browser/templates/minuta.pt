@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="smdu.participacao">
+<body>
+  <metal:content-core fill-slot="content-core">
+    <div id="content-core">
+      <div id="parent-fieldname-text" tal:content="structure view/texto" />
+    </div>
+  </metal:content-core>
+</body>
+</html>
