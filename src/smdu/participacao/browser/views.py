@@ -15,11 +15,10 @@ class MinutaView(BrowserView):
     """
 
     def texto(self):
-        pq_texto = pq(self.context.text)
+        pq_texto = pq(self.context.text.output)
         avaliacao = self.context.restrictedTraverse('@@avaliacao')()
         [pq(p).addClass("paragrafo-{0:02}".format(i + 1)).after(avaliacao)
             for i, p in enumerate(pq_texto.children('.paragrafo'))]
-
         return pq_texto.html()
 
 
