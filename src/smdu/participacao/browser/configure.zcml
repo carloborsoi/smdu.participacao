@@ -32,7 +32,7 @@
       name="avaliacao"
       for="smdu.participacao.interfaces.IMinuta"
       layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
-      class=".votaview.AvaliacaoView"
+      class=".views.AvaliacaoView"
       template="templates/avaliacao.pt"
       permission="zope2.View"
       />

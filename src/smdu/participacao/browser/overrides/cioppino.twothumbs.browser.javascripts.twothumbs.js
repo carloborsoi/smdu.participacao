@@ -25,6 +25,8 @@ jQuery(function(jq){
 			// Can rate, go ahead!
 			me.blur();
 			var action = me.attr('name');
+			var paragrafo_id = form.data('paragrafo_id');
+			// debugger;
 			var upResults = form.find('.total-thumbs-up .tally-total');
 			var downResults = form.find('.total-thumbs-down .tally-total');
 			var auth_key = form.find('input[name="_authenticator"]').val();
