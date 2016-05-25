@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Module where all interfaces, events and exceptions live."""
+"""Modulo onde todas as interfaces, eventos e excecoes vivem."""
 
 from smdu.participacao import _
 from zope import schema
@@ -15,9 +15,12 @@ class ISmduParticipacaoLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
+# A linha comentada abaixo nao eh necessaria no momento porque
+# 1) nao estamos carregando o modelo a partir de um xml (plone.supermodel)
+# 2) nao estamos detalhando os campos com dicas de exibicao (plone.autoform)
 # class IMinuta(model.Schema):
 class IMinuta(Interface):
-    """Dexterity content type model: fields and widgets."""
+    """Modelagem do tipo de conteudo Dexterity: campos e widgets."""
 
     title = schema.TextLine(
         title=_(u"Title"),
