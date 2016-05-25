@@ -35,7 +35,7 @@
                 var $downResults = $form.find('.total-thumbs-down .tally-total');
                 if ($form) {
                     $.post(url, action + '=FOOBAR&ajax=1&_authenticator=' + auth_key + '&paragrafo_id=' + paragrafo_id, function(data) {
-                        debugger;
+                        // debugger;
                         /* update the text */
                         $upResults.text(data.ups);
                         $downResults.text(data.downs);

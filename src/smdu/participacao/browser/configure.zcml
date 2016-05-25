@@ -37,6 +37,15 @@
       permission="zope2.View"
       />
 
+  <!-- Minuta content-type vota view -->
+  <browser:page
+      name="avaliacao-vota"
+      for="smdu.participacao.interfaces.IMinuta"
+      layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
+      permission="zope2.View"
+      class=".views.AvaliacaoVotaView"
+      />
+
   <!-- Workflow event -->
   <!-- <subscriber
       for="smdu.participacao.interfaces.IMinuta

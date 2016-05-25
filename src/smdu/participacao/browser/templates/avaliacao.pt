@@ -14,26 +14,24 @@
                  myVote python: view.myVote(view.paragrafo);"
                  class="thumb-rating">
     <form action="you-know-you-like-it" method="post"
-        tal:attributes="class python:canRate and 'enabled' or 'disabled';
-                        action  string:${context/absolute_url}/you-know-you-like-it;
-                        data-paragrafo_id view/paragrafo;">
-        <span tal:replace="structure context/@@authenticator/authenticator"/>
-        <span
-            tal:attributes="class python:'thumbs-up' + (' selected' if myVote == 1 else '')">
-            <input type="submit" name="form.lovinit" value="Like"
+        tal:attributes="class python:'enabled' if canRate else 'disabled';
+                        action string:${context/absolute_url}/@@avaliacao-vota;
+                        data-paragrafo_id view/paragrafo">
+        <span tal:replace="structure context/@@authenticator/authenticator" />
+        <span tal:attributes="class python:'thumbs-up' + (' selected' if myVote == 1 else '')">
+            <input type="submit" name="form.concordo" value="Concordo"
                 class="allowMultiSubmit like-button" title="Eu concordo (clique novamente para desfazer o voto)"
                 i18n:attributes="value; title"
-                tal:attributes="id  string:${context/id}_submit_like;" />
+                tal:attributes="id string:${context/id}_submit_like" />
             <span class="total-thumbs-up">
                 <span class="tally-total" tal:content="stats/ups" />
             </span>
         </span>
-        <span
-            tal:attributes="class python:'thumbs-down' + (' selected' if myVote == -1 else '')">
-            <input type="submit" name="form.hatedit" value="Ugh"
+        <span tal:attributes="class python:'thumbs-down' + (' selected' if myVote == -1 else '')">
+            <input type="submit" name="form.discordo" value="Discordo"
                 class="allowMultiSubmit dislike-button" title="Eu não concordo (clique novamente para desfazer o voto)"
                 i18n:attributes="value; title"
-                tal:attributes="id  string:${context/id}_submit_dislike;"/>
+                tal:attributes="id string:${context/id}_submit_dislike" />
             <span class="total-thumbs-down" title="">
                 <span class="tally-total" tal:content="stats/downs" />
             </span>

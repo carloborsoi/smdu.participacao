@@ -1,13 +1,20 @@
 from BTrees.OIBTree import OIBTree
 from persistent.dict import PersistentDict
 from persistent.list import PersistentList
+from zope import event
 from zope.annotation.interfaces import IAnnotations
+from Products.CMFCore.utils import getToolByName
 from plone import api
 from pyquery import PyQuery as pq
 
+from cioppino.twothumbs.event import DislikeEvent
+from cioppino.twothumbs.event import LikeEvent
+from cioppino.twothumbs.event import UndislikeEvent
+from cioppino.twothumbs.event import UnlikeEvent
 
-yays = 'smdu.participacao.yays'
-nays = 'smdu.participacao.nays'
+# KEY = 'smdu.participacao'
+concordancias = 'smdu.participacao.concordancias'
+discordancias = 'smdu.participacao.discordancias'
 
 
 def setupAnnotations(context):
@@ -17,32 +24,33 @@ def setupAnnotations(context):
     this has already been set up
     """
     annotations = IAnnotations(context)
-    #import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     pq_texto = pq(context.text.output)
-    paragraphs = pq_texto.children('.paragrafo')
-    if yays not in annotations:
-        annotations[yays] = PersistentDict()
-    if nays not in annotations:
-        annotations[nays] = PersistentDict()
-    for i, p in enumerate(paragraphs):
-        if i not in annotations[yays]:
-            annotations[yays][i] = PersistentList()
-        if i not in annotations[nays]:
-            annotations[nays][i] = PersistentList()
+    paragrafos = pq_texto.children('.paragrafo')
+    if concordancias not in annotations:
+        annotations[concordancias] = PersistentDict()
+    if discordancias not in annotations:
+        annotations[discordancias] = PersistentDict()
+    for i, p in enumerate(paragrafos):
+        paragrafo_id = i + 1
+        if paragrafo_id not in annotations[concordancias]:
+            annotations[concordancias][paragrafo_id] = PersistentDict()
+        if paragrafo_id not in annotations[discordancias]:
+            annotations[discordancias][paragrafo_id] = PersistentDict()
     #import pdb; pdb.set_trace()
     return annotations
 
 
-def getTotal(context):
+def getTotal(context, paragrafo_id=None):
     """
     Return a dictionary of total likes and dislikes
     """
     setupAnnotations(context)
     annotations = IAnnotations(context)
     return {
-        'ups': len(annotations[yays]),
-        'downs': len(annotations[nays]),
-        'mine': getMyVote(context)
+        'ups': len(annotations[concordancias][paragrafo_id]),
+        'downs': len(annotations[discordancias][paragrafo_id]),
+        'mine': getMyVote(context, paragrafo_id)
     }
 
 
@@ -58,15 +66,15 @@ def getMyVote(context, paragrafo_id=None, userid=None):
     if not userid:
         mtool = api.portal.get_tool('portal_membership')
         userid = mtool.getAuthenticatedMember().id
-    if userid in annotations[yays][paragrafo_id]:
-        return 1
 
-    if userid in annotations[nays][paragrafo_id]:
+    if userid in annotations[concordancias][paragrafo_id]:
+        return 1
+    if userid in annotations[discordancias][paragrafo_id]:
         return -1
 
     return 0
 
-def loveIt(context, userid=None):
+def concordo(context, paragrafo_id=None, userid=None):
     """
     Like an item (context). If no user id is passed in, the logged in User
     will be used. If the user has already liked the item, remove the vote.
@@ -76,20 +84,24 @@ def loveIt(context, userid=None):
     annotations = IAnnotations(context)
     action = None
 
+    # Valida se usuario foi passado em caso de voto anonimo
     if not userid:
         mtool = getToolByName(context, 'portal_membership')
         if mtool.isAnonymousUser():
             raise ValueError('userid must be passed activly for anon users')
         userid = mtool.getAuthenticatedMember().id
-    if userid in annotations[nays]:
-        annotations[nays].pop(userid)
 
-    if userid in annotations[yays]:
-        annotations[yays].pop(userid)
+    # TODO: levantar excecao quando paragrafo_id != None
+    import pdb; pdb.set_trace()
+    if userid in annotations[discordancias][paragrafo_id]:
+        annotations[discordancias][paragrafo_id].pop(userid)
+
+    if userid in annotations[concordancias][paragrafo_id]:
+        annotations[concordancias][paragrafo_id].pop(userid)
         action = "undo"
         event.notify(UnlikeEvent(context))
     else:
-        annotations[yays][userid] = 1
+        annotations[concordancias][paragrafo_id][userid] = 1
         action = "like"
         event.notify(LikeEvent(context))
 
@@ -97,7 +109,7 @@ def loveIt(context, userid=None):
     return action
 
 
-def hateIt(context, userid=None):
+def discordo(context, paragrafo_id=None, userid=None):
     """
     Dislike an item (context). If no user id is passed in, the logged in User
     will be used.
@@ -109,15 +121,15 @@ def hateIt(context, userid=None):
         mtool = getToolByName(context, 'portal_membership')
         userid = mtool.getAuthenticatedMember().id
 
-    if userid in annotations[yays]:
-        annotations[yays].pop(userid)
+    if userid in annotations[concordancias][paragrafo_id]:
+        annotations[concordancias][paragrafo_id].pop(userid)
 
-    if userid in annotations[nays]:
-        annotations[nays].pop(userid)
+    if userid in annotations[discordancias][paragrafo_id]:
+        annotations[discordancias][paragrafo_id].pop(userid)
         action = "undo"
         event.notify(UndislikeEvent(context))
     else:
-        annotations[nays][userid] = 1
+        annotations[discordancias][paragrafo_id][userid] = 1
         action = "dislike"
         event.notify(DislikeEvent(context))
 

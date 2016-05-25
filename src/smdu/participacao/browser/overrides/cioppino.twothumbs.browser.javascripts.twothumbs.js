@@ -1,6 +1,7 @@
 jQuery(function(jq){
 
 	jq('body').delegate('.thumb-rating form input', 'click', function(event) {
+		debugger;
 		event.preventDefault();
 		var me = jq(this);
 		var form = me.closest('form');
@@ -26,12 +27,11 @@ jQuery(function(jq){
 			me.blur();
 			var action = me.attr('name');
 			var paragrafo_id = form.data('paragrafo_id');
-			// debugger;
 			var upResults = form.find('.total-thumbs-up .tally-total');
 			var downResults = form.find('.total-thumbs-down .tally-total');
 			var auth_key = form.find('input[name="_authenticator"]').val();
 			if (form){
-				jq.post(form.attr("action"),action+'=FOOBAR&ajax=1&_authenticator='+auth_key, function(data) {
+				jq.post(form.attr("action"), action+'=FOOBAR&ajax=1&_authenticator='+auth_key, function(data) {
 					/* update the text */
 					upResults.text(data.ups);
 					downResults.text(data.downs);
