@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 try:
     import json
 except:
@@ -34,8 +36,9 @@ class MinutaView(BrowserView):
         pq_texto = pq(self.context.text.output)
         avaliacao = self.context.restrictedTraverse('@@avaliacao')
         for i, p in enumerate(pq_texto.children('.paragrafo')):
-            avaliacao_paragrafo = avaliacao.renderiza_avaliacao(i + 1)
-            pq(p).addClass("paragrafo-{0:02}".format(i + 1)).after(avaliacao_paragrafo)
+            paragrafo_id = i + 1
+            avaliacao_paragrafo = avaliacao.renderiza_avaliacao(paragrafo_id)
+            pq(p).addClass("paragrafo-{0:02}".format(paragrafo_id)).after(avaliacao_paragrafo)
 
         return pq_texto.html()
 
@@ -48,11 +51,7 @@ class AvaliacaoView(LikeWidgetView):
         super(AvaliacaoView, self).__init__(context, request)
         self.annotations = rate.setupAnnotations(self.context)
 
-    # def getStats(self):
-    #     paragrafo_id = self.paragrafo
-    #     return rate.getTotal(self.context, paragrafo_id=paragrafo_id)
-
-    def myVote(self, paragrafo_id):
+    def myVote(self):
         if not self.canRate():
             return 0
         portal_state = getMultiAdapter((self.context, self.request),
@@ -60,14 +59,20 @@ class AvaliacaoView(LikeWidgetView):
         anonuid = None
         if portal_state.anonymous():
             anonuid = self.request.cookies.get(COOKIENAME, None)
-        return rate.getMyVote(self.context, paragrafo_id=paragrafo_id, userid=anonuid)
+        return rate.getMyVote(self.context, self.paragrafo_id, userid=anonuid)
 
-    def renderiza_avaliacao(self, paragrafo):
+    def getTotal(self):
+        """
+        Look up the annotation on the object and return the number of
+        likes and hates per paragraph
+        """
+        return rate.getTotal(self.context, self.paragrafo_id)
+
+    def renderiza_avaliacao(self, paragrafo_id):
         """
         """
-        self.paragrafo = paragrafo
+        self.paragrafo_id = paragrafo_id
         avaliacao = self.__call__()
-        #import pdb; pdb.set_trace()
         return avaliacao
 
 
@@ -96,9 +101,9 @@ class AvaliacaoVotaView(LikeThisShizzleView):
         paragrafo_id = int(form.get('paragrafo_id'))
         action = None
         if form.get('form.concordo', False):
-            action = rate.concordo(self.context, paragrafo_id=paragrafo_id, userid=anonuid)
+            action = rate.concordar(self.context, paragrafo_id, userid=anonuid)
         elif form.get('form.discordo', False):
-            action = rate.discordo(self.context, paragrafo_id=paragrafo_id, userid=anonuid)
+            action = rate.discordar(self.context, paragrafo_id, userid=anonuid)
         else:
             return _(u"We don't like ambiguity around here. Check yo self "
                      "before you wreck yo self.")
@@ -106,7 +111,7 @@ class AvaliacaoVotaView(LikeThisShizzleView):
         if not form.get('ajax', False):
             return RESPONSE.redirect(REQUEST['HTTP_REFERER'])
         else:
-            resultado = rate.getTotal(self.context, paragrafo_id=paragrafo_id)
+            resultado = rate.getTotal(self.context, paragrafo_id)
             resultado['action'] = action
 
             # Create handy translate function
@@ -128,3 +133,11 @@ class AvaliacaoVotaView(LikeThisShizzleView):
             response_json = json.dumps(resultado)
             RESPONSE.setHeader('content-length', len(response_json))
             return response_json
+
+    def _getMessage(self, action):
+        if (action == 'like'):
+            return "Você concordou com isto. Obrigado pela avaliação!"
+        elif (action == 'dislike'):
+            return "Você discordou disto. Obrigado pela avaliação!"
+        elif (action == 'undo'):
+            return _(u"Seu voto foi removido.")

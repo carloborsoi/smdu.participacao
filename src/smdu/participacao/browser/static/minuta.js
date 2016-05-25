@@ -35,10 +35,9 @@
                 var $downResults = $form.find('.total-thumbs-down .tally-total');
                 if ($form) {
                     $.post(url, action + '=FOOBAR&ajax=1&_authenticator=' + auth_key + '&paragrafo_id=' + paragrafo_id, function(data) {
-                        // debugger;
                         /* update the text */
-                        $upResults.text(data.ups);
-                        $downResults.text(data.downs);
+                        $upResults.text(data.concordancias);
+                        $downResults.text(data.discordancias);
 
                         /* update the class */
                         $form.find('.thumbs-down').removeClass('selected');
@@ -50,14 +49,14 @@
                         }
 
                         /* extra feedback */
-                        var $feedback = form.find('.twothumbs-feedback');
+                        var $feedback = $form.find('.twothumbs-feedback');
                         if ($feedback.length) {
                             $feedback.remove();
                         }
                         var id = 'ttf-' + (new Date()).getTime();
                         $('<div>').attr('id', id).addClass('twothumbs-feedback').html(data.msg)
                             .prepend('<a class="close-link" title="' + data.close + '" href="#">&nbsp;</a>')
-                            .appendTo(form).hide().slideDown().find('.close-link').click(function(e) {
+                            .appendTo($form).hide().slideDown().find('.close-link').click(function(e) {
                                 e.preventDefault();
                                 $(this).closest('.twothumbs-feedback').slideUp();
                             });

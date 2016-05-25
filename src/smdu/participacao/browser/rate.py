@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from BTrees.OIBTree import OIBTree
 from persistent.dict import PersistentDict
 from persistent.list import PersistentList
@@ -41,20 +43,20 @@ def setupAnnotations(context):
     return annotations
 
 
-def getTotal(context, paragrafo_id=None):
+def getTotal(context, paragrafo_id):
     """
     Return a dictionary of total likes and dislikes
     """
     setupAnnotations(context)
     annotations = IAnnotations(context)
     return {
-        'ups': len(annotations[concordancias][paragrafo_id]),
-        'downs': len(annotations[discordancias][paragrafo_id]),
+        'concordancias': len(annotations[concordancias][paragrafo_id]),
+        'discordancias': len(annotations[discordancias][paragrafo_id]),
         'mine': getMyVote(context, paragrafo_id)
     }
 
 
-def getMyVote(context, paragrafo_id=None, userid=None):
+def getMyVote(context, paragrafo_id, userid=None):
     """
     If the user liked this item, then return 1. If they
     did not like it, -1, and if they didn't vote: 0.
@@ -74,7 +76,7 @@ def getMyVote(context, paragrafo_id=None, userid=None):
 
     return 0
 
-def concordo(context, paragrafo_id=None, userid=None):
+def concordar(context, paragrafo_id, userid=None):
     """
     Like an item (context). If no user id is passed in, the logged in User
     will be used. If the user has already liked the item, remove the vote.
@@ -91,11 +93,8 @@ def concordo(context, paragrafo_id=None, userid=None):
             raise ValueError('userid must be passed activly for anon users')
         userid = mtool.getAuthenticatedMember().id
 
-    # TODO: levantar excecao quando paragrafo_id != None
-    import pdb; pdb.set_trace()
     if userid in annotations[discordancias][paragrafo_id]:
         annotations[discordancias][paragrafo_id].pop(userid)
-
     if userid in annotations[concordancias][paragrafo_id]:
         annotations[concordancias][paragrafo_id].pop(userid)
         action = "undo"
@@ -108,8 +107,7 @@ def concordo(context, paragrafo_id=None, userid=None):
     context.reindexObject(idxs=['positive_ratings'])
     return action
 
-
-def discordo(context, paragrafo_id=None, userid=None):
+def discordar(context, paragrafo_id, userid=None):
     """
     Dislike an item (context). If no user id is passed in, the logged in User
     will be used.
