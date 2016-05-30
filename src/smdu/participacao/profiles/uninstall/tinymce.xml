@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object>
+  <layout>
+    <styles>
+      <element value="Bloco avaliável|div|paragrafo" remove="true" />
+    </styles>
+  </layout>
+</object>

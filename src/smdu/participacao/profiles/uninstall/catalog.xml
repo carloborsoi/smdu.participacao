@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<object name="portal_catalog">
+  <index name="SearchableText" remove="true" />
+</object>
