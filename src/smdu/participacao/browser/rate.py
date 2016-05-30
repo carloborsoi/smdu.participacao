@@ -28,7 +28,7 @@ def setupAnnotations(context):
     annotations = IAnnotations(context)
     # import pdb; pdb.set_trace()
     pq_texto = pq(context.text.output)
-    paragrafos = pq_texto.children('.paragrafo')
+    paragrafos = pq_texto.find('.paragrafo')
     if concordancias not in annotations:
         annotations[concordancias] = PersistentDict()
     if discordancias not in annotations:
@@ -44,8 +44,7 @@ def setupAnnotations(context):
 
 
 def getTotal(context, paragrafo_id):
-    """
-    Return a dictionary of total likes and dislikes
+    """ Return a dictionary of total likes and dislikes
     """
     setupAnnotations(context)
     annotations = IAnnotations(context)
@@ -64,17 +63,14 @@ def getMyVote(context, paragrafo_id, userid=None):
     If no user is passed in, the logged in user will be returned
     """
     annotations = IAnnotations(context)
-
-    if not userid:
-        mtool = api.portal.get_tool('portal_membership')
-        userid = mtool.getAuthenticatedMember().id
-
+    import pdb; pdb.set_trace()
+    userid = userid or api.user.get_current().getUserName()
     if userid in annotations[concordancias][paragrafo_id]:
         return 1
-    if userid in annotations[discordancias][paragrafo_id]:
+    elif userid in annotations[discordancias][paragrafo_id]:
         return -1
-
     return 0
+
 
 def concordar(context, paragrafo_id, userid=None):
     """
@@ -106,6 +102,7 @@ def concordar(context, paragrafo_id, userid=None):
 
     context.reindexObject(idxs=['positive_ratings'])
     return action
+
 
 def discordar(context, paragrafo_id, userid=None):
     """
