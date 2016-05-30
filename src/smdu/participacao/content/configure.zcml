@@ -1,0 +1,33 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <!-- Edit form -->
+  <!-- <browser:page
+      name="edit"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".minuta.EditForm"
+      permission="cmf.ModifyPortalContent"
+      /> -->
+
+  <!-- Catalog indexer -->
+  <adapter
+      name="SearchableText"
+      factory="..indexers.SearchableText"
+      />
+
+  <!-- Write permission -->
+  <permission
+      id="smdu.participacao.avaliar_minuta"
+      title="smdu.participacao: Avaliar minuta"
+      />
+
+  <!-- Workflow event -->
+  <subscriber
+      for="..interfaces.IMinuta
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler="..events.finaliza_avaliacao"
+      />
+
+</configure>

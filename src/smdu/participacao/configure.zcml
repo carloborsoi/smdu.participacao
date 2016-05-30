@@ -9,6 +9,7 @@
   <includeDependencies package="." />
 
   <include package=".browser" />
+  <include package=".content" />
 
   <genericsetup:registerProfile
       name="default"
