@@ -2,8 +2,7 @@
 <object>
   <layout>
     <styles>
-      <element value="Paragrafo avaliavel|p|paragrafo"/>
-      <element value="Paragrafo avaliavel|span|paragrafo"/>
+      <element value="Bloco avaliável|div|paragrafo" />
     </styles>
   </layout>
 </object>
