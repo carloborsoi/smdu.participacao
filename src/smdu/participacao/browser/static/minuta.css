@@ -1,4 +1,13 @@
 .paragrafo {
+	clear: right;
     outline: 1px dashed orange;
     padding: 0.5em 1em;
+}
+
+.state-finalizado {
+    background-color: #000;
+    border: 0.1em solid #000;
+    border-radius: 0.5em;
+    color: #fff !important;
+    padding: 0 0.5em;
 }
