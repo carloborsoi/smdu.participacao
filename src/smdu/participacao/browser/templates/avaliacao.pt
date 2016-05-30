@@ -5,37 +5,38 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       i18n:domain="cioppino.twothumbs">
-<tal:comment tal:replace="nothing">
-    A lot of javascript relies on classes and structure to be present. Before
-    changing anything, please check that twothumbs.js isn't expecting it.
-</tal:comment>
-<div class="thumb-rating"
-    tal:define="canRate view/canRate;
-                myVote view/myVote;
-                total view/getTotal">
+  <tal:comment tal:replace="nothing">
+      A lot of javascript relies on classes and structure to be present. Before
+      changing anything, please check that twothumbs.js isn't expecting it.
+  </tal:comment>
+  <div class="thumb-rating"
+      tal:define="canRate view/canRate;
+                  myVote view/myVote;
+                  total view/getTotal">
     <form action="you-know-you-like-it" method="post"
         tal:attributes="class python:'enabled' if canRate else 'disabled';
                         action string:${context/absolute_url}/@@avaliacao-vota;
                         data-paragrafo_id view/paragrafo_id">
-        <span tal:replace="structure context/@@authenticator/authenticator" />
-        <span tal:attributes="class python:'thumbs-up' + (' selected' if myVote == 1 else '')">
-            <input type="submit" name="form.concordo" value="Concordo"
-                class="allowMultiSubmit like-button" title="Eu concordo (clique novamente para desfazer o voto)"
-                i18n:attributes="value; title"
-                tal:attributes="id string:${context/id}_submit_like" />
-            <span class="total-thumbs-up">
-                <span class="tally-total" tal:content="total/concordancias" />
-            </span>
+      <span tal:replace="structure context/@@authenticator/authenticator" />
+      <span tal:attributes="class python:'thumbs-up' + (' selected' if myVote == 1 else '')">
+        <input type="submit" name="form.concordo" value="Concordo"
+            class="allowMultiSubmit like-button" title="Eu concordo (clique novamente para desfazer o voto)"
+            i18n:attributes="value; title"
+            tal:attributes="id string:${context/id}_submit_like" />
+        <span class="total-thumbs-up">
+          <span class="tally-total" tal:content="total/concordancias" />
         </span>
-        <span tal:attributes="class python:'thumbs-down' + (' selected' if myVote == -1 else '')">
-            <input type="submit" name="form.discordo" value="Discordo"
-                class="allowMultiSubmit dislike-button" title="Eu não concordo (clique novamente para desfazer o voto)"
-                i18n:attributes="value; title"
-                tal:attributes="id string:${context/id}_submit_dislike" />
-            <span class="total-thumbs-down" title="">
-                <span class="tally-total" tal:content="total/discordancias" />
-            </span>
+      </span>
+      <span tal:attributes="class python:'thumbs-down' + (' selected' if myVote == -1 else '')">
+        <input type="submit" name="form.discordo" value="Discordo"
+            class="allowMultiSubmit dislike-button"
+            title="Eu não concordo (clique novamente para desfazer o voto)"
+            tal:attributes="id string:${context/id}_submit_dislike"
+            i18n:attributes="value; title" />
+        <span class="total-thumbs-down">
+          <span class="tally-total" tal:content="total/discordancias" />
         </span>
+      </span>
     </form>
-</div>
+  </div>
 </html>
