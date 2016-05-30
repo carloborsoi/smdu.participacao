@@ -4,14 +4,17 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="smdu.participacao">
 
-  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <!-- Overrides folder for z3c.jbot product (Just-a-Bunch-Of-Templates) -->
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:jbot
+      layer="..interfaces.ISmduParticipacaoLayer"
       directory="overrides"
-      layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
       />
 
-  <!-- Publish static files -->
+  <!-- Include permission first -->
+  <!-- <include package="smdu.participacao.content" file="configure.zcml" /> -->
+
+  <!-- Static files -->
   <browser:resourceDirectory
       name="smdu.participacao"
       directory="static"
@@ -20,18 +23,19 @@
   <!-- Minuta content-type main view -->
   <browser:page
       name="view"
-      for="smdu.participacao.interfaces.IMinuta"
-      layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.MinutaView"
       template="templates/minuta.pt"
       permission="zope2.View"
       />
 
   <!-- Minuta content-type "macro" view -->
+  <!-- TODO: permission="smdu.participacao.avaliar_minuta" -->
   <browser:page
       name="avaliacao"
-      for="smdu.participacao.interfaces.IMinuta"
-      layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.AvaliacaoView"
       template="templates/avaliacao.pt"
       permission="zope2.View"
@@ -40,17 +44,21 @@
   <!-- Minuta content-type vota view -->
   <browser:page
       name="avaliacao-vota"
-      for="smdu.participacao.interfaces.IMinuta"
-      layer="smdu.participacao.interfaces.ISmduParticipacaoLayer"
-      permission="zope2.View"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.AvaliacaoVotaView"
+      permission="zope2.View"
       />
 
-  <!-- Workflow event -->
-  <!-- <subscriber
-      for="smdu.participacao.interfaces.IMinuta
-           Products.CMFCore.interfaces.IActionSucceededEvent"
-      handler=".events.notifyUser"
+  <!-- Exemplo para sobrescrever um viewlet -->
+  <!-- <browser:viewlet
+      name="plone.belowcontentbody.relateditems"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      view="plone.app.layout.globals.interfaces.IViewView"
+      class="plone.app.layout.viewlets.content.ContentRelatedItems"
+      template="templates/meutemplate.pt"
+      permission="zope2.View"
       /> -->
 
 </configure>
