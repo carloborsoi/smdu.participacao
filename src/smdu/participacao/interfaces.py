@@ -1,40 +1,42 @@
 # -*- coding: utf-8 -*-
-"""Modulo onde todas as interfaces, eventos e excecoes vivem."""
+"""Modulo onde vivem todas as interfaces, eventos e exceçoes."""
 
-from smdu.participacao import _
 from zope import schema
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-# from plone.autoform import directives as aform
-# from plone.supermodel import model
-# from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.supermodel import model
 from plone.app.textfield import RichText
+from smdu.participacao import _
 
 
 class ISmduParticipacaoLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
-# A linha comentada abaixo nao eh necessaria no momento porque
-# 1) nao estamos carregando o modelo a partir de um xml (plone.supermodel)
-# 2) nao estamos detalhando os campos com dicas de exibicao (plone.autoform)
-# class IMinuta(model.Schema):
-class IMinuta(Interface):
+class IMinuta(model.Schema):
     """Modelagem do tipo de conteudo Dexterity: campos e widgets."""
 
-    title = schema.TextLine(
-        title=_(u"Title"),
-        required=True,
+    # model.primary('text')
+    # text = RichText(
+    #     title=_(u"Corpo de texto da minuta"),
+    #     required=False
+    # )
+
+    model.fieldset('extra',
+        label=u"Comentários inline",
+        fields=['disableAnnotator', 'readOnlyAnnotator']
     )
 
-    description = schema.Text(
-        title=_(u"Description"),
+    disableAnnotator = schema.Bool(
+        title=u'Desativar avaliação',
+        description=u'Desativa os comentários inline para esta minuta',
         required=False,
+        default=False
     )
 
-    # aform.widget('text', WysiwygFieldWidget)
-    # text = schema.Text(
-    text = RichText(
-        title=_(u"Rich Text"),
-        required=False
+    readOnlyAnnotator = schema.Bool(
+        title=u'Finalizar avaliação',
+        description=u'Configura minuta para modo de leitura, ou seja, suspende os comentários inline.',
+        required=False,
+        default=False
     )
