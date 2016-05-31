@@ -4,13 +4,14 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="smdu.participacao">
 
+  <!-- Internationalization -->
   <i18n:registerTranslations directory="locales" />
 
+  <!-- Includes -->
   <includeDependencies package="." />
-
   <include package=".browser" />
-  <include package=".content" />
 
+  <!-- Installation Generic Setup profile -->
   <genericsetup:registerProfile
       name="default"
       title="smdu.participacao"
@@ -20,6 +21,7 @@
       post_handler=".setuphandlers.post_install"
       />
 
+  <!-- Uninstall Generic Setup profile -->
   <genericsetup:registerProfile
       name="uninstall"
       title="smdu.participacao (uninstall)"
@@ -29,8 +31,29 @@
       post_handler=".setuphandlers.uninstall"
       />
 
+  <!-- Profile hider -->
   <utility
       factory=".setuphandlers.HiddenProfiles"
-      name="smdu.participacao-hiddenprofiles" />
+      name="smdu.participacao-hiddenprofiles"
+      />
+
+  <!-- Catalog indexer -->
+  <adapter
+      name="SearchableText"
+      factory=".indexers.SearchableText"
+      />
+
+  <!-- Workflow event -->
+  <subscriber
+      for="..interfaces.IMinuta
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".events.finaliza_avaliacao"
+      />
+
+  <!-- Write permission -->
+  <permission
+      id="smdu.participacao.avaliar_minuta"
+      title="smdu.participacao: Avaliar minuta"
+      />
 
 </configure>

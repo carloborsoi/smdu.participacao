@@ -67,6 +67,7 @@ class AvaliacaoView(LikeWidgetView):
             return True
         else:
             # import pdb; pdb.set_trace()
+
             return api.user.is_anonymous()
 
     def myVote(self):

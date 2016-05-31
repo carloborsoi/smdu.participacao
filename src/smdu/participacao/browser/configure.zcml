@@ -11,9 +11,6 @@
       directory="overrides"
       />
 
-  <!-- Include permission first -->
-  <!-- <include package="smdu.participacao.content" file="configure.zcml" /> -->
-
   <!-- Static files -->
   <browser:resourceDirectory
       name="smdu.participacao"
@@ -54,7 +51,7 @@
   <!-- <browser:viewlet
       name="plone.belowcontentbody.relateditems"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-      layer="..interfaces.ISmduParticipacaoLayer"
+      layer=".interfaces.ISmduParticipacaoLayer"
       view="plone.app.layout.globals.interfaces.IViewView"
       class="plone.app.layout.viewlets.content.ContentRelatedItems"
       template="templates/meutemplate.pt"
