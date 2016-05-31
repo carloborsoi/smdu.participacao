@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<registry>
+
+  <!-- eea.annotator: tipos de conteudo habilitados -->
+  <record name="eea.annotator.controlpanel.interfaces.ISettings.portalTypes" interface="eea.annotator.controlpanel.interfaces.ISettings" field="portalTypes">
+    <value>
+      <!-- TODO: garantir que tipo de conteudo foi instalado antes de executar este passo -->
+      <!-- <element>Minuta</element> -->
+    </value>
+  </record>
+
+  <!-- eea.annotator: evitar selecoes duplicadas -->
+  <record name="eea.annotator.controlpanel.interfaces.ISettings.noDuplicates" interface="eea.annotator.controlpanel.interfaces.ISettings" field="noDuplicates">
+    <value>True</value>
+  </record>
+
+</registry>
