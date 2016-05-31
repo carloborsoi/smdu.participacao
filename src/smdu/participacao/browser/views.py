@@ -71,7 +71,7 @@ class AvaliacaoView(LikeWidgetView):
 
     def myVote(self):
         if not self.canRate:
-            return False
+            return 0
         anonuid = self.request.cookies.get(COOKIENAME, None) if api.user.is_anonymous() else None
         return rate.getMyVote(self.context, self.paragrafo_id, userid=anonuid)
 
