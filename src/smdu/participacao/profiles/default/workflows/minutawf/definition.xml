@@ -2,17 +2,15 @@
 <dc-workflow workflow_id="minutawf" title="MinutaWF" description=" - Tem por base o workflow simples do Plone: os itens iniciam Privados e entao podem ser enviados para revisao ou publicados diretamente. Como diferencial, temos o estado Finalizado, no qual a Minuta entra em modo leitura, nao sendo mais possiveis avaliacoes ou comentarios." state_variable="review_state" initial_state="private" manager_bypass="False">
 
  <!-- Permissoes gerenciadas -->
- <permission>smdu.participacao: Avaliar minuta</permission>
  <permission>Access contents information</permission>
  <permission>Change portal events</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
+ <permission>smdu.participacao: Avaliar minuta</permission>
 
  <!-- Estado: Finalizado -->
  <state state_id="finalizado" title="Finalizado">
   <description>Visivel para todos em estado somente-leitura: nao editavel e nao avaliavel</description>
-  <permission-map name="smdu.participacao: Avaliar minuta" acquired="False">
-  </permission-map>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
   </permission-map>
@@ -28,6 +26,8 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="smdu.participacao: Avaliar minuta" acquired="False">
   </permission-map>
  </state>
 
@@ -65,6 +65,8 @@
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="smdu.participacao: Avaliar minuta" acquired="True">
+  </permission-map>
  </state>
 
  <!-- Estado: Privado -->
@@ -100,6 +102,8 @@
    <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="smdu.participacao: Avaliar minuta" acquired="True">
+  </permission-map>
  </state>
 
  <!-- Estado: Publicado -->
@@ -125,7 +129,7 @@
    <permission-role>Anonymous</permission-role>
   </permission-map>
   <permission-map name="smdu.participacao: Avaliar minuta" acquired="True">
-   <permission-role>Anonymous</permission-role>
+   <permission-role>Member</permission-role>
   </permission-map>
  </state>
 
