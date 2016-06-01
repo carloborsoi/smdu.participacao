@@ -8,7 +8,7 @@
  <permission>Modify portal content</permission>
  <permission>View</permission>
 
- <!-- Estado: Publicado -->
+ <!-- Estado: Finalizado -->
  <state state_id="finalizado" title="Finalizado">
   <description>Visivel para todos em estado somente-leitura: nao editavel e nao avaliavel</description>
   <permission-map name="smdu.participacao: Avaliar minuta" acquired="False">
@@ -23,9 +23,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -121,8 +119,6 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
