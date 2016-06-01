@@ -37,15 +37,13 @@
       name="smdu.participacao-hiddenprofiles"
       />
 
-  <!-- Catalog indexer -->
-  <adapter
-      name="SearchableText"
-      factory=".indexers.SearchableText"
-      />
+  <!-- Catalog indexers -->
+  <adapter name="SearchableText" factory=".indexers.SearchableText" />
+  <adapter name="positive_ratings" factory=".indexers.positive_ratings" />
 
   <!-- Workflow event -->
   <subscriber
-      for="..interfaces.IMinuta
+      for=".interfaces.IMinuta
            Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".events.finaliza_avaliacao"
       />
