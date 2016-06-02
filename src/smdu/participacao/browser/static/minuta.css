@@ -1,5 +1,37 @@
-.paragrafo {
-    clear: right;
+.thumb-rating {
+    float: none;
+}
+
+.thumb-rating form {
+    text-align: left;
+}
+
+.twothumbs-feedback {
+    display: table;
+    font-size: 1em;
+    margin: 1em 0 0 0;
+    padding: 0.5em 0.75em;
+    position: relative;
+    text-align: left;
+    width: auto;
+}
+
+#content .twothumbs-feedback .close-link {
+    border: 0;
+    margin-left: 0.5em;
+}
+
+.twothumbs-feedback h5 {
+    margin: 0.75em 0 0.25em;
+}
+
+.twothumbs-feedback textarea {
+    width: 99%;
+}
+
+.paragrafo-wrapper,
+.mceContentBody .paragrafo {
+    margin: 1em 0;
     outline: 1px dashed orange;
     padding: 0.5em 1em;
 }
