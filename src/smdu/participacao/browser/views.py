@@ -5,8 +5,10 @@ try:
 except:
     import simplejson as json  # fallback for pre python2.6
 from uuid import uuid4
+
 from Products.Five.browser import BrowserView
 from plone import api
+from zope.annotation.interfaces import IAnnotations
 # from plone.memoize import view
 from pyquery import PyQuery as pq
 from cioppino.twothumbs.browser.like import LikeWidgetView
@@ -177,3 +179,58 @@ def _get_message(action):
         'desfazer': 'Seu voto foi removido.'
     }
     return msgs.get(action, '')
+
+class ExportaMinutaCSVView(BrowserView):
+    """ Browser view para exportar os comentários e votação do conteudo Minuta
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+
+    def __call__(self, REQUEST, RESPONSE):
+
+        annotations = IAnnotations(self.context)
+
+        minuta_exportada_csv = "Planilha\n"
+
+        texto = self.context.text
+        if not texto:
+            return ''
+        pq_texto = pq(texto.output)
+
+        for i, p in enumerate(pq_texto.find('.paragrafo')):
+            minuta_exportada_csv = minuta_exportada_csv + "Parágrafo %d;%s;\n" % ((i+1),p.text)
+
+            # Criação das linhas de dados de usuário que concordaram
+            concordancias_paragrafo = annotations['smdu.participacao.concordancias'][i+1]
+            usuarios_concordam = concordancias_paragrafo.keys()
+            linha_minuta_concordantes = "Usuários Concordantes: ;"
+            linha_minuta_ressalvas = "Ressalvas: ;"
+            for usuario_concordante in usuarios_concordam:
+                if concordancias_paragrafo[usuario_concordante]['has_voted']:
+                    linha_minuta_concordantes = linha_minuta_concordantes + usuario_concordante  + ";"
+                    if 'ressalva' in concordancias_paragrafo[usuario_concordante].keys():
+                        linha_minuta_ressalvas = linha_minuta_ressalvas + concordancias_paragrafo[usuario_concordante]['ressalva']  + ";"
+                    else:
+                        linha_minuta_ressalvas = linha_minuta_ressalvas + " ;"
+            minuta_exportada_csv = minuta_exportada_csv + linha_minuta_concordantes + "\n"
+            minuta_exportada_csv = minuta_exportada_csv + linha_minuta_ressalvas + "\n"
+
+            # Criação das linhas de dados de usuário que discordam
+            discordancias_paragrafo = annotations['smdu.participacao.discordancias'][i+1]
+            usuarios_discordam = discordancias_paragrafo.keys()
+            linha_minuta_discordantes = "Usuários Discordantes: ;"
+            for usuario_disconcordante in usuarios_discordam:
+                if discordancias_paragrafo[usuario_disconcordante]['voto']:
+                    linha_minuta_discordantes = linha_minuta_discordantes + usuario_disconcordante  + ";"
+            minuta_exportada_csv = minuta_exportada_csv + linha_minuta_discordantes + "\n"
+
+
+        RESPONSE.setHeader('Content-Type',
+                           'text/csv; charset=utf-8')
+                           #'text/json; charset=utf-8')
+        RESPONSE.setHeader('content-length', len(minuta_exportada_csv))
+        #import pdb; pdb.set_trace()
+        return minuta_exportada_csv

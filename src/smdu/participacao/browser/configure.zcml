@@ -47,6 +47,15 @@
       permission="zope2.View"
       />
 
+  <!-- Exportar dados da minuta em CSV -->
+  <browser:page
+      name="exportacao-minuta-csv"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.ExportaMinutaCSVView"
+      permission="zope2.View"
+      />
+
   <!-- Exemplo para sobrescrever um viewlet -->
   <!-- <browser:viewlet
       name="plone.belowcontentbody.relateditems"
