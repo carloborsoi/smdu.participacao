@@ -193,7 +193,7 @@ class ExportaMinutaCSVView(BrowserView):
 
         annotations = IAnnotations(self.context)
 
-        minuta_exportada_csv = "Planilha\n"
+        minuta_exportada_csv = "\xEF\xBB\xBFPlanilha\n"
 
         texto = self.context.text
         if not texto:
@@ -210,9 +210,9 @@ class ExportaMinutaCSVView(BrowserView):
             linha_minuta_ressalvas = "Ressalvas: ;"
             for usuario_concordante in usuarios_concordam:
                 if concordancias_paragrafo[usuario_concordante]['has_voted']:
-                    linha_minuta_concordantes = linha_minuta_concordantes + usuario_concordante  + ";"
+                    linha_minuta_concordantes = linha_minuta_concordantes + usuario_concordante + ";"
                     if 'ressalva' in concordancias_paragrafo[usuario_concordante].keys():
-                        linha_minuta_ressalvas = linha_minuta_ressalvas + concordancias_paragrafo[usuario_concordante]['ressalva']  + ";"
+                        linha_minuta_ressalvas = linha_minuta_ressalvas + concordancias_paragrafo[usuario_concordante]['ressalva'].replace('\n', "   ") + ";"
                     else:
                         linha_minuta_ressalvas = linha_minuta_ressalvas + " ;"
             minuta_exportada_csv = minuta_exportada_csv + linha_minuta_concordantes + "\n"
@@ -224,13 +224,13 @@ class ExportaMinutaCSVView(BrowserView):
             linha_minuta_discordantes = "Usuários Discordantes: ;"
             for usuario_disconcordante in usuarios_discordam:
                 if discordancias_paragrafo[usuario_disconcordante]['voto']:
-                    linha_minuta_discordantes = linha_minuta_discordantes + usuario_disconcordante  + ";"
+                    linha_minuta_discordantes = linha_minuta_discordantes + usuario_disconcordante + ";"
             minuta_exportada_csv = minuta_exportada_csv + linha_minuta_discordantes + "\n"
 
 
-        RESPONSE.setHeader('Content-Type',
-                           'text/csv; charset=utf-8')
-                           #'text/json; charset=utf-8')
+        RESPONSE.setHeader('Content-Type','text/csv; charset=utf-8')
+#                           'text/json; charset=utf-8')
         RESPONSE.setHeader('content-length', len(minuta_exportada_csv))
-        #import pdb; pdb.set_trace()
+        RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.csv"')
+
         return minuta_exportada_csv
