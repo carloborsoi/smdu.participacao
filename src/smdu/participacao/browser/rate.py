@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from persistent.dict import PersistentDict
-from persistent.list import PersistentList
 from zope import event
 from zope.annotation.interfaces import IAnnotations
 
@@ -79,7 +78,8 @@ def concordar(context, paragrafo_id, userid=None):
         action = "desfazer"
         event.notify(UnlikeEvent(context))
     else:
-        annotations[concordancias][paragrafo_id][userid] = {"has_voted": True}
+        annotations[concordancias][paragrafo_id][userid]  = PersistentDict()
+        annotations[concordancias][paragrafo_id][userid]["has_voted"] = True
         action = "concordar"
         event.notify(LikeEvent(context))
 
@@ -129,9 +129,10 @@ def comentar(context, paragrafo_id, comentario, userid=None):
 
     paragrafo_storage = annotations[concordancias][paragrafo_id]
     if userid in paragrafo_storage:
-        if 'ressalva' not in paragrafo_storage[userid]:
-            paragrafo_storage[userid]['ressalva'] = PersistentList()
-        paragrafo_storage[userid]['ressalva'].append(comentario)
+#       if 'ressalva' not in paragrafo_storage[userid]:
+#           paragrafo_storage[userid]['ressalva'] = PersistentList()
+#       paragrafo_storage[userid]['ressalva'].append(comentario)
+        annotations[concordancias][paragrafo_id][userid]['ressalva'] = comentario
 
     return action
 
