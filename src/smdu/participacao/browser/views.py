@@ -14,6 +14,8 @@ from pyquery import PyQuery as pq
 from cioppino.twothumbs.browser.like import LikeWidgetView
 from cioppino.twothumbs.browser.like import LikeThisShizzleView
 from smdu.participacao import AvaliarMinuta
+from smdu.participacao import concordancias
+from smdu.participacao import discordancias
 from smdu.participacao.browser import rate
 
 
@@ -28,10 +30,9 @@ class MinutaView(BrowserView):
     """ Browser view padrao do tipo de conteudo Minuta
     """
 
-    def __init__(self, context, request):
-        super(MinutaView, self).__init__(context, request)
-
     def get_texto_com_avaliacoes(self):
+        """ Acrescenta componente de avaliacao para cada paragrafo avaliavel
+        """
         texto = self.context.text
         if not texto:
             return ''
@@ -132,7 +133,7 @@ class AvaliacaoVotaView(LikeThisShizzleView):
         try:
             paragrafo_id = int(form.get('paragrafo_id'))
         except TypeError:
-            return "Erro: paragrafo invalido"
+            return 'Erro: paragrafo invalido'
 
         comentario = form.get('comentario', None)
 
@@ -148,7 +149,7 @@ class AvaliacaoVotaView(LikeThisShizzleView):
                                    comentario,
                                    userid=anonuid)
         else:
-            return "Erro: ou você concorda ou você discorda."
+            return 'Erro: ou você concorda ou você discorda.'
 
         if not form.get('ajax', False):
             return RESPONSE.redirect(REQUEST['HTTP_REFERER'])
@@ -180,57 +181,50 @@ def _get_message(action):
     }
     return msgs.get(action, '')
 
+
 class ExportaMinutaCSVView(BrowserView):
-    """ Browser view para exportar os comentários e votação do conteudo Minuta
+    """ Browser view que exporta CSV com votação e comentários do conteudo Minuta
     """
-
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
 
     def __call__(self, REQUEST, RESPONSE):
 
         annotations = IAnnotations(self.context)
 
-        minuta_exportada_csv = "\xEF\xBB\xBFPlanilha\n"
+        minuta_exportada_csv = '\xEF\xBB\xBFPlanilha\n'
 
         texto = self.context.text
         if not texto:
             return ''
         pq_texto = pq(texto.output)
 
-        for i, p in enumerate(pq_texto.find('.paragrafo')):
-            minuta_exportada_csv = minuta_exportada_csv + "Parágrafo %d;%s;\n" % ((i+1),p.text)
+        for i, paragrafo in enumerate(pq_texto.find('.paragrafo')):
+            paragrafo_id = i + 1
+            minuta_exportada_csv += 'Parágrafo %d; %s;\n' % (
+                paragrafo_id, paragrafo.text)
 
             # Criação das linhas de dados de usuário que concordaram
-            concordancias_paragrafo = annotations['smdu.participacao.concordancias'][i+1]
-            usuarios_concordam = concordancias_paragrafo.keys()
-            linha_minuta_concordantes = "Usuários Concordantes: ;"
-            linha_minuta_ressalvas = "Ressalvas: ;"
-            for usuario_concordante in usuarios_concordam:
-                if concordancias_paragrafo[usuario_concordante]['has_voted']:
-                    linha_minuta_concordantes = linha_minuta_concordantes + usuario_concordante + ";"
-                    if 'ressalva' in concordancias_paragrafo[usuario_concordante].keys():
-                        linha_minuta_ressalvas = linha_minuta_ressalvas + concordancias_paragrafo[usuario_concordante]['ressalva'].replace('\n', "   ") + ";"
-                    else:
-                        linha_minuta_ressalvas = linha_minuta_ressalvas + " ;"
-            minuta_exportada_csv = minuta_exportada_csv + linha_minuta_concordantes + "\n"
-            minuta_exportada_csv = minuta_exportada_csv + linha_minuta_ressalvas + "\n"
+            concordancias_paragrafo = annotations[concordancias][paragrafo_id]
+            linha_minuta_concordantes = 'Usuários Concordantes: ;'
+            linha_minuta_ressalvas = 'Ressalvas: ;'
+            for usuario_concordante in concordancias_paragrafo:
+                voto = concordancias_paragrafo[usuario_concordante]
+                if voto.get('has_voted', False):
+                    linha_minuta_concordantes += usuario_concordante + ';'
+                    linha_minuta_ressalvas += voto['ressalva'].replace('\n', '   ') + ';' \
+                        if 'ressalva' in voto else ' ;'
+            minuta_exportada_csv += linha_minuta_concordantes + '\n'
+            minuta_exportada_csv += linha_minuta_ressalvas + '\n'
 
             # Criação das linhas de dados de usuário que discordam
-            discordancias_paragrafo = annotations['smdu.participacao.discordancias'][i+1]
-            usuarios_discordam = discordancias_paragrafo.keys()
-            linha_minuta_discordantes = "Usuários Discordantes: ;"
-            for usuario_disconcordante in usuarios_discordam:
-                if discordancias_paragrafo[usuario_disconcordante]['voto']:
-                    linha_minuta_discordantes = linha_minuta_discordantes + usuario_disconcordante + ";"
-            minuta_exportada_csv = minuta_exportada_csv + linha_minuta_discordantes + "\n"
+            discordancias_paragrafo = annotations[discordancias][paragrafo_id]
+            linha_minuta_discordantes = 'Usuários Discordantes: ;'
+            for usuario_discordante in discordancias_paragrafo:
+                voto = discordancias_paragrafo[usuario_discordante]
+                if voto.get('has_voted', False):
+                    linha_minuta_discordantes += usuario_discordante + ';'
+            minuta_exportada_csv += linha_minuta_discordantes + '\n'
 
-
-        RESPONSE.setHeader('Content-Type','text/csv; charset=utf-8')
-#                           'text/json; charset=utf-8')
+        RESPONSE.setHeader('Content-Type', 'text/csv; charset=utf-8')
         RESPONSE.setHeader('content-length', len(minuta_exportada_csv))
         RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.csv"')
-
         return minuta_exportada_csv

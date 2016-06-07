@@ -12,8 +12,8 @@ from cioppino.twothumbs.event import LikeEvent
 from cioppino.twothumbs.event import UndislikeEvent
 from cioppino.twothumbs.event import UnlikeEvent
 
-concordancias = 'smdu.participacao.concordancias'
-discordancias = 'smdu.participacao.discordancias'
+from smdu.participacao import concordancias
+from smdu.participacao import discordancias
 
 
 def inicializa_anotacoes(context):
