@@ -5,7 +5,7 @@
   <!-- Basic metadata -->
   <property name="title" i18n:translate="">Minuta</property>
   <property name="description" i18n:translate="">Projeto de lei</property>
-  <property name="icon_expr"></property>
+  <property name="icon_expr">string:$portal_url/minuta.png</property>
   <property name="factory">Minuta</property>
   <property name="add_view_expr">string:${folder_url}/++add++Minuta</property>
   <property name="global_allow">True</property>
@@ -55,7 +55,7 @@
     visible="True">
     <permission value="View"/>
   </action>
-  <action title="Edit" action_id="edit" category="object" description="" 
+  <action title="Edit" action_id="edit" category="object" description=""
     condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user|python:True"
     icon_expr="" link_target="" url_expr="string:${object_url}/edit" visible="True">
     <permission value="Modify portal content"/>
