@@ -9,8 +9,10 @@ from uuid import uuid4
 from Products.Five.browser import BrowserView
 from plone import api
 from zope.annotation.interfaces import IAnnotations
-# from plone.memoize import view
+from plone.memoize.instance import memoize
 from pyquery import PyQuery as pq
+from weasyprint import HTML
+from weasyprint import CSS
 from cioppino.twothumbs.browser.like import LikeWidgetView
 from cioppino.twothumbs.browser.like import LikeThisShizzleView
 from smdu.participacao import AvaliarMinuta
@@ -51,13 +53,14 @@ class MinutaView(BrowserView):
 
 class AvaliacaoView(LikeWidgetView):
     """ Browser view auxiliar do tipo de conteudo Minuta
+    Renderiza componente de avaliacao
     """
 
     def __init__(self, context, request):
         super(AvaliacaoView, self).__init__(context, request)
         self.annotations = rate.inicializa_anotacoes(self.context)
 
-    # @view.memoize
+    @memoize
     @property
     def pode_votar(self):
         """ Define estado ativo/desativo do componente de avaliação,
@@ -225,6 +228,22 @@ class ExportaMinutaCSVView(BrowserView):
             minuta_exportada_csv += linha_minuta_discordantes + '\n'
 
         RESPONSE.setHeader('Content-Type', 'text/csv; charset=utf-8')
-        RESPONSE.setHeader('content-length', len(minuta_exportada_csv))
+        RESPONSE.setHeader('Content-Length', len(minuta_exportada_csv))
         RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.csv"')
         return minuta_exportada_csv
+
+
+class ExportaMinutaPDFView(MinutaView):
+
+    def __call__(self, REQUEST, RESPONSE):
+        content = super(ExportaMinutaPDFView, self).__call__(self)
+        html = HTML(string=content)
+        stylesheets = []
+        with open('src/smdu/participacao/browser/static/print.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        minuta_exportada_pdf = html.write_pdf(stylesheets=stylesheets)
+
+        RESPONSE.setHeader('Content-Type', 'application/pdf; charset=utf-8')
+        RESPONSE.setHeader('Content-Length', len(minuta_exportada_pdf))
+        RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.pdf"')
+        return minuta_exportada_pdf

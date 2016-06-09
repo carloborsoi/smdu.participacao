@@ -1,0 +1,18 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet"
+      tal:define="url context/@@plone_tools/url"
+      tal:attributes="src string:${url/portal_url}/++resource++smdu.participacao/print.css">
+</head>
+
+<div class="type-minuta content-body">
+
+  <h1 class="minuta-title" tal:content="context/Title" />
+
+  <h4 class="minuta-description" tal:content="context/Description" />
+
+  <div class="minuta-body">
+    <div tal:condition="exists:context/text" tal:replace="structure view/get_texto_com_avaliacoes" />
+  </div>
+
+</div>

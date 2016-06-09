@@ -17,7 +17,7 @@
       directory="static"
       />
 
-  <!-- Minuta content-type main view -->
+  <!-- Browser view principal do tipo de conteudo Minuta -->
   <browser:page
       name="view"
       for="..interfaces.IMinuta"
@@ -27,7 +27,7 @@
       permission="zope2.View"
       />
 
-  <!-- Minuta content-type "macro" view -->
+  <!-- Browser view que exibe componente de avaliacao -->
   <!-- TODO: permission="smdu.participacao.avaliar_minuta" -->
   <browser:page
       name="avaliacao"
@@ -38,7 +38,7 @@
       permission="zope2.View"
       />
 
-  <!-- Minuta content-type vota view -->
+  <!-- Browser view que recebe a votacao do tipo de conteudo Minuta -->
   <browser:page
       name="avaliacao-vota"
       for="..interfaces.IMinuta"
@@ -47,13 +47,23 @@
       permission="zope2.View"
       />
 
-  <!-- Exportar dados da minuta em CSV -->
+  <!-- Browser view de exportacao de dados da minuta para formato CSV -->
   <browser:page
       name="exportacao-minuta-csv"
       for="..interfaces.IMinuta"
       layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.ExportaMinutaCSVView"
-      permission="zope2.View"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <!-- Browser view de exportacao de dados da minuta para formato CSV -->
+  <browser:page
+      name="exportacao-minuta-pdf"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.ExportaMinutaPDFView"
+      template="templates/exportar-como-pdf.pt"
+      permission="cmf.ModifyPortalContent"
       />
 
   <!-- Reposiciona viewlet de Document Actions -->

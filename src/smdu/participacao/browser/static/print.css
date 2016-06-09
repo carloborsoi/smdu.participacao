@@ -1,0 +1,32 @@
+@page {
+    margin: 3cm 2cm;
+    padding-left: 1.5cm;
+    @top-center {
+        border-bottom: 0.5pt solid;
+        content: "Relatorio Minuta";
+        vertical-align: bottom;
+    }
+    @bottom-right {
+        content: "Pagina " counter(page) " de " counter(pages);
+    }
+    @left-top {
+        background: #005a9c;
+        color: #fff;
+        content: "SMDU - Prefeitura de Sao Paulo";
+        text-align: right;
+        transform: rotate(-90deg);
+        transform-origin: 100% 0;
+    }
+}
+
+body {
+    text-align: justify;
+}
+
+h1 {
+    -weasy-bookmark-level: none;
+}
+
+table {
+    background: #666;
+}
