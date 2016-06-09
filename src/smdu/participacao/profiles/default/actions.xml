@@ -6,7 +6,7 @@
    <property name="description">Exporta a minuta em formato CSV</property>
    <property name="url_expr">string:$object_url/@@exportacao-minuta-csv</property>
    <property name="icon_expr">string:$portal_url/++resource++smdu.participacao/csv.png</property>
-   <property name="available_expr"></property>
+   <property name="available_expr">python:object.portal_type == 'Minuta'</property>
    <property name="permissions">
     <element value="Modify portal content"/>
    </property>
@@ -17,7 +17,7 @@
    <property name="description">Exporta a minuta em formato PDF</property>
    <property name="url_expr">string:$object_url/@@exportacao-minuta-pdf</property>
    <property name="icon_expr">string:$portal_url/++resource++smdu.participacao/pdf.png</property>
-   <property name="available_expr"></property>
+   <property name="available_expr">python:object.portal_type == 'Minuta'</property>
    <property name="permissions">
     <element value="Modify portal content"/>
    </property>
