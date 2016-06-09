@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object name="EasyForm" meta_type="Dexterity FTI">
+
+  <!-- Behaviors -->
+  <property name="behaviors" purge="False">
+    <element value="collective.geolocationbehavior.geolocation.IGeolocatable"/>
+  </property>
+
+</object>

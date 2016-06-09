@@ -50,6 +50,8 @@ setup(
         'plone.app.stagingbehavior',
         'pyquery',
         'WeasyPrint',
+        'collective.easyform',
+        'collective.geolocationbehavior',
     ],
     extras_require={
         'test': [
