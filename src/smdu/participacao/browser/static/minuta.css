@@ -43,3 +43,9 @@
     color: #fff !important;
     padding: 0 0.5em;
 }
+
+#document-action-export_csv,
+#document-action-export_pdf {
+    float: right;
+    margin-left: 2em;
+}
