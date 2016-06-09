@@ -56,15 +56,15 @@
       permission="zope2.View"
       />
 
-  <!-- Exemplo para sobrescrever um viewlet -->
-  <!-- <browser:viewlet
-      name="plone.belowcontentbody.relateditems"
-      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-      layer=".interfaces.ISmduParticipacaoLayer"
+  <!-- Reposiciona viewlet de Document Actions -->
+  <browser:viewlet
+      name="plone.abovecontenttitle.documentactions"
+      for="..interfaces.IMinuta"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+      layer="..interfaces.ISmduParticipacaoLayer"
       view="plone.app.layout.globals.interfaces.IViewView"
-      class="plone.app.layout.viewlets.content.ContentRelatedItems"
-      template="templates/meutemplate.pt"
+      class="plone.app.layout.viewlets.content.DocumentActionsViewlet"
       permission="zope2.View"
-      /> -->
+      />
 
 </configure>

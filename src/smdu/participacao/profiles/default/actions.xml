@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object name="portal_actions" meta_type="Plone Actions Tool">
+ <object name="document_actions" meta_type="CMF Action Category">
+  <object name="export_csv" meta_type="CMF Action">
+   <property name="title">Exportar CSV</property>
+   <property name="description">Exporta a minuta em formato CSV</property>
+   <property name="url_expr">string:$object_url/@@exportacao-minuta-csv</property>
+   <property name="icon_expr">string:${folder_url}/++resource++smdu.participacao/csv.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <!-- <object name="export_pdf" meta_type="CMF Action">
+   <property name="title">Exportar PDF</property>
+   <property name="description">Exporta a minuta em formato PDF</property>
+   <property name="url_expr">string:$object_url/@@exportacao-minuta-csv</property>
+   <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/csv.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object> -->
+ </object>
+</object>
