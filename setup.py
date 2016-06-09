@@ -48,7 +48,8 @@ setup(
         'plone.app.lockingbehavior',
         # 'plone.app.referenceablebehavior',
         'plone.app.stagingbehavior',
-        'pyquery'
+        'pyquery',
+        'WeasyPrint',
     ],
     extras_require={
         'test': [
