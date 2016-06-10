@@ -9,6 +9,7 @@ from uuid import uuid4
 from Products.Five.browser import BrowserView
 from plone import api
 from zope.annotation.interfaces import IAnnotations
+from Products.CMFPlone.utils import safe_unicode
 from plone.memoize.instance import memoize
 from pyquery import PyQuery as pq
 from weasyprint import HTML
@@ -216,7 +217,7 @@ class ExportaMinutaCSVView(BrowserView):
 
         annotations = IAnnotations(self.context)
 
-        minuta_exportada_csv = '\xEF\xBB\xBFPlanilha\n'
+        minuta_exportada_csv = u'Planilha de dados da minuta de participação\n'
 
         texto = self.context.text
         if not texto:
@@ -225,32 +226,32 @@ class ExportaMinutaCSVView(BrowserView):
 
         for i, paragrafo in enumerate(pq_texto.find('.paragrafo')):
             paragrafo_id = i + 1
-            minuta_exportada_csv += 'Parágrafo %d; %s;\n' % (
+            minuta_exportada_csv += u'Parágrafo %d; %s;\n' % (
                 paragrafo_id, paragrafo.text)
 
             # Criação das linhas de dados de usuário que concordaram
             concordancias_paragrafo = annotations[concordancias][paragrafo_id]
-            linha_minuta_concordantes = 'Usuários Concordantes: ;'
-            linha_minuta_ressalvas = 'Ressalvas: ;'
+            linha_minuta_concordantes = u'Usuários Concordantes: ;'
+            linha_minuta_ressalvas = u'Ressalvas: ;'
             for usuario_concordante in concordancias_paragrafo:
                 voto = concordancias_paragrafo[usuario_concordante]
                 if voto.get('has_voted', False):
-                    linha_minuta_concordantes += usuario_concordante + ';'
-                    linha_minuta_ressalvas += voto['ressalva'].replace('\n', '   ') + ';' \
-                        if 'ressalva' in voto else ' ;'
-            minuta_exportada_csv += linha_minuta_concordantes + '\n'
-            minuta_exportada_csv += linha_minuta_ressalvas + '\n'
+                    linha_minuta_concordantes += usuario_concordante + u';'
+                    linha_minuta_ressalvas += safe_unicode(voto['ressalva'].replace('\n', '   ')) + u';' \
+                        if 'ressalva' in voto else u' ;'
+            minuta_exportada_csv += linha_minuta_concordantes + u'\n'
+            minuta_exportada_csv += linha_minuta_ressalvas + u'\n'
 
             # Criação das linhas de dados de usuário que discordam
             discordancias_paragrafo = annotations[discordancias][paragrafo_id]
-            linha_minuta_discordantes = 'Usuários Discordantes: ;'
+            linha_minuta_discordantes = u'Usuários Discordantes: ;'
             for usuario_discordante in discordancias_paragrafo:
                 voto = discordancias_paragrafo[usuario_discordante]
                 if voto.get('has_voted', False):
-                    linha_minuta_discordantes += usuario_discordante + ';'
-            minuta_exportada_csv += linha_minuta_discordantes + '\n'
+                    linha_minuta_discordantes += usuario_discordante + u';'
+            minuta_exportada_csv += linha_minuta_discordantes + u'\n'
 
-        RESPONSE.setHeader('Content-Type', 'text/csv; charset=utf-8')
+        RESPONSE.setHeader('Content-Type', 'text/csv; charset=ISO-8859-1')
         RESPONSE.setHeader('Content-Length', len(minuta_exportada_csv))
         RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.csv"')
         return minuta_exportada_csv
