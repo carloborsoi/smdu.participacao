@@ -66,7 +66,7 @@ def get_usuarios_votantes(context, paragrafo_id):
     linha_minuta_discordantes = ''
     for usuario_discordante in discordancias_paragrafo:
         voto = discordancias_paragrafo[usuario_discordante]
-        if voto.get('voto', False):
+        if voto.get('has_voted', False):
             linha_minuta_discordantes += usuario_discordante + ', '
 
     return {
@@ -140,7 +140,7 @@ def discordar(context, paragrafo_id, userid=None):
         action = "desfazer"
         event.notify(UndislikeEvent(context))
     else:
-        annotations[discordancias][paragrafo_id][userid] = {"voto": True}
+        annotations[discordancias][paragrafo_id][userid] = {"has_voted": True}
         action = "discordar"
         event.notify(DislikeEvent(context))
 
