@@ -76,7 +76,7 @@
         permission="zope2.View"
         />
   <!-- Reposiciona viewlet de Document Actions -->
-  <browser:viewlet
+  <!-- <browser:viewlet
       name="plone.abovecontenttitle.documentactions"
       for="..interfaces.IMinuta"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
@@ -84,6 +84,6 @@
       view="plone.app.layout.globals.interfaces.IViewView"
       class="plone.app.layout.viewlets.content.DocumentActionsViewlet"
       permission="zope2.View"
-      />
+      /> -->
 
 </configure>
