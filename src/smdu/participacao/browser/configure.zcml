@@ -66,16 +66,18 @@
       template="templates/exportar-como-pdf.pt"
       permission="cmf.ModifyPortalContent"
       />
-    <!-- Browser view que exibe componente de avaliacao para formato PDF -->
-    <!-- TODO: permission="smdu.participacao.avaliar_minuta" -->
-    <browser:page
-        name="avaliacao_pdf"
-        for="..interfaces.IMinuta"
-        layer="..interfaces.ISmduParticipacaoLayer"
-        class=".views.AvaliacaoView"
-        template="templates/avaliacao_pdf.pt"
-        permission="zope2.View"
-        />
+
+  <!-- Browser view que exibe componente de avaliacao para formato PDF -->
+  <!-- TODO: permission="smdu.participacao.avaliar_minuta" -->
+  <browser:page
+      name="avaliacao_pdf"
+      for="..interfaces.IMinuta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.AvaliacaoView"
+      template="templates/avaliacao_pdf.pt"
+      permission="zope2.View"
+      />
+
   <!-- Reposiciona viewlet de Document Actions -->
   <!-- <browser:viewlet
       name="plone.abovecontenttitle.documentactions"
