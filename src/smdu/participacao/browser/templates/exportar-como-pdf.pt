@@ -12,7 +12,7 @@
   <h4 class="minuta-description" tal:content="context/Description" />
 
   <div class="minuta-body">
-    <div tal:condition="exists:context/text" tal:replace="structure view/get_texto_com_avaliacoes" />
+    <div tal:condition="exists:context/text" tal:replace="structure view/get_texto_exporta_pdf" />
   </div>
 
 </div>

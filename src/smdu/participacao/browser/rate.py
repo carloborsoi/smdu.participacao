@@ -45,6 +45,34 @@ def get_total(context, paragrafo_id):
         'discordancias': len(annotations[discordancias][paragrafo_id])
     }
 
+def get_usuarios_votantes(context, paragrafo_id):
+    """ Devolve um dicionário com total de concordâncias e discordâncias.
+    """
+    inicializa_anotacoes(context)
+    annotations = IAnnotations(context)
+
+    # Criação das linhas de dados de usuário que concordaram
+    concordancias_paragrafo = annotations[concordancias][paragrafo_id]
+    linha_minuta_concordantes = ''
+    for usuario_concordante in concordancias_paragrafo:
+        voto = concordancias_paragrafo[usuario_concordante]
+        if voto.get('has_voted', False):
+            linha_minuta_concordantes += usuario_concordante
+            linha_minuta_concordantes += ' (Ressalva: %s), ' %voto['ressalva'].replace('\n', '   ') \
+                if 'ressalva' in voto else ', '
+
+    # Criação das linhas de dados de usuário que discordam
+    discordancias_paragrafo = annotations[discordancias][paragrafo_id]
+    linha_minuta_discordantes = ''
+    for usuario_discordante in discordancias_paragrafo:
+        voto = discordancias_paragrafo[usuario_discordante]
+        if voto.get('voto', False):
+            linha_minuta_discordantes += usuario_discordante + ', '
+
+    return {
+        'concordancias': linha_minuta_concordantes,
+        'discordancias': linha_minuta_discordantes
+    }
 
 def get_meu_voto(context, paragrafo_id, userid=None):
     """ Se o usuário concordou, devolve 1. Se discordou, -1.

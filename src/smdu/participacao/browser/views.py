@@ -50,6 +50,23 @@ class MinutaView(BrowserView):
 
         return pq_texto.html()
 
+    def get_texto_exporta_pdf(self):
+        """ Acrescenta componente de avaliacao para cada paragrafo avaliavel
+        """
+        texto = self.context.text
+        if not texto:
+            return ''
+        pq_texto = pq(texto.output)
+        avaliacao = self.context.restrictedTraverse('@@avaliacao_pdf')
+        for i, paragrafo in enumerate(pq_texto.find('.paragrafo')):
+            paragrafo_id = i + 1
+            paragrafo_klass = 'paragrafo-{0:02}'.format(paragrafo_id)
+            avaliacao_paragrafo = avaliacao.renderiza_avaliacao(paragrafo_id)
+            pq(paragrafo).addClass(paragrafo_klass) \
+                .wrap('<div class="paragrafo-wrapper">') \
+                .append(avaliacao_paragrafo)
+
+        return pq_texto.html()
 
 class AvaliacaoView(LikeWidgetView):
     """ Browser view auxiliar do tipo de conteudo Minuta
@@ -104,6 +121,12 @@ class AvaliacaoView(LikeWidgetView):
         e discordancias por paragrafo
         """
         return rate.get_total(self.context, self.paragrafo_id)
+
+    def get_usuarios_votantes(self):
+        """ Develve uma lista com usuarios que concordam com o parágrafo
+        """
+        return rate.get_usuarios_votantes(self.context, self.paragrafo_id)
+
 
     def renderiza_avaliacao(self, paragrafo_id):
         """ Atualiza o id do paragrafo corrente e renderiza o componente de

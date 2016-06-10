@@ -1,0 +1,32 @@
+<html tal:omit-tag=""
+      xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="cioppino.twothumbs">
+  <div class="votacao_paragrafo"
+      tal:define="usuarios view/get_usuarios_votantes; total view/get_total;">
+
+      <span tal:replace="structure context/@@authenticator/authenticator" />
+
+      <p>
+        Total de pessoas que concordam com este parágrafo:
+        <span tal:content="total/concordancias" />
+        votos.
+      </p>
+      <p>
+        Usuário que concordaram com o parágrafo:
+        <span tal:content="usuarios/concordancias" />
+      </p>
+      <p>
+        Total de pessoas que discordam com este parágrafo:
+        <span tal:content="total/discordancias" />
+        votos.
+      </p>
+      <p>
+        Usuário que discordaram com o parágrafo:
+        <span tal:content="usuarios/discordancias" />
+      </p>
+  </div>
+</html>
