@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="smdu.participacao">
@@ -85,5 +86,16 @@
       class="plone.app.layout.viewlets.content.DocumentActionsViewlet"
       permission="zope2.View"
       /> -->
+
+  <configure zcml:condition="installed plone.formwidget.geolocation">
+    <utility
+        name="smdu.participacao.fields.geolocation"
+        component=".fields.GeolocationFactory"
+        />
+    <utility
+        name="plone.formwidget.geolocation.field.GeolocationField"
+        component="plone.formwidget.geolocation.supermodel.GeolocationHandler"
+        />
+  </configure>
 
 </configure>

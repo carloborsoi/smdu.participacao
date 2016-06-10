@@ -44,14 +44,15 @@ setup(
         'z3c.jbot',
         'plone.app.dexterity',
         'cioppino.twothumbs',
+        'collective.easyform',
+        # 'collective.geolocationbehavior',
         'eea.annotator',
         'plone.app.lockingbehavior',
         # 'plone.app.referenceablebehavior',
         'plone.app.stagingbehavior',
+        'plone.formwidget.geolocation',
         'pyquery',
         'WeasyPrint',
-        'collective.easyform',
-        'collective.geolocationbehavior',
     ],
     extras_require={
         'test': [

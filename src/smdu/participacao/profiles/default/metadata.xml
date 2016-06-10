@@ -8,6 +8,6 @@
     <dependency>profile-eea.annotator:default</dependency>
     <dependency>profile-cioppino.twothumbs:default</dependency>
     <dependency>profile-collective.easyform:default</dependency>
-    <dependency>profile-collective.geolocationbehavior:default</dependency>
+    <!-- <dependency>profile-collective.geolocationbehavior:default</dependency> -->
   </dependencies>
 </metadata>
