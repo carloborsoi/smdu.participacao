@@ -45,7 +45,7 @@ setup(
         'plone.app.dexterity',
         'cioppino.twothumbs',
         'collective.easyform',
-        # 'collective.geolocationbehavior',
+        'collective.monkeypatcher',
         'eea.annotator',
         'plone.app.lockingbehavior',
         # 'plone.app.referenceablebehavior',

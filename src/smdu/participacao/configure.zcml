@@ -1,17 +1,19 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="smdu.participacao">
 
-  <!-- Internationalization -->
+  <!-- Internacionalização -->
   <i18n:registerTranslations directory="locales" />
 
   <!-- Includes -->
   <includeDependencies package="." />
   <include package=".browser" />
 
-  <!-- Installation Generic Setup profile -->
+  <!-- Perfil Generic Setup de instalação -->
   <genericsetup:registerProfile
       name="default"
       title="smdu.participacao"
@@ -21,7 +23,7 @@
       post_handler=".setuphandlers.post_install"
       />
 
-  <!-- Uninstall Generic Setup profile -->
+  <!-- Perfil Generic Setup de desinstalação -->
   <genericsetup:registerProfile
       name="uninstall"
       title="smdu.participacao (uninstall)"
@@ -37,21 +39,42 @@
       name="smdu.participacao-hiddenprofiles"
       />
 
-  <!-- Catalog indexers -->
+  <!-- Indexadores do catalogo -->
   <adapter name="SearchableText" factory=".indexers.SearchableText" />
   <adapter name="positive_ratings" factory=".indexers.positive_ratings" />
 
-  <!-- Workflow event -->
+  <!-- Evento de workflow para estado Finalizado -->
   <subscriber
       for=".interfaces.IMinuta
            Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".events.finaliza_avaliacao"
       />
 
-  <!-- Write permission -->
+  <!-- Permissão para avaliar uma minuta -->
   <permission
       id="smdu.participacao.avaliar_minuta"
       title="smdu.participacao: Avaliar minuta"
       />
+
+  <!-- Geolocalização -->
+  <configure zcml:condition="installed plone.formwidget.geolocation">
+    <!-- Integração collective.easyform com plone.formwidget.geolocation -->
+    <utility
+        name="smdu.participacao.fields.geolocation"
+        component=".geolocation.GeolocationFactory"
+        />
+    <utility
+        name="plone.formwidget.geolocation.field.GeolocationField"
+        component="plone.formwidget.geolocation.supermodel.GeolocationHandler"
+        />
+    <!-- Monkey patch para alterar exportação CSV da latitude e longitude -->
+    <include package="collective.monkeypatcher" />
+    <monkey:patch
+        description="Exporta campo de Geolocalização como tupla de latitude, longitude"
+        class="collective.easyform.actions.SaveData"
+        original="getSavedFormInputForEdit"
+        replacement=".geolocation.getSavedFormInputForEdit"
+        />
+  </configure>
 
 </configure>

@@ -1,24 +1,23 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="smdu.participacao">
 
-  <!-- Overrides folder for z3c.jbot product (Just-a-Bunch-Of-Templates) -->
+  <!-- Pasta para customizações a partir do addon z3c.jbot -->
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:jbot
       layer="..interfaces.ISmduParticipacaoLayer"
       directory="overrides"
       />
 
-  <!-- Static files -->
+  <!-- Arquivos estáticos -->
   <browser:resourceDirectory
       name="smdu.participacao"
       directory="static"
       />
 
-  <!-- Browser view principal do tipo de conteudo Minuta -->
+  <!-- Browser view principal do tipo de conteúdo Minuta -->
   <browser:page
       name="view"
       for="..interfaces.IMinuta"
@@ -28,7 +27,7 @@
       permission="zope2.View"
       />
 
-  <!-- Browser view que exibe componente de avaliacao -->
+  <!-- Browser view que exibe componente de avaliação -->
   <!-- TODO: permission="smdu.participacao.avaliar_minuta" -->
   <browser:page
       name="avaliacao"
@@ -39,7 +38,7 @@
       permission="zope2.View"
       />
 
-  <!-- Browser view que recebe a votacao do tipo de conteudo Minuta -->
+  <!-- Browser view que recebe a votação do tipo de conteúdo Minuta -->
   <browser:page
       name="avaliacao-vota"
       for="..interfaces.IMinuta"
@@ -57,7 +56,7 @@
       permission="cmf.ModifyPortalContent"
       />
 
-  <!-- Browser view de exportacao de dados da minuta para formato PDF -->
+  <!-- Browser view de exportação de dados da minuta para formato PDF -->
   <browser:page
       name="exportacao-minuta-pdf"
       for="..interfaces.IMinuta"
@@ -67,7 +66,7 @@
       permission="cmf.ModifyPortalContent"
       />
 
-  <!-- Browser view que exibe componente de avaliacao para formato PDF -->
+  <!-- Browser view que exibe componente de avaliação para formato PDF -->
   <!-- TODO: permission="smdu.participacao.avaliar_minuta" -->
   <browser:page
       name="avaliacao_pdf"
@@ -88,16 +87,5 @@
       class="plone.app.layout.viewlets.content.DocumentActionsViewlet"
       permission="zope2.View"
       /> -->
-
-  <configure zcml:condition="installed plone.formwidget.geolocation">
-    <utility
-        name="smdu.participacao.fields.geolocation"
-        component=".fields.GeolocationFactory"
-        />
-    <utility
-        name="plone.formwidget.geolocation.field.GeolocationField"
-        component="plone.formwidget.geolocation.supermodel.GeolocationHandler"
-        />
-  </configure>
 
 </configure>
