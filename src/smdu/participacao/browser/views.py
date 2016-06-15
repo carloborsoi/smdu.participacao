@@ -45,9 +45,13 @@ class MinutaView(BrowserView):
             paragrafo_id = i + 1
             paragrafo_klass = 'paragrafo-{0:02}'.format(paragrafo_id)
             avaliacao_paragrafo = avaliacao.renderiza_avaliacao(paragrafo_id)
-            pq(paragrafo).addClass(paragrafo_klass) \
-                .wrap('<div class="paragrafo-wrapper">') \
-                .append(avaliacao_paragrafo)
+            if avaliacao.avaliacao_aberta :
+                pq(paragrafo).addClass(paragrafo_klass) \
+                    .wrap('<div class="paragrafo-wrapper">') \
+                    .append(avaliacao_paragrafo)
+            else:
+                pq(paragrafo).addClass(paragrafo_klass) \
+                    .wrap('<div class="paragrafo-wrapper">')
 
         return pq_texto.html()
 
