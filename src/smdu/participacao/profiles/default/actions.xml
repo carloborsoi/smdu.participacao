@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object name="portal_actions" meta_type="Plone Actions Tool">
- <object name="document_actions" meta_type="CMF Action Category">
+ <object name="object_buttons" meta_type="CMF Action Category">
   <object name="export_pdf" meta_type="CMF Action">
    <property name="title">Exportar PDF</property>
    <property name="description">Exporta a minuta em formato PDF</property>
