@@ -23,5 +23,11 @@
    </property>
    <property name="visible">True</property>
   </object>
+  <object name="export" meta_type="CMF Action">
+   <property name="visible">False</property>
+  </object>
+  <object name="import" meta_type="CMF Action">
+   <property name="visible">False</property>
+  </object>
  </object>
 </object>
