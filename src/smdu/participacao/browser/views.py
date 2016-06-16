@@ -275,3 +275,7 @@ class ExportaMinutaPDFView(MinutaView):
         RESPONSE.setHeader('Content-Length', len(minuta_exportada_pdf))
         RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.pdf"')
         return minuta_exportada_pdf
+
+class ConsultaPublicaView(BrowserView):
+    """ Browser view padrao do tipo de conteudo Consulta Pública
+    """

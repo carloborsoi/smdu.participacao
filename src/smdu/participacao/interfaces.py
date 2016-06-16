@@ -31,3 +31,7 @@ class IMinuta(model.Schema):
         required=False,
         default=False
     )
+
+
+class IConsulta_Publica(model.Schema):
+    """Modelagem do tipo de conteudo Dexterity: campos e widgets."""

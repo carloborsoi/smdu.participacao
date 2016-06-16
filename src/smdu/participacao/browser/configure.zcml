@@ -88,4 +88,14 @@
       permission="zope2.View"
       /> -->
 
+      <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+      <browser:page
+          name="view"
+          for="..interfaces.IConsulta_Publica"
+          layer="..interfaces.ISmduParticipacaoLayer"
+          class=".views.ConsultaPublicaView"
+          template="templates/consulta_publica.pt"
+          permission="zope2.View"
+          />
+
 </configure>
