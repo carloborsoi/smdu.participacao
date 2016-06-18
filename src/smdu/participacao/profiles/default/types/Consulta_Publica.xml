@@ -10,32 +10,15 @@
  <property name="add_view_expr">string:${folder_url}/++add++Consulta_Publica</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
- <property name="allowed_content_types"/>
+ <property name="allowed_content_types">
+  <element value="Proposta"/>
+ </property>
  <property name="allow_discussion">False</property>
 
  <!-- schema and class used for content items -->
- <!-- <property name="klass">plone.dexterity.content.Container</property> -->
- <property name="klass">plone.dexterity.content.Item</property>
+ <property name="klass">plone.dexterity.content.Container</property>
  <property name="schema">smdu.participacao.interfaces.IConsulta_Publica</property>
- <property
-    name="model_source">&lt;model xmlns:easyform="http://namespaces.plone.org/supermodel/easyform" xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns="http://namespaces.plone.org/supermodel/schema"&gt;
-    &lt;schema&gt;
-      &lt;fieldset name="configuracao_da_Consulta_Publica" label="Configura&amp;#231;&amp;#227;o da Consulta P&amp;#250;blica"&gt;
-        &lt;field name="permitir_o_upload_de_imagens" type="zope.schema.Bool"&gt;
-          &lt;default&gt;True&lt;/default&gt;
-          &lt;description/&gt;
-          &lt;title&gt;Permitir o upload de imagens&lt;/title&gt;
-          &lt;form:widget type="z3c.form.browser.radio.RadioFieldWidget"/&gt;
-        &lt;/field&gt;
-        &lt;field name="permitir_geolocalizacao" type="zope.schema.Bool"&gt;
-          &lt;default&gt;True&lt;/default&gt;
-          &lt;description/&gt;
-          &lt;title&gt;Permitir Geolocaliza&amp;#231;&amp;#227;o&lt;/title&gt;
-          &lt;form:widget type="z3c.form.browser.radio.RadioFieldWidget"/&gt;
-        &lt;/field&gt;
-      &lt;/fieldset&gt;
-    &lt;/schema&gt;
-  &lt;/model&gt;</property>
+ <property name="model_source"></property>
  <property name="model_file"></property>
  <property name="schema_policy">dexterity</property>
 
@@ -62,7 +45,7 @@
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
 
-  <!-- Actions --> 
+  <!-- Actions -->
  <action title="View" action_id="view" category="object" condition_expr=""
     description="" icon_expr="" link_target="" url_expr="string:${object_url}"
     visible="True">
