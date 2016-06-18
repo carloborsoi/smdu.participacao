@@ -1,0 +1,271 @@
+.propostas .resultinterno
+{
+    float: left;
+    min-height: 268px;
+    max-height: 380px;
+    width: 250px;
+    margin: 30px;
+    /*margin-top: 35px;*/
+    margin-top: 20px;
+}
+
+.proposta-apresentada
+{
+    background-color: #E6E6E6;
+    height: auto;
+    max-height: auto;
+    float: left;
+    height: auto;
+    max-height: auto;
+    max-width: 945px;
+}
+
+.propostas .proposta-apresentada-caixa
+{
+    float: left;
+    width: 220px;
+    height: 470px;
+    margin: 8px;
+    /*margin-top: 35px;*/
+    margin-top: 10px;
+    background-color: #E6E6E6;
+    overflow: hidden;
+}
+
+.propostas .resultinternoMinhocaoDetalhes
+{
+    //float: left;
+    //width: 100%;
+    margin: 10px 8px 8px 8px;
+    background-color: white;
+}
+
+.proposta-imagem
+{
+    width: 220px;
+    height: 160px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    -khtml-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid #646464;
+    padding: 0;
+    overflow: hidden;
+}
+
+.proposta-informacao
+{
+    //border: 1px solid yellow;
+    height: 280px;
+    background: white;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 0px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.proposta-descritivo
+{
+    height: 210px;
+}
+
+.proposta-quantidade-apoios
+{
+    width: 220px;
+    height: 20px;
+    line-height: 20px;
+    background: #A3A3A3;
+    color: white;
+    left: 20px;
+}
+
+.proposta-quantidade-apoios span
+{
+    padding-left: 20px;
+}
+
+.proposta-titulo
+{
+    padding: 18px 20px 0px 20px;
+    //border: 1px solid yellow;
+    height: auto;
+    // height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 120%;
+}
+
+.proposta-linha
+{
+    padding-top:  8px;
+    border-bottom: 1px solid #C8C8C8;
+}
+
+.proposta-descricao-curta
+{
+    padding: 8px 20px 10px 20px;
+    //border: 1px solid yellow;
+    height: auto;
+   // height: 150px;
+    color: #333333;
+    line-height: 120%;
+}
+
+.proposta-icones
+{
+    padding: 10px 20px 0px 20px;
+    //border: 1px solid yellow;
+    height: 45px;
+    max-height: 45px;
+}
+
+.proposta-icones-compartilhar
+{
+    float: left;
+    height: 40px;
+    //padding-top: 20px;
+}
+
+.proposta-icones-apoiar
+{
+    float: right;
+    height: 45px;
+    max-height: 45px;
+}
+
+.propostas .proposta-apresentada-caixa .resultinternoMinhocaoProposta
+{
+    width: 220px;
+    height: 461px;
+    /*-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;*/
+    /*border: 1px solid #646464;*/
+    background-color: #E6E6E6;
+    overflow: hidden;
+}
+
+.propostas .proposta-apresentada-caixa .resultinternoMinhocaoProposta .resultinternoMinhocaoPropostaInterno
+{
+    width: 216px;
+    height: 457px;
+    /*-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;*/
+    /*border: 1px solid #646464;*/
+    background-color: #E6E6E6;
+    overflow: hidden;
+
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -khtml-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    border-top: 2px dashed #646464;
+    border-left: 2px dashed #646464;
+    border-right: 2px dashed #646464;
+    border-bottom: 2px dashed #646464;
+}
+
+.resultinternoMinhocaoPropostaInternoEnviar
+{
+    width: 216px;
+    height: 229px;
+    /*-webkit-border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    -khtml-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;*/
+    background: #CCCCCC;
+    background-size: cover;
+    background-position: center center;
+    background-clip: content-box;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.resultinternoMinhocaoPropostaInternoEnviar span
+{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.resultinternoMinhocaoPropostaInternoEnviar img
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.resultinternoMinhocaoPropostaInternoTexto
+{
+    width: 216px;
+    height: 228px;
+    /*-webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;*/
+    padding: 0;
+    overflow: hidden;
+}
+
+.resultinternoMinhocaoPropostaInternoTextoCima
+{
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5C5C5C;
+    line-height: 120%;
+    float: left;
+    padding: 15px 45px 0px 45px;
+}
+
+.resultinternoMinhocaoPropostaInternoTextoBaixo
+{
+    color: black;
+    font-size: 13px;
+    color: #5C5C5C;
+    line-height: 120%;
+    float: left;
+    padding: 15px 45px 0px 45px;
+}
+
+.propostas .linha
+{
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.propostas .parametros
+{
+    /*float: left;*/
+    /*margin-bottom: 30px;*/
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.propostas .parametros div
+{
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #C81400;
+}
+
+.floatComment #comments
+{
+    float: left;
+}
+
+.jqueryuifontsize span
+{
+    font-size: small;
+}
+
+.radioBlock span.wpcf7-list-item
+{
+    display: block;
+}

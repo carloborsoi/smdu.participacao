@@ -279,3 +279,23 @@ class ExportaMinutaPDFView(MinutaView):
 class ConsultaPublicaView(BrowserView):
     """ Browser view padrao do tipo de conteudo Consulta Pública
     """
+    def propostas(self):
+        resultados = []
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        current_path = "/".join(self.context.getPhysicalPath())
+
+        brains = portal_catalog(portal_type="Proposta",
+                                path=current_path)
+        for brain in brains:
+            proposta = brain.getObject()
+            descricao = brain.Description
+            length = 200
+            descricao_curta = (' '.join(descricao[:length+1].split(' ')[0:-1]) + '...') if len(descricao) > length else descricao
+            resultados.append({
+                'id': brain.id,
+                'titulo': brain.Title,
+                'descricao': descricao,
+                'descricao_curta':descricao_curta,
+                'imagem': proposta.imagem.filename,
+                })
+        return resultados

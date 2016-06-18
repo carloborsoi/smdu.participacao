@@ -2,10 +2,89 @@
     lang="en"
     metal:use-macro="context/main_template/macros/master"
     i18n:domain="smdu.participacao">
+    <head>
+        <link rel="stylesheet" type="text/css" href="/home/carlo/smdu.participacao/src/smdu/participacao/browser/templates/style-noticias-interna.css">
+    </head>
 <body>
   <metal:content-core fill-slot="content-core">
+    <p tal:content="structure context/text/output"></p>
     <div id="content-core">
-<h1> TESTE -------------------------------- </h1>
+      <div class="propostas ">
+        <!-- Inicio loop propostas -->
+        <div class="proposta-apresentada">
+         <div class="proposta-apresentada-caixa" tal:repeat="proposta view/propostas">
+                <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" class="popmake-18591 popmake-wifi-proposta-detalhes-quando-clica pum-trigger"  style="cursor: pointer;">
+                     <div class="proposta-imagem" style="
+                             background: url(../wp-content/uploads/wifi/largo-da-batata-google-maps2.jpg) no-repeat;
+                             background-color: #E6E6E6;
+                             background-size: cover;
+                             background-position: center center;
+                             background-clip: content-box;">
+                             <img  height="160" width="220"
+                                    tal:define="imagem_url string:${context/absolute_url}/${proposta/id}/@@download/imagem/${proposta/imagem}"
+                                    tal:attributes="src imagem_url" />
+
+                     </div>
+                     <div class="proposta-quantidade-apoios">
+                         <span>93 apoiadas</span>
+                     </div>
+                 </a>
+                 <div class="proposta-informacao">
+                     <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" class="popmake-18591 popmake-wifi-proposta-detalhes-quando-clica pum-trigger" style="cursor: pointer;">
+                         <div class="proposta-descritivo">
+                             <div class="proposta-titulo"
+                               tal:content="proposta/titulo">
+                                 TITULO DA PROPOSTA
+                                 <div class="proposta-linha"></div>
+                             </div>
+                             <div class="proposta-descricao-curta"
+                               tal:content="proposta/descricao_curta">
+                                 DESCRICAO CURTA DA PROPOSTA
+                             </div>
+                         </div>
+                     </a>
+                     <div class="proposta-icones">
+                       <div class="proposta-icones-compartilhar">
+                           <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" style="border: 0;">
+                               <img alt="Compartilhar"  width="40" height="40"
+                                 tal:attributes="src string:${portal_url}/++resource++smdu.participacao/compartilhar.png"
+                                 />
+                           </a>
+                       </div>
+                       <div class="proposta-icones-apoiar">
+                        <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#"  style="border: 0;">
+                          <img alt="Apoiar"  width="86" height="45"
+                            tal:attributes="src string:${portal_url}/++resource++smdu.participacao/apoiar.png"
+                            />
+                        </a>
+                       </div>
+                    </div>
+                 </div>
+         </div>
+      <!-- fim do loop propostas -->
+      <div class="proposta-apresentada">
+        <div class="proposta-apresentada-caixa">
+            <div class="resultinternoMinhocaoPropostaInterno" >
+              <a href="#" id="" class="popmake-18587 popmake-wifi-enviar-proposta">
+                <div class="resultinternoMinhocaoPropostaInternoEnviar" >
+                  <span></span>
+                  <img alt="envie sua proposta"
+                    tal:attributes="src string:${portal_url}/++resource++smdu.participacao/envie-proposta.png"
+                    />
+                </div>
+                <div class="resultinternoMinhocaoPropostaInternoTexto" >
+                  <div class="resultinternoMinhocaoPropostaInternoTextoCima" >
+                    Gostaria de enviar uma sugestão?
+                  </div>
+                  <div class="resultinternoMinhocaoPropostaInternoTextoBaixo" >
+                    Caso nenhuma destas sugestões atenda às demandas que você acredita serem necessárias, envie a sua sugestão para o WiFi
+                  </div>
+                </div>
+              </a>
+            </div>
+        </div>
+      </div>
+      </div>
     </div>
   </metal:content-core>
 </body>
