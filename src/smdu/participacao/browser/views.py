@@ -19,7 +19,8 @@ from cioppino.twothumbs.browser.like import LikeThisShizzleView
 from smdu.participacao import AvaliarMinuta
 from smdu.participacao import concordancias
 from smdu.participacao import discordancias
-from smdu.participacao.browser import rate
+from smdu.participacao import APOIOS_KEY
+from smdu.participacao.browser import rate, apoiar_proposta
 
 
 COOKIENAME = 'smdu_minuta_avaliacao'
@@ -51,7 +52,8 @@ class MinutaView(BrowserView):
                     .append(avaliacao_paragrafo)
             else:
                 pq(paragrafo).addClass(paragrafo_klass) \
-                    .wrap('<div class="paragrafo-wrapper">')
+                    .wrap('<div class="paragrafo-wrapper">')\
+                    .append(avaliacao_paragrafo)
 
         return pq_texto.html()
 
@@ -297,5 +299,60 @@ class ConsultaPublicaView(BrowserView):
                 'descricao': descricao,
                 'descricao_curta':descricao_curta,
                 'imagem': proposta.imagem.filename,
+                'obj': proposta
                 })
         return resultados
+
+class PropostaView(BrowserView):
+    """ Browser view padrao do tipo de conteudo Proposta
+    """
+    def __init__(self, context, request):
+        super(PropostaView, self).__init__(context, request)
+        self.annotations = apoiar_proposta.inicializa_apoios(self.context)
+
+    def get_contagem_apoios(self):
+        """ Retorna o númeor de apoios obtidos
+        """
+        annotations = IAnnotations(self.context)
+        contagem = len(annotations[APOIOS_KEY])
+        return contagem
+
+class PropostaApoiaView(BrowserView):
+    """ Browser view que habilita o apoio à uma proposta.
+    """
+    def __call__(self, REQUEST, RESPONSE):
+        annotations = IAnnotations(self.context)
+        usuario = api.user
+        if usuario.is_anonymous():
+            return RESPONSE.redirect(
+                '%s/login?came_from=%s' %
+                (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+
+        userid = usuario.get_current().getUserName()
+
+        #Verifica se o usuário está apoiando outra proposta
+        consulta_publica = self.context.__parent__
+        propostas = consulta_publica.listFolderContents(contentFilter={"portal_type" : "Proposta"})
+        for proposta in propostas:
+            annotations_proposta = IAnnotations(proposta)
+            if proposta.id == self.context.id:
+                continue
+            if userid in annotations_proposta[APOIOS_KEY]:
+                mensagem =  u"Você já apoioa uma outra proposta (%s)." % proposta.title
+                return mensagem
+
+        # Verifica se a proposta já foi apoiada pelo usuário. Caso positivo, o apoio é desfeito
+        if userid in annotations[APOIOS_KEY]:
+            annotations[APOIOS_KEY].remove(userid)
+            action = "desfazer"
+            #event.notify(UnlikeEvent(context))
+            mensagem = u"O seu apoio foi desfeito com sucesso."
+        else:
+            annotations[APOIOS_KEY].append(userid)
+            action = "apoiar"
+            #event.notify(LikeEvent(context))
+            mensagem = u"O seu apoio foi contabilizado. Obrigado pela participaçãao !"
+
+        #return action
+
+        return mensagem

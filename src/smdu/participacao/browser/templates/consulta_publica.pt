@@ -13,7 +13,10 @@
         <!-- Inicio loop propostas -->
         <div class="proposta-apresentada">
          <div class="proposta-apresentada-caixa" tal:repeat="proposta view/propostas">
-                <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" class="popmake-18591 popmake-wifi-proposta-detalhes-quando-clica pum-trigger"  style="cursor: pointer;">
+                <a class="proposta-link"  style="cursor: pointer;"
+                  tal:define="proposta_url string:${context/absolute_url}/${proposta/id}/"
+                  tal:attributes="href proposta_url"
+                  >
                      <div class="proposta-imagem" style="
                              background: url(../wp-content/uploads/wifi/largo-da-batata-google-maps2.jpg) no-repeat;
                              background-color: #E6E6E6;
@@ -26,11 +29,14 @@
 
                      </div>
                      <div class="proposta-quantidade-apoios">
-                         <span>93 apoiadas</span>
+                         <span tal:content="proposta/obj/view/get_contagem_apoios">CONTAGEM</span> <span> apoiadas</span>
                      </div>
                  </a>
                  <div class="proposta-informacao">
-                     <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" class="popmake-18591 popmake-wifi-proposta-detalhes-quando-clica pum-trigger" style="cursor: pointer;">
+                   <a class="proposta-link"  style="cursor: pointer;"
+                     tal:define="proposta_url string:${context/absolute_url}/${proposta/id}/"
+                     tal:attributes="href proposta_url"
+                     >
                          <div class="proposta-descritivo">
                              <div class="proposta-titulo"
                                tal:content="proposta/titulo">
@@ -52,20 +58,22 @@
                            </a>
                        </div>
                        <div class="proposta-icones-apoiar">
-                        <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#"  style="border: 0;">
-                          <img alt="Apoiar"  width="86" height="45"
-                            tal:attributes="src string:${portal_url}/++resource++smdu.participacao/apoiar.png"
-                            />
-                        </a>
+                           <form method="post" class='apoiar-form'
+                               tal:attributes="action string:${context/absolute_url}/${proposta/id}/@@proposta-apoiar;">
+                             <span tal:replace="structure context/@@authenticator/authenticator" />
+                               <input type="submit" name="concordar" value="Concordo"
+                                   class="allowMultiSubmit botao-apoiar"
+                                   title="Eu apoio esta proposta"
+                                   />
+                           </form>
                        </div>
                     </div>
                  </div>
          </div>
       <!-- fim do loop propostas -->
       <div class="proposta-apresentada">
-        <div class="proposta-apresentada-caixa">
-            <div class="resultinternoMinhocaoPropostaInterno" >
-              <a href="#" id="" class="popmake-18587 popmake-wifi-enviar-proposta">
+            <div class="proposta-apresentada-caixa resultinternoMinhocaoPropostaInterno" >
+              <a href="./++add++Proposta" class="proposta-adicionar" >
                 <div class="resultinternoMinhocaoPropostaInternoEnviar" >
                   <span></span>
                   <img alt="envie sua proposta"
@@ -82,7 +90,6 @@
                 </div>
               </a>
             </div>
-        </div>
       </div>
       </div>
     </div>

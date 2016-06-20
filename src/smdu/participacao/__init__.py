@@ -9,3 +9,5 @@ AvaliarMinuta = 'smdu.participacao: Avaliar minuta'
 
 concordancias = 'smdu.participacao.concordancias'
 discordancias = 'smdu.participacao.discordancias'
+
+APOIOS_KEY = 'smdu.participacao.apoios'

@@ -32,14 +32,6 @@
     overflow: hidden;
 }
 
-.propostas .resultinternoMinhocaoDetalhes
-{
-    //float: left;
-    //width: 100%;
-    margin: 10px 8px 8px 8px;
-    background-color: white;
-}
-
 .proposta-imagem
 {
     width: 220px;
@@ -268,4 +260,161 @@
 .radioBlock span.wpcf7-list-item
 {
     display: block;
+}
+
+/*Visualização do pop up com informações detalhadas de uma proposta*/
+
+.resultado-proposta-detalhe
+{
+    //float: left;
+    //width: 100%;
+    margin: 10px 8px 8px 8px;
+    background-color: white;
+}
+
+.proposta-detalhe
+{
+    max-width: 100%;
+    //background-color: #E6E6E6;
+    overflow: hidden;
+}
+
+.proposta-imagem-detalhe
+{
+    width: 60%;
+    float: left;
+    height: 360px;
+    max-height: 360px;
+    border-bottom: initial;
+    padding: 0;
+    overflow: hidden;
+}
+
+.proposta-descritivo-detalhe
+{
+    width: 40%;
+    float: left;
+}
+
+.proposta-descritivo-apoiada-detalhe
+{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    background: #A3A3A3;
+    color: white;
+    left: 20px;
+    float: left;
+    //margin: 0px 0px 0px 20px;
+}
+
+
+
+.proposta-descritivo-titulo-detalhe
+{
+    padding-top: 18px;
+    margin: 18px 20px 0px 20px;
+    //width: 100%;
+    //border: 1px solid yellow;
+    height: auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 120%;
+    float: left;
+}
+
+.proposta-linha-detalhe
+{
+    width: 100%;
+    padding-top:  8px;
+    border-bottom: 1px solid #C8C8C8;
+    float: left;
+}
+
+.proposta-linha-descricao-detalhe
+{
+    padding-top: 8px;
+    margin: 8px 20px 10px 20px;
+    //width: 100%;
+    //border: 1px solid yellow;
+    height: auto;
+    color: #333333;
+    line-height: 120%;
+    float: left;
+    //width: 100%;
+}
+
+.proposta-justificativa-detalhe
+{
+    padding-top: 8px;
+    width: 100%;
+    float: left;
+    color: #333333;
+}
+
+.proposta-justificativa-detalhe
+{
+    width: 100%;
+    float: left;
+}
+
+.proposta-justificativa-titulo-detalhe
+{
+    width: 100%;
+    margin: 18px 20px 0px 0px;
+    //border: 1px solid yellow;
+    height: auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 120%;
+    float: left;
+}
+
+.proposta-icones-detalhe
+{
+    float: left;
+    width: 100%;
+    padding: 5px 20px 0px 20px;
+    //border: 1px solid yellow;
+    height: 46px;
+    max-height: 46px;
+}
+.proposta-icones-compartilhar-detalhe
+{
+    float: left;
+    height: 46px;
+}
+
+.proposta-icones-compartilhar-detalhe img
+{
+    cursor: pointer;
+}
+
+.proposta-icones-apoiar-detalhe
+{
+    float: right;
+    height: 46px;
+    max-height: 46px;
+}
+
+form input.botao-apoiar {
+    float: right;
+    height: 45px;
+    max-height: 45px;
+    padding: 0 40px;
+    background-color:transparent;
+	  background-image: url(++resource++smdu.participacao/apoiar.png);
+    background-repeat: no-repeat;
+    border-width: 0;
+    cursor: pointer;
+    text-indent: -3000px;
+    white-space: nowrap;
+}
+
+/* Reset button styles of Plone 5  */
+form input.botao-apoiar:hover{
+    box-shadow: none;
+    background-color: transparent;
 }

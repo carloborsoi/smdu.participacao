@@ -98,4 +98,23 @@
           permission="zope2.View"
           />
 
+      <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+      <browser:page
+          name="view"
+          for="..interfaces.IProposta"
+          layer="..interfaces.ISmduParticipacaoLayer"
+          class=".views.PropostaView"
+          template="templates/proposta.pt"
+          permission="zope2.View"
+          />
+
+          <!-- Browser view que recebe o apoio de uma proposta -->
+          <browser:page
+              name="proposta-apoiar"
+              for="..interfaces.IProposta"
+              layer="..interfaces.ISmduParticipacaoLayer"
+              class=".views.PropostaApoiaView"
+              permission="zope2.View"
+              />
+
 </configure>
