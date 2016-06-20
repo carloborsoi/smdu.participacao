@@ -6,4 +6,9 @@
    <bound-workflow workflow_id="minutawf"/>
   </type>
  </bindings>
+ <bindings>
+  <type type_id="Proposta">
+    <bound-workflow workflow_id="one_state_workflow" />
+  </type>
+</bindings>
 </object>
