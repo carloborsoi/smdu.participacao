@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-try:
-    import json
-except:
-    import simplejson as json  # fallback for pre python2.6
+import json
 from uuid import uuid4
 
 from Products.Five.browser import BrowserView
@@ -31,11 +28,11 @@ COOKIENAME = 'smdu_minuta_avaliacao'
 # precisarmos renderizar widgets específicos usando 'view/w' no template
 # class MinutaView(DefaultView):
 class MinutaView(BrowserView):
-    """ Browser view padrao do tipo de conteudo Minuta
+    """ Browser view padrão do tipo de conteúdo Minuta
     """
 
     def get_texto_com_avaliacoes(self):
-        """ Acrescenta componente de avaliacao para cada paragrafo avaliavel
+        """ Acrescenta componente de avaliação para cada parágrafo avaliável
         """
         texto = self.context.text
         if not texto:
@@ -46,7 +43,7 @@ class MinutaView(BrowserView):
             paragrafo_id = i + 1
             paragrafo_klass = 'paragrafo-{0:02}'.format(paragrafo_id)
             avaliacao_paragrafo = avaliacao.renderiza_avaliacao(paragrafo_id)
-            if avaliacao.avaliacao_aberta :
+            if avaliacao.avaliacao_aberta:
                 pq(paragrafo).addClass(paragrafo_klass) \
                     .wrap('<div class="paragrafo-wrapper">') \
                     .append(avaliacao_paragrafo)
@@ -58,7 +55,7 @@ class MinutaView(BrowserView):
         return pq_texto.html()
 
     def get_texto_exporta_pdf(self):
-        """ Acrescenta componente de avaliacao para cada paragrafo avaliavel
+        """ Acrescenta componente de avaliação para cada parágrafo avaliável
         """
         texto = self.context.text
         if not texto:
@@ -75,9 +72,10 @@ class MinutaView(BrowserView):
 
         return pq_texto.html()
 
+
 class AvaliacaoView(LikeWidgetView):
-    """ Browser view auxiliar do tipo de conteudo Minuta
-    Renderiza componente de avaliacao
+    """ Browser view auxiliar do tipo de conteúdo Minuta
+    Renderiza componente de avaliação
     """
 
     def __init__(self, context, request):
@@ -87,7 +85,7 @@ class AvaliacaoView(LikeWidgetView):
     @memoize
     @property
     def pode_votar(self):
-        """ Define estado ativo/desativo do componente de avaliação,
+        """ Define estado ativo/desativado do componente de avaliação,
         a partir da configuração do cioppino.twothumbs no painel de
         controle Configuration Registry.
         """
@@ -113,7 +111,7 @@ class AvaliacaoView(LikeWidgetView):
         return klasses
 
     def meu_voto(self):
-        """ Se o usuario pode votar, retorna ultimo voto para o parágrafo atual
+        """ Se o usuário pode votar, devolve seu voto mais recente para o parágrafo atual
         """
         if not self.pode_votar:
             return 0
@@ -124,27 +122,26 @@ class AvaliacaoView(LikeWidgetView):
                                  userid=anonuid)
 
     def get_total(self):
-        """ Examina a anotacao no objeto e devolve o numero de concordancias
-        e discordancias por paragrafo
+        """ Examina a anotação no objeto e devolve o numero de concordancias
+        e discordancias por parágrafo
         """
         return rate.get_total(self.context, self.paragrafo_id)
 
     def get_usuarios_votantes(self):
-        """ Develve uma lista com usuarios que concordam com o parágrafo
+        """ Devolve uma lista com usuarios que concordam com o parágrafo
         """
         return rate.get_usuarios_votantes(self.context, self.paragrafo_id)
 
-
     def renderiza_avaliacao(self, paragrafo_id):
-        """ Atualiza o id do paragrafo corrente e renderiza o componente de
-        avaliacao adequado
+        """ Atualiza o id do parágrafo corrente e renderiza o componente de
+        avaliação adequado
         """
         self.paragrafo_id = paragrafo_id
         return self.__call__()
 
 
 class AvaliacaoVotaView(LikeThisShizzleView):
-    """ Browser view que habilita a votacao de um paragrafo.
+    """ Browser view que habilita a votação de um parágrafo.
     """
 
     def __call__(self, REQUEST, RESPONSE):
@@ -189,7 +186,7 @@ class AvaliacaoVotaView(LikeThisShizzleView):
         else:
             resultado = rate.get_total(self.context, paragrafo_id)
             resultado['action'] = action
-            # Traduz mensagem de confirmacao da votacao
+            # Traduz mensagem de confirmação da votação
             translate = self._get_translator()
             ltool = api.portal.get_tool(name='portal_languages')
             target_language = ltool.getPreferredLanguage()
@@ -197,7 +194,7 @@ class AvaliacaoVotaView(LikeThisShizzleView):
                 _get_message(action),
                 target_language=target_language
             )
-            # Devolve resposta json para solicitacao ajax
+            # Devolve resposta json para solicitação ajax
             response_json = json.dumps(resultado)
             RESPONSE.setHeader('Content-Type',
                                'application/json; charset=utf-8')
@@ -216,7 +213,7 @@ def _get_message(action):
 
 
 class ExportaMinutaCSVView(BrowserView):
-    """ Browser view que exporta CSV com votação e comentários do conteudo Minuta
+    """ Browser view que exporta CSV com votação e comentários do conteúdo Minuta
     """
 
     def __call__(self, REQUEST, RESPONSE):
@@ -264,10 +261,14 @@ class ExportaMinutaCSVView(BrowserView):
 
 
 class ExportaMinutaPDFView(MinutaView):
+    """ Browser view que exporta view principal do tipo Minuta como PDF
+    """
 
     def __call__(self, REQUEST, RESPONSE):
         content = super(ExportaMinutaPDFView, self).__call__(self)
-        html = HTML(string=content)
+        portal_url = api.portal.get().absolute_url()
+        base_url = '{0}/++resource++smdu.participacao/'.format(portal_url)
+        html = HTML(string=content, base_url=base_url)
         stylesheets = []
         with open('src/smdu/participacao/browser/static/print.css', 'r') as css:
             stylesheets.append(CSS(string=css.read()))
@@ -278,9 +279,11 @@ class ExportaMinutaPDFView(MinutaView):
         RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.pdf"')
         return minuta_exportada_pdf
 
+
 class ConsultaPublicaView(BrowserView):
-    """ Browser view padrao do tipo de conteudo Consulta Pública
+    """ Browser view padrão do tipo de conteúdo Consulta Pública
     """
+
     def propostas(self):
         resultados = []
         portal_catalog = api.portal.get_tool('portal_catalog')
@@ -291,17 +294,20 @@ class ConsultaPublicaView(BrowserView):
         for brain in brains:
             proposta = brain.getObject()
             descricao = brain.Description
-            length = 200
-            descricao_curta = (' '.join(descricao[:length+1].split(' ')[0:-1]) + '...') if len(descricao) > length else descricao
+            tamanho = 200
+            # Limita texto descartando ultima palavra, que pode estar truncada
+            descricao_curta = ' '.join(descricao[:tamanho + 1].split(' ')[0:-1]) + '...' \
+                if len(descricao) > tamanho else descricao
             resultados.append({
                 'id': brain.id,
                 'titulo': brain.Title,
                 'descricao': descricao,
-                'descricao_curta':descricao_curta,
+                'descricao_curta': descricao_curta,
                 'imagem': proposta.imagem.filename,
                 'obj': proposta
-                })
+            })
         return resultados
+
 
 class PropostaView(BrowserView):
     """ Browser view padrao do tipo de conteudo Proposta
@@ -317,42 +323,42 @@ class PropostaView(BrowserView):
         contagem = len(annotations[APOIOS_KEY])
         return contagem
 
+
 class PropostaApoiaView(BrowserView):
     """ Browser view que habilita o apoio à uma proposta.
     """
     def __call__(self, REQUEST, RESPONSE):
         annotations = IAnnotations(self.context)
-        usuario = api.user
-        if usuario.is_anonymous():
+        if api.user.is_anonymous():
             return RESPONSE.redirect(
                 '%s/login?came_from=%s' %
                 (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
 
-        userid = usuario.get_current().getUserName()
+        userid = api.user.get_current().getUserName()
 
-        #Verifica se o usuário está apoiando outra proposta
+        # Verifica se o usuário está apoiando outra proposta
         consulta_publica = self.context.__parent__
-        propostas = consulta_publica.listFolderContents(contentFilter={"portal_type" : "Proposta"})
+        propostas = consulta_publica.listFolderContents(contentFilter={"portal_type": "Proposta"})
         for proposta in propostas:
             annotations_proposta = IAnnotations(proposta)
             if proposta.id == self.context.id:
                 continue
             if userid in annotations_proposta[APOIOS_KEY]:
-                mensagem =  u"Você já apoioa uma outra proposta (%s)." % proposta.title
-                return mensagem
+                msg = u"Você já apoiou uma outra proposta: (%s)." % proposta.title
+                return msg
 
         # Verifica se a proposta já foi apoiada pelo usuário. Caso positivo, o apoio é desfeito
         if userid in annotations[APOIOS_KEY]:
             annotations[APOIOS_KEY].remove(userid)
             action = "desfazer"
-            #event.notify(UnlikeEvent(context))
-            mensagem = u"O seu apoio foi desfeito com sucesso."
+            # event.notify(UnlikeEvent(context))
+            msg = u"O seu apoio foi desfeito com sucesso."
         else:
             annotations[APOIOS_KEY].append(userid)
             action = "apoiar"
-            #event.notify(LikeEvent(context))
-            mensagem = u"O seu apoio foi contabilizado. Obrigado pela participaçãao !"
+            # event.notify(LikeEvent(context))
+            msg = u"O seu apoio foi contabilizado. Obrigado pela participação!"
 
-        #return action
+        # return action
 
-        return mensagem
+        return msg

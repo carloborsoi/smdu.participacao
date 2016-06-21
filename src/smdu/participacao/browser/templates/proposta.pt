@@ -1,80 +1,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
     lang="en"
-    i18n:domain="smdu.participacao">
-
-    <head>
-        <link rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/++resource++smdu.participacao/proposta.css">
-    </head>
-<body>
-      <div class="resultado-proposta-detalhe">
-          <div class="proposta-detalhe">
-              <div id="proposta-imagem-detalhe"
-                class="proposta-imagem-detalhe"
-                style="background: rgb(230, 230, 230)
-                url(&quot;../wp-content/uploads/wifi/pq-do-carmo-2.jpg&quot;) no-repeat scroll center center / cover
-                padding-box content-box;
-                display: block;">
-                  <img
-                         tal:define="imagem_url string:${context/absolute_url}/@@download/imagem/${context/imagem}"
-                         tal:attributes="src imagem_url" />
-              </div>
-              <div class="proposta-descritivo-detalhe">
-                  <div class="proposta-descritivo-apoiada-detalhe">
-                      <span style="display: inline;" class="minhocaoDetalhesDescritivoApoiadasInterno">118 apoiadas</span>
-                  </div>
-                  <div style="display: block;" class="proposta-descritivo-titulo-detalhe" tal:content="context/title">TITULO</div>
-                  <div class="proposta-linha-detalhe">
-
-                  </div>
-                  <div style="display: block;" class="proposta-linha-descricao-detalhe">
-                    <span tal:content="context/endereco"></span> - <span tal:content="context/bairro"></span> - CEP <span tal:content="context/cep"></span>
-                    <br>
-                    <p tal:content="context/description">DESCRICAO</p>
-                  </div>
-              </div>
-              <div class="proposta-justificativa-detalhe">
-                  <div class="proposta-justificativa-titulo-detalhe" >
-                      Justificativa
-                  </div>
-                  <div class="proposta-justificativa-detalhe">
-                      <div style="display: block;" class="justificativa" tal:content="context/justificativa">
-                        JUSTIFICATIVA
-                      </div>
-                  </div>
-                  <div class="proposta-linha-detalhe">
-                  </div>
-              </div>
-              <div class="proposta-icones-detalhe">
-                  <div class="minhocaoDetalhesIconesInterno">
-                      <div class="proposta-icones-compartilhar-detalhe">
-                              <img alt=""
-                                tal:attributes="src string:${context/portal_url}/++resource++smdu.participacao/facebook_cinza.png"
-                                onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
-                                style="padding-right: 12px;" height="40" width="40">
-                              <img alt=""
-                                tal:attributes="src string:${context/portal_url}/++resource++smdu.participacao/google-cinza.png"
-                                onclick="window.open('https://plus.google.com/share?url=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
-                                style="padding-right: 12px;" height="40" width="40">
-                              <img alt=""
-                                tal:attributes="src string:${context/portal_url}/++resource++smdu.participacao/twitter-cinza.png"
-                                onclick="window.open('https://twitter.com/intent/tweet?hashtags=smdu,sesprefsp,WiFiLivre,participe&amp;url=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
-                                height="40" width="40">
-                      </div>
-                      <div class="proposta-icones-apoiar-detalhe">
-                          <div style="display: none">
-                              <input value="" type="text">
-                          </div>
-                      		  <a href="#" >
-  															<img alt="" height="46" width="300"
-                                  tal:attributes="src string:${context/portal_url}/++resource++smdu.participacao/apoiar_300px.png" />
-  						              </a>
-                      </div>
-                  </div>
-              </div>
-
+    i18n:domain="smdu.participacao"
+    tal:define="portal_url context/@@plone_portal_state/portal_url;
+                static_url string:$portal_url/++resource++smdu.participacao">
+  <head>
+    <link rel="stylesheet" tal:attributes="href string:$static_url/proposta.css">
+  </head>
+  <body>
+    <div class="resultado-proposta-detalhe">
+      <div class="proposta-detalhe">
+        <div id="proposta-imagem-detalhe" class="proposta-imagem-detalhe"
+            style="background: rgb(230, 230, 230) url(&quot;../wp-content/uploads/wifi/pq-do-carmo-2.jpg&quot;) no-repeat scroll center center / cover padding-box content-box; display: block;">
+          <img tal:attributes="src string:${context/absolute_url}/@@download/imagem/${context/imagem}" />
+        </div>
+        <div class="proposta-descritivo-detalhe">
+          <div class="proposta-descritivo-apoiada-detalhe">
+            <span class="minhocaoDetalhesDescritivoApoiadasInterno" style="display: inline">118 apoiadas</span>
           </div>
+          <div style="display: block;" class="proposta-descritivo-titulo-detalhe"
+              tal:content="context/title">TITULO</div>
+          <div class="proposta-linha-detalhe"> </div>
+          <div style="display: block;" class="proposta-linha-descricao-detalhe">
+            <span tal:content="context/endereco"></span> - <span tal:content="context/bairro"></span> - CEP <span tal:content="context/cep"></span><br>
+            <p tal:content="context/description">DESCRICAO</p>
+          </div>
+        </div>
+        <div class="proposta-justificativa-detalhe">
+            <div class="proposta-justificativa-titulo-detalhe">
+              Justificativa
+            </div>
+            <div class="proposta-justificativa-detalhe">
+              <div class="justificativa" style="display: block;"
+                  tal:content="context/justificativa">
+                JUSTIFICATIVA
+              </div>
+            </div>
+            <div class="proposta-linha-detalhe"> </div>
+        </div>
+        <div class="proposta-icones-detalhe">
+          <div class="minhocaoDetalhesIconesInterno">
+            <div style="display: none">
+                <input value="" type="text">
+              </div>
+              <a href="#">
+                <img alt="" height="46" width="300"
+                    tal:attributes="src string:$static_url/apoiar_300px.png" />
+              <div class="proposta-icones-compartilhar-detalhe">
+              <img alt="" height="40" width="40"
+                  style="padding-right: 12px;"
+                  onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
+                  tal:attributes="src string:$static_url/facebook_cinza.png">
+              <img alt="" height="40" width="40"
+                  style="padding-right: 12px;"
+                  onclick="window.open('https://plus.google.com/share?url=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
+                  tal:attributes="src string:$static_url/google-cinza.png">
+              <img alt="" height="40" width="40"
+                onclick="window.open('https://twitter.com/intent/tweet?hashtags=smdu,sesprefsp,WiFiLivre,participe&amp;url=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
+                tal:attributes="src string:$static_url/twitter-cinza.png">
+            </div>
+            <div class="proposta-icones-apoiar-detalhe">
+              <div style="display: none">
+                <input value="" type="text">
+              </div>
+              <a href="#">
+                <img alt="" height="46" width="300"
+                    tal:attributes="src string:$static_url/apoiar_300px.png" />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-
-
-</body>
+    </div>
+  </body>
 </html>

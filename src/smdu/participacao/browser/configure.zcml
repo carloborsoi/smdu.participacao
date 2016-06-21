@@ -88,33 +88,33 @@
       permission="zope2.View"
       /> -->
 
-      <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
-      <browser:page
-          name="view"
-          for="..interfaces.IConsulta_Publica"
-          layer="..interfaces.ISmduParticipacaoLayer"
-          class=".views.ConsultaPublicaView"
-          template="templates/consulta_publica.pt"
-          permission="zope2.View"
-          />
+  <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+  <browser:page
+      name="view"
+      for="..interfaces.IConsulta_Publica"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.ConsultaPublicaView"
+      template="templates/consulta_publica.pt"
+      permission="zope2.View"
+      />
 
-      <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
-      <browser:page
-          name="view"
-          for="..interfaces.IProposta"
-          layer="..interfaces.ISmduParticipacaoLayer"
-          class=".views.PropostaView"
-          template="templates/proposta.pt"
-          permission="zope2.View"
-          />
+  <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+  <browser:page
+      name="view"
+      for="..interfaces.IProposta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.PropostaView"
+      template="templates/proposta.pt"
+      permission="zope2.View"
+      />
 
-          <!-- Browser view que recebe o apoio de uma proposta -->
-          <browser:page
-              name="proposta-apoiar"
-              for="..interfaces.IProposta"
-              layer="..interfaces.ISmduParticipacaoLayer"
-              class=".views.PropostaApoiaView"
-              permission="zope2.View"
-              />
+  <!-- Browser view que recebe via ajax o apoio a uma Proposta -->
+  <browser:page
+      name="proposta-apoiar"
+      for="..interfaces.IProposta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.PropostaApoiaView"
+      permission="zope2.View"
+      />
 
 </configure>

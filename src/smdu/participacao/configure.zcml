@@ -60,7 +60,7 @@
   <configure zcml:condition="installed plone.formwidget.geolocation">
     <!-- Integração collective.easyform com plone.formwidget.geolocation -->
     <utility
-        name="smdu.participacao.fields.geolocation"
+        name="smdu.participacao.geolocation"
         component=".geolocation.GeolocationFactory"
         />
     <utility
