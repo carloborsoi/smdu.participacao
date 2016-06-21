@@ -3,6 +3,8 @@
 import json
 from uuid import uuid4
 
+from DateTime import DateTime
+
 from Products.Five.browser import BrowserView
 from plone import api
 from zope.annotation.interfaces import IAnnotations
@@ -362,3 +364,33 @@ class PropostaApoiaView(BrowserView):
         # return action
 
         return msg
+
+class ExportaConsultaCSVView(BrowserView):
+    """ Browser view que exporta CSV com votação e comentários do conteudo Minuta
+    """
+
+    def __call__(self, REQUEST, RESPONSE):
+
+        consulta_exportada_csv = u'Planilha de dados da consulta pública\n'
+        consulta_exportada_csv += u"Titulo da Consulta:;%s;\n" % self.context.title
+        consulta_exportada_csv += u"Usuário:;%s;\n" % api.user.get_current().getUserName()
+        zope_DT = DateTime()
+        consulta_exportada_csv += u"Data:;%s;\n" % zope_DT
+        consulta_publica = self.context
+        propostas = consulta_publica.listFolderContents(contentFilter={"portal_type": "Proposta"})
+        for i, proposta in enumerate(propostas):
+            annotations_proposta = IAnnotations(proposta)
+            usuarios = ';'.join(annotations_proposta[APOIOS_KEY])
+            consulta_exportada_csv += u"Proposta: %d;\n" % (i+1)
+            consulta_exportada_csv += u"Título da proposta:;%s;\n" % proposta.title
+            consulta_exportada_csv += u"Descrição da proposta:;%s;\n" % proposta.description
+            consulta_exportada_csv += u"Justificativa:;%s;\n" % proposta.justificativa
+            consulta_exportada_csv += u"Endereço:;%s;\n" % proposta.endereco
+            consulta_exportada_csv += u"Bairro:;%s;\n" % proposta.bairro
+            consulta_exportada_csv += u"CEP:;%s;\n" % proposta.cep
+            consulta_exportada_csv += u"Usuários que apoiam:;%s;\n" % usuarios
+
+        RESPONSE.setHeader('Content-Type', 'text/csv; charset=ISO-8859-1')
+        RESPONSE.setHeader('Content-Length', len(consulta_exportada_csv))
+        RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio_Consulta_Publica.csv"')
+        return consulta_exportada_csv

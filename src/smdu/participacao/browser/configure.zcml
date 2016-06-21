@@ -117,4 +117,14 @@
       permission="zope2.View"
       />
 
+
+  <!-- Browser view de exportacao de dados da minuta para formato CSV -->
+  <browser:page
+      name="exportacao-consulta-csv"
+      for="..interfaces.IConsulta_Publica"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.ExportaConsultaCSVView"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>
