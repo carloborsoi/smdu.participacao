@@ -4,27 +4,27 @@
     $(document).ready(function() {
 
         function _bindLoginOverlay($this) {
-            $('.link-overlay', $this).prepOverlay({
-                subtype: 'ajax',
-                filter: common_content_filter,
-                formselector: 'form#login_form',
-                cssclass: 'overlay-login',
-                noform: function() {
-                    if (location.href.test(/pwreset_finish$/)) {
-                        return 'redirect';
-                    } else {
-                        return 'reload';
-                    }
-                },
-                redirect: function () {
-                    var href = location.href;
-                    if (href.test(/pwreset_finish$/)) {
-                        return href.slice(0, href.length - 14) + 'logged_in';
-                    } else {
-                        return href;
-                    }
-                }
-            });
+            // $('.link-overlay', $this).prepOverlay({
+            //     subtype: 'ajax',
+            //     filter: common_content_filter,
+            //     formselector: 'form#login_form',
+            //     cssclass: 'overlay-login',
+            //     noform: function() {
+            //         if (location.href.test(/pwreset_finish$/)) {
+            //             return 'redirect';
+            //         } else {
+            //             return 'reload';
+            //         }
+            //     },
+            //     redirect: function () {
+            //         var href = location.href;
+            //         if (href.test(/pwreset_finish$/)) {
+            //             return href.slice(0, href.length - 14) + 'logged_in';
+            //         } else {
+            //             return href;
+            //         }
+            //     }
+            // });
         }
 
         $('body').on('click', '.thumb-rating input[type=submit]', function(e) {
