@@ -12,7 +12,7 @@
         <div class="resultado-proposta-detalhe">
           <div class="proposta-detalhe">
             <div id="proposta-imagem-detalhe" class="proposta-imagem-detalhe">
-              <img tal:attributes="src string:${context/absolute_url}/@@download/imagem/previ" />
+              <img tal:attributes="src string:${context/absolute_url}/@@download/imagem/preview" />
             </div>
             <div class="proposta-descritivo-detalhe">
               <div class="proposta-descritivo-apoiada-detalhe">

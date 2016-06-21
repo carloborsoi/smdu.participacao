@@ -4,10 +4,8 @@
     i18n:domain="smdu.participacao">
 <body>
   <metal:content-core fill-slot="content-core">
-    <div id="content-core">
-      <div id="parent-fieldname-text"
-          tal:content="structure view/get_texto_com_avaliacoes" />
-    </div>
+    <div id="parent-fieldname-text"
+        tal:content="structure view/get_texto_com_avaliacoes" />
   </metal:content-core>
 </body>
 </html>

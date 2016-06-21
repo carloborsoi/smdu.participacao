@@ -16,7 +16,7 @@ class HiddenProfiles(object):
             'collective.js.jqueryui:common',
             'collective.js.jqueryui:default',
             'cioppino.twothumbs:default',
-            # 'eea.annotator:default',
+            'eea.annotator:default',
             'eea.annotator:uninstall',
             'eea.icons:default',
             'eea.icons:uninstall',
