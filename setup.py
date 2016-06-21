@@ -49,7 +49,7 @@ setup(
         'eea.annotator',
         'plone.app.lockingbehavior',
         # 'plone.app.referenceablebehavior',
-        'plone.app.stagingbehavior',
+        # 'plone.app.stagingbehavior',
         'plone.formwidget.geolocation',
         'pyquery',
         'WeasyPrint',
