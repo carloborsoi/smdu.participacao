@@ -3,23 +3,25 @@
     "use strict";
 
     $(document).ready(function() {
+
+      // Overlay de Proposta
       $(".proposta-link").prepOverlay({
-          subtype: 'ajax',
-          cssclass: 'proposta-overlay',
+          subtype: 'ajax'
       });
 
+      // Overlay de Criar uma nova proposta
       $(".proposta-adicionar").prepOverlay({
           subtype: 'ajax',
-          filter: common_content_filter,
-          cssclass: 'proposta-overlay',
+          filter: common_content_filter
       });
 
+      // Botao de Apoiar Proposta
       $(".apoiar-form").on("submit", function(e) {
-        e.preventDefault();
-        var url = $(this).attr("action");
-        $.post(url).done(function(data){
-          alert(data);
-        })
+          e.preventDefault();
+          var url = $(this).attr("action");
+          $.post(url).done(function(data) {
+              alert(data);
+          });
       });
 
     });
