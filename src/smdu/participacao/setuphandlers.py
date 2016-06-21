@@ -10,7 +10,10 @@ class HiddenProfiles(object):
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [
             'smdu.participacao:uninstall',
+            # 'collective.easyform:default',
             'collective.js.jqueryui:default',
+            # 'cioppino.twothumbs:default',
+            # 'eea.annotator:default',
             'eea.annotator:uninstall',
             'eea.icons:default',
             'eea.icons:uninstall',
@@ -50,6 +53,8 @@ class HiddenProfiles(object):
             'plone.app.versioningbehavior:default',
             'plone.formwidget.autocomplete:default',
             'plone.formwidget.contenttree:default',
+            'plone.formwidget.geolocation:default',
+            'plone.formwidget.geolocation:uninstall'
             'plone.formwidget.recurrence:default',
             'plone.formwidget.querystring:default',
         ]
