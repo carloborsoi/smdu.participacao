@@ -1,17 +1,65 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <registry>
 
-  <!-- eea.annotator: tipos de conteudo habilitados -->
+  <!-- Resource registries: registro de resources -->
+
+  <records prefix="plone.resources/smdu.participacao-minuta"
+      interface="Products.CMFPlone.interfaces.IResourceRegistry">
+    <value key="js">++resource++smdu.participacao/js/minuta.js</value>
+    <value key="css">
+      <element>++resource++smdu.participacao/css/minuta.css</element>
+    </value>
+  </records>
+
+  <records prefix="plone.resources/smdu.participacao-proposta"
+      interface="Products.CMFPlone.interfaces.IResourceRegistry">
+    <value key="js">++resource++smdu.participacao/js/proposta.js</value>
+    <value key="css">
+      <element>++resource++smdu.participacao/css/proposta.css</element>
+    </value>
+  </records>
+
+  <!-- Resource registries: registro de bundle -->
+
+  <records prefix="plone.bundles/smdu.participacao"
+      interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <!-- <value key="merge_with">default</value> -->
+    <value key="resources">
+      <element>smdu.participacao-minuta</element>
+      <element>smdu.participacao-proposta</element>
+    </value>
+    <value key="depends">plone</value>
+    <value key="enabled">True</value>
+    <value key="compile">True</value>
+    <value key="jscompilation">++resource++smdu.participacao/compiled/smdu.participacao-compiled.js</value>
+    <value key="csscompilation"></value>
+    <value key="last_compilation">2016-06-21 00:00:00</value>
+    <value key="stub_js_modules">
+      <element>jquery</element>
+    </value>
+  </records>
+
+  <!-- eea.annotator: Tipos de conteudo habilitados -->
+
   <record name="eea.annotator.controlpanel.interfaces.ISettings.portalTypes" interface="eea.annotator.controlpanel.interfaces.ISettings" field="portalTypes">
     <value>
       <!-- TODO: garantir que tipo de conteudo foi instalado antes de executar este passo -->
-      <!-- <element>Minuta</element> -->
+      <element>Minuta</element>
     </value>
   </record>
 
-  <!-- eea.annotator: evitar selecoes duplicadas -->
+  <!-- eea.annotator: Evitar selecoes duplicadas -->
+
   <record name="eea.annotator.controlpanel.interfaces.ISettings.noDuplicates" interface="eea.annotator.controlpanel.interfaces.ISettings" field="noDuplicates">
     <value>True</value>
   </record>
+
+  <!-- TinyMCE: registro de estilos -->
+
+  <records interface="Products.CMFPlone.interfaces.ITinyMCESchema" prefix="plone">
+    <value key="block_styles" purge="false">
+      <element>Bloco avaliável|div|paragrafo</element>
+    </value>
+  </records>
 
 </registry>
