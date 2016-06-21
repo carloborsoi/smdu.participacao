@@ -10,9 +10,12 @@ class HiddenProfiles(object):
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [
             'smdu.participacao:uninstall',
-            # 'collective.easyform:default',
+            'archetypes.multilingual:default',
+            'archetypes.multilingual:uninstall',
+            'collective.easyform:default',
+            'collective.js.jqueryui:common',
             'collective.js.jqueryui:default',
-            # 'cioppino.twothumbs:default',
+            'cioppino.twothumbs:default',
             # 'eea.annotator:default',
             'eea.annotator:uninstall',
             'eea.icons:default',
@@ -45,18 +48,27 @@ class HiddenProfiles(object):
             'eea.jquery:25-rememberstate',
             'eea.jquery:26-knob',
             'eea.jquery:27-dracula',
+            'eea.jquery:28-browser',
             'plone.app.debugtoolbar:uninstall',
             'plone.app.event.at:default',
+            'plone.app.iterate',
+            'plone.app.iterate:default',
+            'plone.app.jquery:initial-upgrade',
             'plone.app.querystring:upgrade_to_3',
             'plone.app.querystring:upgrade_to_5',
             'plone.app.relationfield:default',
             'plone.app.versioningbehavior:default',
+            'plone.app.widgets:default',
             'plone.formwidget.autocomplete:default',
             'plone.formwidget.contenttree:default',
-            'plone.formwidget.geolocation:default',
+            # 'plone.formwidget.geolocation:default',
             'plone.formwidget.geolocation:uninstall'
             'plone.formwidget.recurrence:default',
             'plone.formwidget.querystring:default',
+            'plone.patternslib:default',
+            'Products.ATContentTypes:base',
+            'Products.ATContentTypes:content',
+            'Products.ATContentTypes:default',
         ]
 
 
