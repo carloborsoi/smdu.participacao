@@ -1,18 +1,31 @@
+<html tal:define="portal_url context/@@plone_portal_state/portal_url;
+                  static_url string:$portal_url/++resource++smdu.participacao">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <link rel="stylesheet"
-      tal:define="url context/@@plone_tools/url"
-      tal:attributes="src string:${url/portal_url}/++resource++smdu.participacao/print.css">
+      tal:attributes="src string:$static_url/print.css">
 </head>
+<body>
+  <base tal:attributes="href portal_url" />
+  <div class="portaltype-minuta minuta-content">
 
-<div class="type-minuta content-body">
+    <div class="minuta-header">
+      <div class="minuta-header-logo">
+        <img tal:attributes="src string:$static_url/logo-smdu.png">
+      </div>
+      <h1 class="minuta-header-title">Minuta Participativa:</h1>
+      <h2 class="minuta-header-subheading">Relatório de votação e comentários</h2>
+    </div>
 
-  <h1 class="minuta-title" tal:content="context/Title" />
+    <h3 class="minuta-title" tal:content="context/Title" />
 
-  <h4 class="minuta-description" tal:content="context/Description" />
+    <h4 class="minuta-description" tal:content="context/Description" />
 
-  <div class="minuta-body">
-    <div tal:condition="exists:context/text" tal:replace="structure view/get_texto_exporta_pdf" />
+    <div class="minuta-body">
+      <div tal:condition="exists:context/text"
+          tal:replace="structure view/get_texto_exporta_pdf" />
+    </div>
+
   </div>
-
-</div>
+</body>
+</html>

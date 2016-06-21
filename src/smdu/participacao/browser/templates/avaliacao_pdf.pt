@@ -4,28 +4,24 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
-      i18n:domain="cioppino.twothumbs">
+      i18n:domain="smdu.participacao">
   <div class="votacao_paragrafo"
-      tal:define="usuarios view/get_usuarios_votantes; total view/get_total;">
-
+      tal:define="usuarios view/get_usuarios_votantes; total view/get_total">
       <span tal:replace="structure context/@@authenticator/authenticator" />
-
       <p>
         Total de pessoas que concordam com este parágrafo:
-        <span tal:content="total/concordancias" />
-        votos.
+        <span tal:content="total/concordancias" /> votos.
       </p>
       <p>
         Usuário que concordaram com o parágrafo:
         <span tal:content="usuarios/concordancias" />
       </p>
       <p>
-        Total de pessoas que discordam com este parágrafo:
-        <span tal:content="total/discordancias" />
-        votos.
+        Total de pessoas que discordam deste parágrafo:
+        <span tal:content="total/discordancias" /> votos.
       </p>
       <p>
-        Usuário que discordaram com o parágrafo:
+        Usuários que discordaram do parágrafo:
         <span tal:content="usuarios/discordancias" />
       </p>
   </div>

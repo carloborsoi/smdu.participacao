@@ -1,43 +1,61 @@
 @page {
-    margin: 3cm 2cm;
-    padding-left: 1.5cm;
+    margin: 1cm 1.5cm 2cm;
     @top-center {
-        background: #005a9c;
-        color: #fff;
-        border-bottom: 0.5pt solid;
-        content: "Relatório de votação e comentários da Minuta Participativa";
-        vertical-align: middle;
-        width: 100%;
-        height: 24px;
+        border-bottom: 0.5pt solid #005a9c;
+        color: #005a9c;
     }
     @bottom-right {
-        content: "Pagina " counter(page) " de " counter(pages);
+        content: "Página " counter(page) " de " counter(pages);
+        color: #666;
+        font-size: 8pt;
     }
     /*@left-top {
-        background: #005a9c;
-        color: #fff;
-        content: "SMDU - Prefeitura de Sao Paulo";
-        text-align: right;
-        transform: rotate(-90deg);
-        transform-origin: 100% 0;
+         background: #005a9c;
+         color: #fff;
+         content: "SMDU - Prefeitura de Sao Paulo";
+         text-align: right;
+         transform: rotate(-90deg);
+         transform-origin: 100% 0;
     }*/
 }
 
-body {
-    text-align: justify;
-    font-size:8px;
+.minuta-header {
+    border-bottom: 1pt solid #ccc;
+    text-align: center;
 }
 
+.minuta-header-logo {
+}
 
-h1 {
+.minuta-header-title {
+    color: #c00;
+}
+
+.minuta-header-subheading {
+    color: #c33;
+    font-size: 14pt;
+    margin: 0 0 0.5cm;
+}
+
+.minuta-title {
+    font-size: 24pt;
     -weasy-bookmark-level: none;
 }
 
-table {
-    background: #666;
+.minuta-description {
+    font-size: 14pt;
+}
+
+.minuta-body {
+    font-size: 10pt;
+    text-align: justify;
 }
 
 .votacao_paragrafo {
     background: #EDEDED;
     font-size:8px;
+}
+
+table {
+    background: #666;
 }
