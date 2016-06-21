@@ -23,7 +23,7 @@
 
   <records prefix="plone.bundles/smdu.participacao"
       interface="Products.CMFPlone.interfaces.IBundleRegistry">
-    <!-- <value key="merge_with">default</value> -->
+    <value key="merge_with">default</value>
     <value key="resources">
       <element>smdu.participacao-minuta</element>
       <element>smdu.participacao-proposta</element>
@@ -61,5 +61,14 @@
       <element>Bloco avaliável|div|paragrafo</element>
     </value>
   </records>
+
+  <!-- TinyMCE CSS: inclui estilos do site -->
+
+  <record name="plone.content_css" interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema" field="content_css">
+    <value>
+      <element>++plone++static/components/tinymce-builded/js/tinymce/skins/lightgray/content.min.css</element>
+      <element>++resource++smdu.participacao/css/minuta.css</element>
+    </value>
+  </record>
 
 </registry>
