@@ -16,9 +16,9 @@
   <!-- Perfil Generic Setup de instalação -->
   <genericsetup:registerProfile
       name="default"
-      title="smdu.participacao"
+      title="SMDU - Participação"
       directory="profiles/default"
-      description="Installs the smdu.participacao add-on."
+      description="Instala o addon smdu.participacao (Plone 5)"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       post_handler=".setuphandlers.post_install"
       />
@@ -26,9 +26,9 @@
   <!-- Perfil Generic Setup de desinstalação -->
   <genericsetup:registerProfile
       name="uninstall"
-      title="smdu.participacao (uninstall)"
+      title="SMDU - Participação (uninstall)"
       directory="profiles/uninstall"
-      description="Uninstalls the smdu.participacao add-on."
+      description="Desinstala o addon smdu.participacao"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       post_handler=".setuphandlers.uninstall"
       />
