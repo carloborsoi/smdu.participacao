@@ -1,36 +1,41 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-    lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
     metal:use-macro="context/main_template/macros/master"
     i18n:domain="smdu.participacao">
   <body>
     <metal:content-core fill-slot="content-core">
-      <p tal:content="structure context/text/output"></p>
+      <p tal:condition="context/text"
+          tal:content="structure context/text/output"></p>
       <div id="content-core">
         <div class="propostas ">
           <div class="proposta-apresentada">
             <!-- Inicio do loop de Propostas -->
             <tal:propostas repeat="proposta view/propostas">
               <div class="proposta-apresentada-caixa">
-                <a class="proposta-link" style="cursor: pointer"
+                <a class="proposta-link pat-plone-modal" data-pat-plone-modal="{'content': '#content-core'}"
+                    style="cursor: pointer"
                     tal:attributes="href proposta/getURL">
-                  <div class="proposta-imagem"
-                      style="background: url(../wp-content/uploads/wifi/largo-da-batata-google-maps2.jpg) no-repeat; background-color: #E6E6E6; background-size: cover; background-position: center center; background-clip: content-box;">
+                  <div class="proposta-imagem">
                     <img height="160" width="220"
-                        tal:attributes="src string:${proposta/getURL}/@@download/imagem/${proposta/imagem}" />
+                        tal:attributes="src string:${proposta/getURL}/@@download/imagem/preview;
+                                        alt proposta/Title" />
                   </div>
                   <div class="proposta-quantidade-apoios">
-                    <span tal:content="proposta/obj/view/get_contagem_apoios">CONTAGEM</span> <span> apoiadas</span>
+                    <span tal:content="python:view.get_total_apoios(proposta)">CONTAGEM</span> <span> apoiadas</span>
                   </div>
                 </a>
                 <div class="proposta-informacao">
                   <a class="proposta-link" style="cursor: pointer"
                       tal:attributes="href proposta/getURL">
                     <div class="proposta-descritivo">
-                      <div class="proposta-titulo" tal:content="proposta/titulo">
+                      <div class="proposta-titulo" tal:content="proposta/Title">
                         TITULO DA PROPOSTA
                         <div class="proposta-linha"></div>
                       </div>
-                      <div class="proposta-descricao-curta" tal:content="proposta/descricao_curta">
+                      <div class="proposta-descricao-curta"
+                          tal:define="plone_view context/@@plone;
+                                      descricao_curta python:plone_view.cropText(proposta.Description, 200)"
+                          tal:content="descricao_curta">
                         DESCRICAO CURTA DA PROPOSTA
                       </div>
                     </div>
@@ -39,7 +44,7 @@
                     <div class="proposta-icones-compartilhar">
                       <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" style="border: 0;">
                         <img alt="Compartilhar" width="40" height="40"
-                        tal:attributes="src string:${portal_url}/++resource++smdu.participacao/compartilhar.png" />
+                        tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/compartilhar.png" />
                       </a>
                     </div>
                     <div class="proposta-icones-apoiar">
@@ -56,11 +61,11 @@
             <!-- fim do loop de Propostas -->
             <div class="proposta-apresentada">
               <div class="proposta-apresentada-caixa resultinternoMinhocaoPropostaInterno">
-                <a href="./++add++Proposta" class="proposta-adicionar">
+                <a href="./++add++Proposta" class="proposta-adicionar pat-plone-modal">
                   <div class="resultinternoMinhocaoPropostaInternoEnviar">
                     <span></span>
                     <img alt="Envie sua proposta"
-                        tal:attributes="src string:${portal_url}/++resource++smdu.participacao/envie-proposta.png" />
+                        tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/envie-proposta.png" />
                   </div>
                   <div class="resultinternoMinhocaoPropostaInternoTexto">
                     <div class="resultinternoMinhocaoPropostaInternoTextoCima">

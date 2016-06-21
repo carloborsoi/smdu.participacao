@@ -272,7 +272,7 @@ class ExportaMinutaPDFView(MinutaView):
         base_url = '{0}/++resource++smdu.participacao/'.format(portal_url)
         html = HTML(string=content, base_url=base_url)
         stylesheets = []
-        with open('src/smdu/participacao/browser/static/print.css', 'r') as css:
+        with open('src/smdu/participacao/browser/static/css/print.css', 'r') as css:
             stylesheets.append(CSS(string=css.read()))
         minuta_exportada_pdf = html.write_pdf(stylesheets=stylesheets)
 
@@ -286,29 +286,20 @@ class ConsultaPublicaView(BrowserView):
     """ Browser view padrão do tipo de conteúdo Consulta Pública
     """
 
+    @memoize
     def propostas(self):
-        resultados = []
-        portal_catalog = api.portal.get_tool('portal_catalog')
+        catalog = api.portal.get_tool('portal_catalog')
         current_path = "/".join(self.context.getPhysicalPath())
+        brains = catalog(portal_type="Proposta", path=current_path)
+        return brains
 
-        brains = portal_catalog(portal_type="Proposta",
-                                path=current_path)
-        for brain in brains:
-            proposta = brain.getObject()
-            descricao = brain.Description
-            tamanho = 200
-            # Limita texto descartando ultima palavra, que pode estar truncada
-            descricao_curta = ' '.join(descricao[:tamanho + 1].split(' ')[0:-1]) + '...' \
-                if len(descricao) > tamanho else descricao
-            resultados.append({
-                'id': brain.id,
-                'titulo': brain.Title,
-                'descricao': descricao,
-                'descricao_curta': descricao_curta,
-                'imagem': proposta.imagem.filename,
-                'obj': proposta
-            })
-        return resultados
+    def get_total_apoios(self, proposta):
+        """ Retorna o total de apoios obtidos
+        """
+        proposta = proposta.getObject()
+        annotations = IAnnotations(proposta)
+        total = len(annotations[APOIOS_KEY])
+        return total
 
 
 class PropostaView(BrowserView):
@@ -317,13 +308,6 @@ class PropostaView(BrowserView):
     def __init__(self, context, request):
         super(PropostaView, self).__init__(context, request)
         self.annotations = apoiar_proposta.inicializa_apoios(self.context)
-
-    def get_contagem_apoios(self):
-        """ Retorna o númeor de apoios obtidos
-        """
-        annotations = IAnnotations(self.context)
-        contagem = len(annotations[APOIOS_KEY])
-        return contagem
 
 
 class PropostaApoiaView(BrowserView):
@@ -364,6 +348,7 @@ class PropostaApoiaView(BrowserView):
         # return action
 
         return msg
+
 
 class ExportaConsultaCSVView(BrowserView):
     """ Browser view que exporta CSV com votação e comentários do conteudo Minuta
