@@ -1,10 +1,8 @@
 <html tal:omit-tag=""
       xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      i18n:domain="cioppino.twothumbs">
+      lang="en">
   <div class="thumb-rating"
       tal:define="meu_voto view/meu_voto; total view/get_total">
     <form method="post"
