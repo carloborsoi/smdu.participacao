@@ -1,5 +1,4 @@
-.propostas .resultinterno
-{
+.propostas .resultinterno {
     float: left;
     min-height: 268px;
     max-height: 380px;
@@ -9,8 +8,7 @@
     margin-top: 20px;
 }
 
-.proposta-apresentada
-{
+.proposta-apresentada {
     background-color: #E6E6E6;
     height: auto;
     max-height: auto;
@@ -20,8 +18,7 @@
     max-width: 945px;
 }
 
-.propostas .proposta-apresentada-caixa
-{
+.propostas .proposta-apresentada-caixa {
     float: left;
     width: 220px;
     height: 470px;
@@ -32,37 +29,27 @@
     overflow: hidden;
 }
 
-.proposta-imagem
-{
+.proposta-imagem {
     width: 220px;
     height: 160px;
-    -webkit-border-radius: 10px 10px 0px 0px;
-    -moz-border-radius: 10px 10px 0px 0px;
-    -khtml-border-radius: 10px 10px 0px 0px;
-    border-radius: 10px 10px 0px 0px;
     border-bottom: 1px solid #646464;
+    border-radius: 10px 10px 0 0;
     padding: 0;
     overflow: hidden;
 }
 
-.proposta-informacao
-{
-    //border: 1px solid yellow;
-    height: 280px;
+.proposta-informacao {
+    /*border: 1px solid yellow;*/
     background: white;
-    -webkit-border-radius: 0px 0px 10px 10px;
-    -moz-border-radius: 0px 0px 0px 10px;
-    -khtml-border-radius: 0px 0px 10px 10px;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0 0 10px 10px;
+    height: 280px;
 }
 
-.proposta-descritivo
-{
+.proposta-descritivo {
     height: 210px;
 }
 
-.proposta-quantidade-apoios
-{
+.proposta-quantidade-apoios {
     width: 220px;
     height: 20px;
     line-height: 20px;
@@ -71,105 +58,79 @@
     left: 20px;
 }
 
-.proposta-quantidade-apoios span
-{
+.proposta-quantidade-apoios span {
     padding-left: 20px;
 }
 
-.proposta-titulo
-{
-    padding: 18px 20px 0px 20px;
-    //border: 1px solid yellow;
+.proposta-titulo {
+    padding: 18px 20px 0 20px;
+    /*border: 1px solid yellow;
+    height: 30px;*/
     height: auto;
-    // height: 30px;
     font-size: 16px;
     font-weight: bold;
-    color: #333333;
+    color: #333;
     line-height: 120%;
 }
 
-.proposta-linha
-{
-    padding-top:  8px;
+.proposta-linha {
+    padding-top: 8px;
     border-bottom: 1px solid #C8C8C8;
 }
 
-.proposta-descricao-curta
-{
+.proposta-descricao-curta {
     padding: 8px 20px 10px 20px;
-    //border: 1px solid yellow;
+    /*border: 1px solid yellow;
+    height: 150px;*/
     height: auto;
-   // height: 150px;
-    color: #333333;
+    color: #333;
     line-height: 120%;
 }
 
-.proposta-icones
-{
-    padding: 10px 20px 0px 20px;
-    //border: 1px solid yellow;
+.proposta-icones {
+    /*border: 1px solid yellow;*/
+    padding: 10px 20px 0 20px;
     height: 45px;
     max-height: 45px;
 }
 
-.proposta-icones-compartilhar
-{
+.proposta-icones-compartilhar {
     float: left;
     height: 40px;
-    //padding-top: 20px;
+    /*padding-top: 20px;*/
 }
 
-.proposta-icones-apoiar
-{
+.proposta-icones-apoiar {
     float: right;
     height: 45px;
     max-height: 45px;
 }
 
-.propostas .proposta-apresentada-caixa .resultinternoMinhocaoProposta
-{
+.propostas .proposta-apresentada-caixa .resultinternoMinhocaoProposta {
     width: 220px;
     height: 461px;
-    /*-webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;*/
-    /*border: 1px solid #646464;*/
+    /*border-radius: 10px;
+    border: 1px solid #646464;*/
     background-color: #E6E6E6;
     overflow: hidden;
 }
 
-.propostas .proposta-apresentada-caixa .resultinternoMinhocaoProposta .resultinternoMinhocaoPropostaInterno
-{
+.propostas .proposta-apresentada-caixa .resultinternoMinhocaoProposta .resultinternoMinhocaoPropostaInterno {
     width: 216px;
     height: 457px;
-    /*-webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;*/
+    /*border-radius: 10px;*/
     /*border: 1px solid #646464;*/
     background-color: #E6E6E6;
     overflow: hidden;
-
-    -webkit-border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -khtml-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
-    border-top: 2px dashed #646464;
-    border-left: 2px dashed #646464;
-    border-right: 2px dashed #646464;
-    border-bottom: 2px dashed #646464;
+    border: 2px dashed #646464;
 }
 
-.resultinternoMinhocaoPropostaInternoEnviar
-{
+.resultinternoMinhocaoPropostaInternoEnviar {
     width: 216px;
     height: 229px;
-    /*-webkit-border-radius: 10px 10px 0px 0px;
-    -moz-border-radius: 10px 10px 0px 0px;
-    -khtml-border-radius: 10px 10px 0px 0px;
-    border-radius: 10px 10px 0px 0px;*/
-    background: #CCCCCC;
+    /*border-radius: 10px 10px 0 0;*/
+    background: #CCC;
     background-size: cover;
     background-position: center center;
     background-clip: content-box;
@@ -178,109 +139,92 @@
     text-align: center;
 }
 
-.resultinternoMinhocaoPropostaInternoEnviar span
-{
+.resultinternoMinhocaoPropostaInternoEnviar span {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
 }
 
-.resultinternoMinhocaoPropostaInternoEnviar img
-{
+.resultinternoMinhocaoPropostaInternoEnviar img {
     display: inline-block;
     vertical-align: middle;
 }
 
-.resultinternoMinhocaoPropostaInternoTexto
-{
+.resultinternoMinhocaoPropostaInternoTexto {
     width: 216px;
     height: 228px;
-    /*-webkit-border-radius: 0px 0px 10px 10px;
-    -moz-border-radius: 0px 0px 10px 10px;
-    -khtml-border-radius: 0px 0px 10px 10px;
-    border-radius: 0px 0px 10px 10px;*/
+    /*border-radius: 0 0 10px 10px;*/
     padding: 0;
     overflow: hidden;
 }
 
-.resultinternoMinhocaoPropostaInternoTextoCima
-{
+.resultinternoMinhocaoPropostaInternoTextoCima {
     color: black;
     font-size: 16px;
     font-weight: bold;
     color: #5C5C5C;
     line-height: 120%;
     float: left;
-    padding: 15px 45px 0px 45px;
+    padding: 15px 45px 0 45px;
 }
 
-.resultinternoMinhocaoPropostaInternoTextoBaixo
-{
+.resultinternoMinhocaoPropostaInternoTextoBaixo {
     color: black;
     font-size: 13px;
     color: #5C5C5C;
     line-height: 120%;
     float: left;
-    padding: 15px 45px 0px 45px;
+    padding: 15px 45px 0 45px;
 }
 
-.propostas .linha
-{
+.propostas .linha {
     margin-top: 3px;
     margin-bottom: 3px;
     margin-left: 2px;
     margin-right: 2px;
 }
 
-.propostas .parametros
-{
-    /*float: left;*/
-    /*margin-bottom: 30px;*/
+.propostas .parametros {
+    /*float: left;
+    margin-bottom: 30px;*/
     margin-left: 2px;
     margin-right: 2px;
 }
 
-.propostas .parametros div
-{
+.propostas .parametros div {
     margin-top: 3px;
     margin-bottom: 3px;
     color: #C81400;
 }
 
-.floatComment #comments
-{
+.floatComment #comments {
     float: left;
 }
 
-.jqueryuifontsize span
-{
+.jqueryuifontsize span {
     font-size: small;
 }
 
-.radioBlock span.wpcf7-list-item
-{
+.radioBlock span.wpcf7-list-item {
     display: block;
 }
 
 /*Visualização do pop up com informações detalhadas de uma proposta*/
 
-.resultado-proposta-detalhe
-{
-    //float: left;
-    //width: 100%;
-    margin: 10px 8px 8px 8px;
+.resultado-proposta-detalhe {
+    /*float: left;
+    width: 100%;*/
+    margin: 10px 8px 8px;
     background-color: white;
 }
 
-.proposta-detalhe
-{
+.proposta-detalhe {
     max-width: 100%;
-    //background-color: #E6E6E6;
+    /*background-color: #E6E6E6;*/
     overflow: hidden;
 }
 
-.proposta-imagem-detalhe
-{
+.proposta-imagem-detalhe {
     width: 60%;
     float: left;
     height: 360px;
@@ -290,14 +234,12 @@
     overflow: hidden;
 }
 
-.proposta-descritivo-detalhe
-{
+.proposta-descritivo-detalhe {
     width: 40%;
     float: left;
 }
 
-.proposta-descritivo-apoiada-detalhe
-{
+.proposta-descritivo-apoiada-detalhe {
     width: 100%;
     height: 20px;
     line-height: 20px;
@@ -305,95 +247,84 @@
     color: white;
     left: 20px;
     float: left;
-    //margin: 0px 0px 0px 20px;
+    /*margin: 0 0 0 20px;*/
 }
 
-
-
-.proposta-descritivo-titulo-detalhe
-{
+.proposta-descritivo-titulo-detalhe {
     padding-top: 18px;
-    margin: 18px 20px 0px 20px;
-    //width: 100%;
-    //border: 1px solid yellow;
+    margin: 18px 20px 0 20px;
+    /*width: 100%;
+    border: 1px solid yellow;*/
     height: auto;
     font-size: 16px;
     font-weight: bold;
-    color: #333333;
+    color: #333;
     line-height: 120%;
     float: left;
 }
 
-.proposta-linha-detalhe
-{
+.proposta-linha-detalhe {
     width: 100%;
-    padding-top:  8px;
+    padding-top: 8px;
     border-bottom: 1px solid #C8C8C8;
     float: left;
 }
 
-.proposta-linha-descricao-detalhe
-{
+.proposta-linha-descricao-detalhe {
     padding-top: 8px;
     margin: 8px 20px 10px 20px;
-    //width: 100%;
-    //border: 1px solid yellow;
+    /*width: 100%;
+    border: 1px solid yellow;*/
     height: auto;
     color: #333333;
     line-height: 120%;
     float: left;
-    //width: 100%;
+    /*width: 100%;*/
 }
 
-.proposta-justificativa-detalhe
-{
+.proposta-justificativa-detalhe {
     padding-top: 8px;
     width: 100%;
     float: left;
-    color: #333333;
+    color: #333;
 }
 
-.proposta-justificativa-detalhe
-{
+.proposta-justificativa-detalhe {
     width: 100%;
     float: left;
 }
 
-.proposta-justificativa-titulo-detalhe
-{
+.proposta-justificativa-titulo-detalhe {
     width: 100%;
-    margin: 18px 20px 0px 0px;
-    //border: 1px solid yellow;
+    margin: 18px 20px 0 0;
+    /*border: 1px solid yellow;*/
     height: auto;
     font-size: 16px;
     font-weight: bold;
-    color: #333333;
+    color: #333;
     line-height: 120%;
     float: left;
 }
 
-.proposta-icones-detalhe
-{
+.proposta-icones-detalhe {
     float: left;
     width: 100%;
-    padding: 5px 20px 0px 20px;
-    //border: 1px solid yellow;
+    padding: 5px 20px 0 20px;
+    /*border: 1px solid yellow;*/
     height: 46px;
     max-height: 46px;
 }
-.proposta-icones-compartilhar-detalhe
-{
+
+.proposta-icones-compartilhar-detalhe {
     float: left;
     height: 46px;
 }
 
-.proposta-icones-compartilhar-detalhe img
-{
+.proposta-icones-compartilhar-detalhe img {
     cursor: pointer;
 }
 
-.proposta-icones-apoiar-detalhe
-{
+.proposta-icones-apoiar-detalhe {
     float: right;
     height: 46px;
     max-height: 46px;
@@ -405,16 +336,16 @@ form input.botao-apoiar {
     max-height: 45px;
     padding: 0 40px;
     background-color:transparent;
-	  background-image: url(++resource++smdu.participacao/apoiar.png);
+	background-image: url(++resource++smdu.participacao/apoiar.png);
     background-repeat: no-repeat;
-    border-width: 0;
+    border: 0;
     cursor: pointer;
     text-indent: -3000px;
     white-space: nowrap;
 }
 
 /* Reset button styles of Plone 5  */
-form input.botao-apoiar:hover{
+form input.botao-apoiar:hover {
     box-shadow: none;
     background-color: transparent;
 }
