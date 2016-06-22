@@ -7,7 +7,7 @@ from zope.annotation.interfaces import IAnnotations
 from smdu.participacao import APOIOS_KEY
 
 
-def inicializa_apoios(context):
+def get_anno_apoios(context):
     """ Inicializa o objeto de anotações caso ainda não exista.
     """
     annotations = IAnnotations(context)

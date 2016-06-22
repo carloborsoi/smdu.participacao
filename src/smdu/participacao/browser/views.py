@@ -291,7 +291,10 @@ class ConsultaPublicaView(BrowserView):
         """
         proposta = proposta.getObject()
         annotations = IAnnotations(proposta)
-        total = len(annotations[APOIOS_KEY])
+        if APOIOS_KEY in annotations:
+            total = len(annotations[APOIOS_KEY])
+        else:
+            total = 0
         return total
 
 
@@ -300,14 +303,14 @@ class PropostaView(BrowserView):
     """
     def __init__(self, context, request):
         super(PropostaView, self).__init__(context, request)
-        self.annotations = apoiar_proposta.inicializa_apoios(self.context)
+        self.annotations = apoiar_proposta.get_anno_apoios(self.context)
 
 
 class PropostaApoiaView(BrowserView):
     """ Browser view que habilita o apoio à uma proposta.
     """
     def __call__(self, REQUEST, RESPONSE):
-        annotations = IAnnotations(self.context)
+        annotations =  apoiar_proposta.get_anno_apoios(self.context)
         if api.user.is_anonymous():
             return RESPONSE.redirect(
                 '%s/login?came_from=%s' %
@@ -344,7 +347,7 @@ class PropostaApoiaView(BrowserView):
 
 
 class ExportaConsultaCSVView(BrowserView):
-    """ Browser view que exporta CSV com votação e comentários do conteudo Minuta
+    """ Browser view que exporta CSV com votação e comentários do conteudo Consulta Pública
     """
 
     def __call__(self, REQUEST, RESPONSE):
