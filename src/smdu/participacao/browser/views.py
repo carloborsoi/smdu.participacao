@@ -188,14 +188,7 @@ class AvaliacaoVotaView(LikeThisShizzleView):
         else:
             resultado = rate.get_total(self.context, paragrafo_id)
             resultado['action'] = action
-            # Traduz mensagem de confirmação da votação
-            translate = self._get_translator()
-            ltool = api.portal.get_tool(name='portal_languages')
-            target_language = ltool.getPreferredLanguage()
-            resultado['msg'] = translate(
-                _get_message(action),
-                target_language=target_language
-            )
+            resultado['msg'] = _get_message(action)
             # Devolve resposta json para solicitação ajax
             response_json = json.dumps(resultado)
             RESPONSE.setHeader('Content-Type',
