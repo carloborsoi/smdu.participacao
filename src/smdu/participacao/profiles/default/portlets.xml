@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlets>
+  <assignment name="comentarios"
+      manager="plone.rightcolumn"
+      category="context"
+      key="/"
+      type="portlets.AnnotatorInlineComments">
+    <property name="label">Comentarios</property>
+  </assignment>
+</portlets>
