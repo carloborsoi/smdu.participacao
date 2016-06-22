@@ -29,6 +29,10 @@
     overflow: hidden;
 }
 
+.proposta-link {
+    cursor: pointer;
+}
+
 .proposta-imagem {
     width: 220px;
     height: 160px;

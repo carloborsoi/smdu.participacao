@@ -13,7 +13,6 @@
             <tal:propostas repeat="proposta view/propostas">
               <div class="proposta-apresentada-caixa">
                 <a class="proposta-link pat-plone-modal" data-pat-plone-modal="{'content': '#content-core'}"
-                    style="cursor: pointer"
                     tal:attributes="href proposta/getURL">
                   <div class="proposta-imagem">
                     <img height="160" width="220"
@@ -25,7 +24,7 @@
                   </div>
                 </a>
                 <div class="proposta-informacao">
-                  <a class="proposta-link" style="cursor: pointer"
+                  <a class="proposta-link"
                       tal:attributes="href proposta/getURL">
                     <div class="proposta-descritivo">
                       <div class="proposta-titulo" tal:content="proposta/Title">
@@ -33,8 +32,8 @@
                         <div class="proposta-linha"></div>
                       </div>
                       <div class="proposta-descricao-curta"
-                          tal:define="plone_view context/@@plone;
-                                      descricao_curta python:plone_view.cropText(proposta.Description, 200)"
+                          tal:define="plone_utils context/@@plone;
+                                      descricao_curta python:plone_utils.cropText(proposta.Description, 200)"
                           tal:content="descricao_curta">
                         DESCRICAO CURTA DA PROPOSTA
                       </div>

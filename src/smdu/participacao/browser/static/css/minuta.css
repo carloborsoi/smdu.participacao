@@ -1,3 +1,7 @@
+.annotator-adder button:hover {
+    background-color: transparent;
+}
+
 .thumb-rating {
     float: none;
 }
