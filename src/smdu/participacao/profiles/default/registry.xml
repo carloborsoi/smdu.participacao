@@ -54,15 +54,48 @@
     <value>False</value>
   </record>
 
-  <!-- TinyMCE: registro de estilos -->
+  <!-- TinyMCE: registro de formatos de bloco -->
 
   <records interface="Products.CMFPlone.interfaces.ITinyMCESchema" prefix="plone">
     <value key="block_styles" purge="false">
-      <element>Bloco avaliável|div|paragrafo</element>
+      <element>Bloco avaliável|paragrafo-bloco</element>
     </value>
   </records>
 
-  <!-- TinyMCE CSS: inclui estilos do site -->
+  <!-- TinyMCE: registro de formatos inline -->
+
+  <record name="plone.inline_styles" interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema" field="inline_styles">
+    <value purge="false">
+      <element>Bloco avaliável|paragrafo-inline|paragrafo-inline</element>
+    </value>
+  </record>
+
+  <!-- TinyMCE: definições de formatos -->
+
+  <record name="plone.formats" interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema" field="formats">
+    <value>
+    {
+      "clearfix": {
+        "block": "div",
+        "classes": "clearfix"
+      },
+      "discreet": {
+        "inline": "span",
+        "classes": "discreet"
+      },
+      "paragrafo-bloco": {
+        "block": "p",
+        "classes": "paragrafo"
+      },
+      "paragrafo-inline": {
+        "inline": "span",
+        "classes": "paragrafo"
+      }
+    }
+    </value>
+  </record>
+
+  <!-- TinyMCE: inclusão de estilos CSS do site -->
 
   <record name="plone.content_css" interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema" field="content_css">
     <value>

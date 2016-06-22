@@ -34,7 +34,7 @@
 }
 
 .paragrafo-wrapper,
-.mceContentBody .paragrafo {
+.mce-content-body .paragrafo {
     margin: 1em 0;
     outline: 1px dashed orange;
     padding: 0.5em 1em;
