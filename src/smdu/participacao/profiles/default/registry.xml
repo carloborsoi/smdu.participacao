@@ -3,6 +3,13 @@
 
   <!-- Resource registries: registro de resources -->
 
+  <records prefix="plone.resources/smdu.participacao-icon-types"
+      interface="Products.CMFPlone.interfaces.IResourceRegistry">
+    <value key="css">
+      <element>++resource++smdu.participacao/css/smdu-icon-types.css</element>
+    </value>
+  </records>
+
   <records prefix="plone.resources/smdu.participacao-minuta"
       interface="Products.CMFPlone.interfaces.IResourceRegistry">
     <value key="js">++resource++smdu.participacao/js/minuta.js</value>
@@ -25,6 +32,7 @@
       interface="Products.CMFPlone.interfaces.IBundleRegistry" purge="false">
     <value key="merge_with">default</value>
     <value key="resources">
+      <element>smdu.participacao-icon-types</element>
       <element>smdu.participacao-minuta</element>
       <element>smdu.participacao-proposta</element>
     </value>
