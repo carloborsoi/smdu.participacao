@@ -40,8 +40,11 @@
       />
 
   <!-- Indexadores do catalogo -->
-  <adapter name="SearchableText" factory=".indexers.SearchableText" />
-  <adapter name="positive_ratings" factory=".indexers.positive_ratings" />
+  <adapter name="SearchableText" factory=".indexers.minuta_SearchableText" />
+  <adapter name="SearchableText" factory=".indexers.consulta_publica_SearchableText" />
+  <adapter name="SearchableText" factory=".indexers.proposta_SearchableText" />
+  <adapter name="concordancias" factory=".indexers.minuta_concordancias" />
+  <adapter name="apoios" factory=".indexers.proposta_apoios" />
 
   <!-- Evento de workflow para estado Finalizado -->
   <subscriber

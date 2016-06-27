@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
-
 from persistent.dict import PersistentDict
 from zope import event
 from zope.annotation.interfaces import IAnnotations
-
 from plone import api
 from pyquery import PyQuery as pq
-
 from cioppino.twothumbs.event import DislikeEvent
 from cioppino.twothumbs.event import LikeEvent
 from cioppino.twothumbs.event import UndislikeEvent
 from cioppino.twothumbs.event import UnlikeEvent
-
 from smdu.participacao import concordancias
 from smdu.participacao import discordancias
+from smdu.participacao import APOIOS_KEY
 
 
 def inicializa_anotacoes(context):
@@ -45,6 +42,7 @@ def get_total(context, paragrafo_id):
         'discordancias': len(annotations[discordancias][paragrafo_id])
     }
 
+
 def get_usuarios_votantes(context, paragrafo_id):
     """ Devolve um dicionário com total de concordâncias e discordâncias.
     """
@@ -58,7 +56,7 @@ def get_usuarios_votantes(context, paragrafo_id):
         voto = concordancias_paragrafo[usuario_concordante]
         if voto.get('has_voted', False):
             linha_minuta_concordantes += usuario_concordante
-            linha_minuta_concordantes += ' (Ressalva: %s), ' %voto['ressalva'].replace('\n', '   ') \
+            linha_minuta_concordantes += ' (Ressalva: %s), ' % voto['ressalva'].replace('\n', '   ') \
                 if 'ressalva' in voto else ', '
 
     # Criação das linhas de dados de usuário que discordam
@@ -73,6 +71,7 @@ def get_usuarios_votantes(context, paragrafo_id):
         'concordancias': linha_minuta_concordantes,
         'discordancias': linha_minuta_discordantes
     }
+
 
 def get_meu_voto(context, paragrafo_id, userid=None):
     """ Se o usuário concordou, devolve 1. Se discordou, -1.
@@ -106,12 +105,12 @@ def concordar(context, paragrafo_id, userid=None):
         action = "desfazer"
         event.notify(UnlikeEvent(context))
     else:
-        annotations[concordancias][paragrafo_id][userid]  = PersistentDict()
+        annotations[concordancias][paragrafo_id][userid] = PersistentDict()
         annotations[concordancias][paragrafo_id][userid]["has_voted"] = True
         action = "concordar"
         event.notify(LikeEvent(context))
 
-    context.reindexObject(idxs=['positive_ratings'])
+    context.reindexObject(idxs=['concordancias'])
     return action
 
 
@@ -144,7 +143,7 @@ def discordar(context, paragrafo_id, userid=None):
         action = "discordar"
         event.notify(DislikeEvent(context))
 
-    context.reindexObject(idxs=['positive_ratings'])
+    context.reindexObject(idxs=['concordancias'])
     return action
 
 
@@ -157,19 +156,27 @@ def comentar(context, paragrafo_id, comentario, userid=None):
 
     paragrafo_storage = annotations[concordancias][paragrafo_id]
     if userid in paragrafo_storage:
-#       if 'ressalva' not in paragrafo_storage[userid]:
-#           paragrafo_storage[userid]['ressalva'] = PersistentList()
-#       paragrafo_storage[userid]['ressalva'].append(comentario)
+        # if 'ressalva' not in paragrafo_storage[userid]:
+        #     paragrafo_storage[userid]['ressalva'] = PersistentList()
+        # paragrafo_storage[userid]['ressalva'].append(comentario)
         annotations[concordancias][paragrafo_id][userid]['ressalva'] = comentario
 
     return action
 
 
-def get_total_avaliacoes_positivas(context):
-    """ Devolve o total de avaliações positivas em todos os parágrafos
+def get_total_minuta_concordancias(context):
+    """ Devolve o total de concordancias em todos os parágrafos de uma Minuta
     """
     annotations = IAnnotations(context)
     total = 0
     for paragrafo_id in annotations[concordancias]:
         total += len(annotations[concordancias][paragrafo_id])
+    return total
+
+
+def get_total_proposta_apoios(context):
+    """ Devolve o total de apoios de uma Proposta de Consulta Publica
+    """
+    annotations = IAnnotations(context)
+    total = len(annotations[APOIOS_KEY]) if APOIOS_KEY in annotations else 0
     return total

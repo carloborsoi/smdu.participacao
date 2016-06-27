@@ -1,8 +1,27 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
+
+  <!-- Cataloga corpo de texto do tipo de conteudo Minuta -->
   <index name="SearchableText" meta_type="ZCTextIndex">
     <indexed_attr value="SearchableText" />
     <extra name="index_type" value="Okapi BM25 Rank" />
     <extra name="lexicon_id" value="plone_lexicon" />
   </index>
+
+  <!-- Cataloga concordancias do tipo de conteudo Minuta -->
+  <index name="concordancias" meta_type="FieldIndex">
+    <indexed_attr value="concordancias" />
+  </index>
+  <column value="positive_ratings"/>
+
+  <!-- Cataloga apoios do tipo de conteudo Proposta -->
+  <index name="apoios" meta_type="FieldIndex">
+    <indexed_attr value="apoios" />
+  </index>
+  <column value="apoios" />
+
+  <!-- Desativa catalogo do cioppino.twothumbs -->
+  <index name="positive_ratings" remove="true" />
+  <column value="positive_ratings" remove="true" />
+
 </object>
