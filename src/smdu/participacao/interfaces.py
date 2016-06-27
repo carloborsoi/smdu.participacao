@@ -9,7 +9,6 @@ from plone.namedfile.field import NamedImage
 from plone.formwidget.geolocation.field import GeolocationField
 
 
-
 class ISmduParticipacaoLayer(IDefaultBrowserLayer):
     """Interface de marcação que define um browser layer.
     """

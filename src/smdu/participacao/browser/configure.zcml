@@ -117,7 +117,6 @@
       permission="zope2.View"
       />
 
-
   <!-- Browser view de exportacao de dados da minuta para formato CSV -->
   <browser:page
       name="exportacao-consulta-csv"
