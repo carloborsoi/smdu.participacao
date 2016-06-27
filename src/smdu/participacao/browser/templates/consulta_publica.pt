@@ -20,7 +20,9 @@
                                         alt proposta/Title" />
                   </div>
                   <div class="proposta-quantidade-apoios">
-                    <span tal:content="python:view.get_total_apoios(proposta)">CONTAGEM</span> <span> apoiadas</span>
+                    <span class="proposta-total-apoios"
+                        tal:content="proposta/apoios">CONTAGEM</span>
+                    <span>apoios</span>
                   </div>
                 </a>
                 <div class="proposta-informacao">

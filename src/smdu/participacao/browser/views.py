@@ -142,7 +142,7 @@ class AvaliacaoView(LikeWidgetView):
         return self.__call__()
 
 
-class AvaliacaoVotaView(LikeThisShizzleView):
+class AvaliacaoVotaView(BrowserView):
     """ Browser view que habilita a votação de um parágrafo.
     """
 
@@ -286,17 +286,6 @@ class ConsultaPublicaView(BrowserView):
         brains = catalog(portal_type="Proposta", path=current_path)
         return brains
 
-    def get_total_apoios(self, proposta):
-        """ Retorna o total de apoios obtidos
-        """
-        proposta = proposta.getObject()
-        annotations = IAnnotations(proposta)
-        if APOIOS_KEY in annotations:
-            total = len(annotations[APOIOS_KEY])
-        else:
-            total = 0
-        return total
-
 
 class PropostaView(BrowserView):
     """ Browser view padrao do tipo de conteudo Proposta
@@ -305,12 +294,17 @@ class PropostaView(BrowserView):
         super(PropostaView, self).__init__(context, request)
         self.annotations = apoiar_proposta.get_anno_apoios(self.context)
 
+    # @memoize
+    def apoios(self):
+        annotations = IAnnotations(self.context)
+        return len(annotations[APOIOS_KEY]) if APOIOS_KEY in annotations else 0
+
 
 class PropostaApoiaView(BrowserView):
-    """ Browser view que habilita o apoio à uma proposta.
+    """ Browser view que processa o apoio a uma Proposta.
     """
     def __call__(self, REQUEST, RESPONSE):
-        annotations =  apoiar_proposta.get_anno_apoios(self.context)
+        annotations = apoiar_proposta.get_anno_apoios(self.context)
         if api.user.is_anonymous():
             return RESPONSE.redirect(
                 '%s/login?came_from=%s' %
@@ -320,34 +314,46 @@ class PropostaApoiaView(BrowserView):
 
         # Verifica se o usuário está apoiando outra proposta
         consulta_publica = self.context.__parent__
-        propostas = consulta_publica.listFolderContents(contentFilter={"portal_type": "Proposta"})
+        propostas = consulta_publica.listFolderContents(
+            contentFilter={"portal_type": "Proposta"}
+        )
         for proposta in propostas:
-            annotations_proposta = IAnnotations(proposta)
             if proposta.id == self.context.id:
                 continue
+            annotations_proposta = IAnnotations(proposta)
             if userid in annotations_proposta[APOIOS_KEY]:
-                msg = u"Você já apoiou uma outra proposta: (%s)." % proposta.title
+                msg = u'Você já apoiou outra proposta: "%s".' % proposta.title
                 return msg
 
-        # Verifica se a proposta já foi apoiada pelo usuário. Caso positivo, o apoio é desfeito
+        # Verifica se a proposta já foi apoiada pelo usuário.
+        # Caso positivo, o apoio é desfeito.
         if userid in annotations[APOIOS_KEY]:
             annotations[APOIOS_KEY].remove(userid)
-            action = "desfazer"
-            # event.notify(UnlikeEvent(context))
-            msg = u"O seu apoio foi desfeito com sucesso."
+            action = 'desfazer'
+            msg = u'O seu apoio foi desfeito com sucesso.'
         else:
             annotations[APOIOS_KEY].append(userid)
-            action = "apoiar"
-            # event.notify(LikeEvent(context))
-            msg = u"O seu apoio foi contabilizado. Obrigado pela participação!"
+            action = 'apoiar'
+            msg = u'O seu apoio foi contabilizado. Obrigado pela participação!'
 
-        # return action
+        self.context.reindexObject(idxs=['apoios'])
 
-        return msg
+        resultado = {
+            'msg': msg,
+            'action': action,
+            'total': len(annotations[APOIOS_KEY])
+        }
+        # Devolve resposta json para solicitação ajax
+        response_json = json.dumps(resultado)
+        RESPONSE.setHeader('Content-Type',
+                           'application/json; charset=utf-8')
+        RESPONSE.setHeader('content-length', len(response_json))
+        return response_json
 
 
 class ExportaConsultaCSVView(BrowserView):
-    """ Browser view que exporta CSV com votação e comentários do conteudo Consulta Pública
+    """ Browser view que exporta CSV com votação e comentários do tipo de
+        conteúdo Consulta Pública
     """
 
     def __call__(self, REQUEST, RESPONSE):
