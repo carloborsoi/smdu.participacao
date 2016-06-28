@@ -24,9 +24,9 @@ def consulta_publica_SearchableText(obj):
 
 @indexer(IProposta)
 def proposta_SearchableText(obj):
-    return u' '.join(_unicode_save_string_concat(SearchableText_(obj)),
-                     obj.justificativa,
-                     obj.bairro)
+    return u' '.join([_unicode_save_string_concat(SearchableText_(obj)),
+                      obj.justificativa,
+                      obj.bairro or ''])
 
 
 @indexer(IProposta)
