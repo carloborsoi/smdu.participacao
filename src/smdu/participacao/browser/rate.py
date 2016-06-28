@@ -169,8 +169,9 @@ def get_total_minuta_concordancias(context):
     """
     annotations = IAnnotations(context)
     total = 0
-    for paragrafo_id in annotations[concordancias]:
-        total += len(annotations[concordancias][paragrafo_id])
+    if concordancias in annotations:
+        for paragrafo_id in annotations[concordancias]:
+            total += len(annotations[concordancias][paragrafo_id])
     return total
 
 
