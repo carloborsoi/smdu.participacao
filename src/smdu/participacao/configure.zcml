@@ -10,7 +10,9 @@
   <i18n:registerTranslations directory="locales" />
 
   <!-- Includes -->
-  <includeDependencies package="." />
+  <includeDependencies package="." /> <!-- TODO: get rid of this line -->
+  <include package="plone.app.iterate" />
+  <include package="plone.patternslib" />
   <include package=".browser" />
 
   <!-- Perfil Generic Setup de instalação -->
