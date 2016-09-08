@@ -9,7 +9,7 @@ from plone import api
 from smdu.participacao.testing import SMDU_PARTICIPACAO_INTEGRATION_TESTING  # noqa
 from smdu.participacao.interfaces import IMinuta
 
-import unittest2 as unittest
+import unittest
 
 
 class MinutaIntegrationTest(unittest.TestCase):
