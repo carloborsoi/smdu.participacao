@@ -39,7 +39,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'plone.api',
-        'Products.GenericSetup>=1.8.2',
+        'Products.GenericSetup',
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
@@ -57,7 +57,7 @@ setup(
     extras_require={
         'test': [
             'plone.app.testing',
-            'plone.testing>=5.0.0',
+            'plone.testing',
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]'
         ],
