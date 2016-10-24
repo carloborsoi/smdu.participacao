@@ -306,9 +306,20 @@ class PropostaApoiaView(BrowserView):
     def __call__(self, REQUEST, RESPONSE):
         annotations = apoiar_proposta.get_anno_apoios(self.context)
         if api.user.is_anonymous():
-            return RESPONSE.redirect(
-                '%s/login?came_from=%s' %
-                (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+            resultado = {
+                'msg': u"É necessário logar na plataforma para votar",
+                'action': "",
+                'total': len(annotations[APOIOS_KEY])
+            }
+            # Devolve resposta json para solicitação ajax
+            response_json = json.dumps(resultado)
+            RESPONSE.setHeader('Content-Type',
+                               'application/json; charset=utf-8')
+            RESPONSE.setHeader('content-length', len(response_json))
+            return response_json
+            # return RESPONSE.redirect(
+            #     '%s/login?came_from=%s' %
+            #     (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
 
         userid = api.user.get_current().getUserName()
 
@@ -317,17 +328,21 @@ class PropostaApoiaView(BrowserView):
         propostas = consulta_publica.listFolderContents(
             contentFilter={"portal_type": "Proposta"}
         )
+        apoio_existente = False
         for proposta in propostas:
             if proposta.id == self.context.id:
                 continue
             annotations_proposta = IAnnotations(proposta)
             if userid in annotations_proposta[APOIOS_KEY]:
-                msg = u'Você já apoiou outra proposta: "%s".' % proposta.title
-                return msg
+                apoio_existente = True
+                break
 
         # Verifica se a proposta já foi apoiada pelo usuário.
         # Caso positivo, o apoio é desfeito.
-        if userid in annotations[APOIOS_KEY]:
+        if apoio_existente == True:
+            action = ''
+            msg = u'Você já apoiou outra proposta: "%s".' % proposta.title
+        elif userid in annotations[APOIOS_KEY]:
             annotations[APOIOS_KEY].remove(userid)
             action = 'desfazer'
             msg = u'O seu apoio foi desfeito com sucesso.'
