@@ -3,9 +3,9 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     metal:use-macro="context/main_template/macros/master"
     tal:define="portal_url context/@@plone_portal_state/portal_url;
-                static_url string:$portal_url/++resource++smdu.participacao">
+                static_url string:${portal_url}/++resource++smdu.participacao">
   <head>
-    <link rel="stylesheet" tal:attributes="href string:$static_url/css/proposta.css">
+    <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++smdu.participacao/css/proposta.css">
   </head>
   <body>
     <metal:content-core fill-slot="content-core">
@@ -47,19 +47,19 @@
                   </div>
                   <a href="#">
                     <img alt="Apoiar" height="46" width="300"
-                        tal:attributes="src string:$static_url/img/apoiar_300px.png" />
+                        tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/apoiar_300px.png" />
                   <div class="proposta-icones-compartilhar-detalhe">
                   <img height="40" width="40" alt="Facebook"
                       style="padding-right: 12px;"
                       onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
-                      tal:attributes="src string:$static_url/img/facebook_cinza.png">
+                      tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/facebook_cinza.png">
                   <img height="40" width="40" alt="Google"
                       style="padding-right: 12px;"
                       onclick="window.open('https://plus.google.com/share?url=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
-                      tal:attributes="src string:$static_url/img/google-cinza.png">
+                      tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/google-cinza.png">
                   <img height="40" width="40" alt="Twitter"
                     onclick="window.open('https://twitter.com/intent/tweet?hashtags=smdu,sesprefsp,WiFiLivre,participe&amp;url=http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/?hd=' + jQuery( '.minhocaoIdPropostaApoiadaDetalhes' ).val())"
-                    tal:attributes="src string:$static_url/img/twitter-cinza.png">
+                    tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/twitter-cinza.png">
                 </div>
                 <div class="proposta-icones-apoiar-detalhe">
                   <div style="display: none">
@@ -67,7 +67,7 @@
                   </div>
                   <a href="#">
                     <img height="46" width="300" alt="Apoiar"
-                        tal:attributes="src string:$static_url/img/apoiar_300px.png" />
+                        tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/apoiar_300px.png" />
                   </a>
                 </div>
               </div>

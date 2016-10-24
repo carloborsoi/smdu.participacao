@@ -5,7 +5,7 @@
   <!-- Basic metadata -->
  <property name="title" i18n:translate="">Proposta</property>
  <property name="description" i18n:translate="">Proposta de item para consulta pública</property>
- <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/proposta.png</property>
+ <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/img/proposta.png</property>
  <property name="factory">Proposta</property>
  <property name="add_view_expr">string:${folder_url}/++add++Proposta</property>
  <property name="link_target"></property>

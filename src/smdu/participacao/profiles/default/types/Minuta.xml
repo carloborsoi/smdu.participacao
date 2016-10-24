@@ -5,7 +5,7 @@
   <!-- Basic metadata -->
   <property name="title" i18n:translate="">Minuta</property>
   <property name="description" i18n:translate="">Projeto de lei</property>
-  <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/minuta.png</property>
+  <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/img/minuta.png</property>
   <property name="factory">Minuta</property>
   <property name="add_view_expr">string:${folder_url}/++add++Minuta</property>
   <property name="global_allow">True</property>

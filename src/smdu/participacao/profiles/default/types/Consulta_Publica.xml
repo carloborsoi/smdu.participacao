@@ -5,7 +5,7 @@
   <!-- Basic metadata -->
  <property name="title" i18n:translate="">Consulta Pública</property>
  <property name="description" i18n:translate="">Consulta pública com a possibilidade de inserção de itens de consulta.</property>
- <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/consulta.png</property>
+ <property name="icon_expr">string:${portal_url}/++resource++smdu.participacao/img/consulta.png</property>
  <property name="factory">Consulta_Publica</property>
  <property name="add_view_expr">string:${folder_url}/++add++Consulta_Publica</property>
  <property name="global_allow">True</property>
