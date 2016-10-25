@@ -18,7 +18,7 @@
       name="default"
       title="SMDU - Participação"
       directory="profiles/default"
-      description="Instala o addon smdu.participacao (Plone 5)"
+      description="Instala o addon smdu.participacao (Plone 4.3)"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       post_handler=".setuphandlers.post_install"
       />
