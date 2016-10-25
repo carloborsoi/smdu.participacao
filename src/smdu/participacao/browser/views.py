@@ -91,12 +91,13 @@ class AvaliacaoView(LikeWidgetView):
         a partir da configuração do cioppino.twothumbs no painel de
         controle Configuration Registry.
         """
-        pode_votar_anonimo = api.portal.get_registry_record(
-            'cioppino.twothumbs.anonymousvoting')
-        if pode_votar_anonimo:
-            return True
-        else:
-            return not api.user.is_anonymous()
+        return False
+        # pode_votar_anonimo = api.portal.get_registry_record(
+        #     'cioppino.twothumbs.anonymousvoting')
+        # if pode_votar_anonimo:
+        #     return True
+        # else:
+        #     return not api.user.is_anonymous()
 
     @property
     def avaliacao_aberta(self):
@@ -148,17 +149,20 @@ class AvaliacaoVotaView(BrowserView):
 
     def __call__(self, REQUEST, RESPONSE):
         anonuid = None
-        pode_votar_anonimo = api.portal.get_registry_record(
-            'cioppino.twothumbs.anonymousvoting')
+        #pode_votar_anonimo = api.portal.portal.getProperty(
+        #    'cioppino.twothumbs.anonymousvoting')
         if api.user.is_anonymous():
-            if not pode_votar_anonimo:
-                return RESPONSE.redirect(
-                    '%s/login?came_from=%s' %
-                    (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
-            anonuid = self.request.cookies.get(COOKIENAME, None)
-            if anonuid is None:
-                anonuid = str(uuid4())
-                RESPONSE.setCookie(COOKIENAME, anonuid)
+            return RESPONSE.redirect(
+                '%s/login?came_from=%s' %
+                (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+            # if not pode_votar_anonimo:
+            #     return RESPONSE.redirect(
+            #         '%s/login?came_from=%s' %
+            #         (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+            # anonuid = self.request.cookies.get(COOKIENAME, None)
+            # if anonuid is None:
+            #     anonuid = str(uuid4())
+            #     RESPONSE.setCookie(COOKIENAME, anonuid)
 
         form = self.request.form
 
