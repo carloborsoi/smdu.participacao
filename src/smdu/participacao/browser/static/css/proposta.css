@@ -229,13 +229,18 @@
 }
 
 .proposta-imagem-detalhe {
-    width: 60%;
+    width: 400px;
     float: left;
     height: 360px;
     max-height: 360px;
     border-bottom: initial;
     padding: 0;
     overflow: hidden;
+}
+
+.imagem-detalhe {
+    width: 400px;
+    height: 360px;
 }
 
 .proposta-descritivo-detalhe {

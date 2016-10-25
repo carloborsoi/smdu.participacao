@@ -108,6 +108,16 @@
       permission="zope2.View"
       />
 
+    <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+    <browser:page
+        name="compartilhar"
+        for="..interfaces.IProposta"
+        layer="..interfaces.ISmduParticipacaoLayer"
+        class=".views.PropostaView"
+        template="templates/compartilhar.pt"
+        permission="zope2.View"
+        />
+
   <!-- Browser view que recebe via ajax o apoio a uma Proposta -->
   <browser:page
       name="proposta-apoiar"

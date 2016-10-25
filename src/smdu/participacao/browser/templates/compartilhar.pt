@@ -12,40 +12,18 @@
       <div id="content-core">
         <div class="resultado-proposta-detalhe">
           <div class="proposta-detalhe">
-            <div id="proposta-imagem-detalhe" class="proposta-imagem-detalhe">
-              <img class="imagem-detalhe" tal:attributes="src string:${context/absolute_url}/@@download/imagem/preview" />
-            </div>
             <div class="proposta-descritivo-detalhe">
-              <div class="proposta-quantidade-apoios">
-                <span class="proposta-total-apoios" tal:content="view/apoios">118</span>
-                <span>apoios</span>
-              </div>
               <div class="proposta-descritivo-titulo-detalhe" style="display: block;"
-                  tal:content="context/title">TITULO</div>
-              <div class="proposta-linha-detalhe"> </div>
-              <div class="proposta-linha-descricao-detalhe" style="display: block;" >
-                <span tal:content="context/endereco"></span> - <span tal:content="context/bairro"></span> - CEP <span tal:content="context/cep"></span><br>
-                <p tal:content="context/description">DESCRICAO</p>
-              </div>
+                  >Compartilhe este local:</div>
             </div>
-            <div class="proposta-justificativa-detalhe">
-                <div class="proposta-justificativa-titulo-detalhe">
-                  Justificativa
-                </div>
-                <div class="proposta-justificativa-detalhe">
-                  <div class="justificativa" style="display: block;"
-                      tal:content="context/justificativa">
-                    JUSTIFICATIVA
-                  </div>
-                </div>
-                <div class="proposta-linha-detalhe"> </div>
-            </div>
+
+            <div class="proposta-linha-detalhe"> </div>
             <div class="proposta-icones-detalhe">
               <div class="minhocaoDetalhesIconesInterno">
                 <div style="display: none">
                     <input value="" type="text">
-                </div>
-                <div class="proposta-icones-compartilhar-detalhe">
+                 </div>
+                  <div class="proposta-icones-compartilhar-detalhe">
                   <a target="_blank"
                      tal:attributes="href string:http://www.facebook.com/sharer/sharer.php?u=${context/absolute_url}">
                     <img height="40" width="40" alt="Facebook"
@@ -63,7 +41,7 @@
                     <img height="40" width="40" alt="Twitter"
                     tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/twitter-cinza.png"/>
                   </a>
-                </div>
+                 </div>
                 <div class="proposta-icones-apoiar-detalhe">
                   <div style="display: none">
                     <input type="text" value="">

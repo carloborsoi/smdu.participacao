@@ -81,8 +81,8 @@ class IProposta(model.Schema):
     )
 
     imagem = NamedImage(
-        title=(u"Caso possua, insira uma imagem relativa à proposta"),
-        required=False,
+        title=(u"Insira uma imagem relativa à proposta"),
+        required=True,
     )
 
     localizacao = GeolocationField(
