@@ -8,6 +8,9 @@ from plone.supermodel import model
 from plone.namedfile.field import NamedImage
 from plone.formwidget.geolocation.field import GeolocationField
 
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.directives import form, dexterity
+from plone.app.textfield import RichText
 
 class ISmduParticipacaoLayer(IDefaultBrowserLayer):
     """Interface de marcação que define um browser layer.
@@ -17,7 +20,26 @@ class ISmduParticipacaoLayer(IDefaultBrowserLayer):
 class IMinuta(model.Schema):
     """Modelagem do tipo de conteúdo Minuta: campos e widgets.
     """
+    # Aba com dados de coteúdo extra
+    model.fieldset(
+        'extra_texto',
+        label=u"Texto extra",
+        fields=['titulo_extra','texto_extra']
+    )
 
+    titulo_extra = schema.TextLine(
+        title=u'Título do conteúdo extra',
+        required=False,
+        max_length=200
+    )
+
+    texto_extra = RichText(
+        title=u"Texto de conteúdo extra. (Exemplo: Lei Original)",
+        required=False,
+    )
+
+
+    # Aba com configurações de comentários
     model.fieldset(
         'extra',
         label=u"Comentários inline",

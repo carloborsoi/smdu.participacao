@@ -2,5 +2,8 @@
 <object name="portal_javascripts">
   <stylesheet id="++resource++smdu.participacao/css/minuta.css"/>
   <stylesheet id="++resource++smdu.participacao/css/proposta.css"/>
-
+  <stylesheet id="++resource++eea.annotator.view.css" remove="true" />
+  <stylesheet id="++resource++smdu.participacao/css/view_eea.css"/>
+  <stylesheet id="++resource++jquery.annotator.css" remove="true" />
+  <stylesheet id="++resource++smdu.participacao/css/annotator_eea.css"/>
 </object>
