@@ -10,18 +10,31 @@
                         action string:${context/absolute_url}/@@avaliacao-vota;
                         data-paragrafo_id view/paragrafo_id">
       <span tal:replace="structure context/@@authenticator/authenticator" />
+      <!-- Concordância com paragrafo -->
       <span tal:attributes="class python:'thumbs-up' + (' selected' if meu_voto == 1 else '')">
-        <input type="submit" name="concordar" value="Concordo"
+        <input type="submit" name="concordar" value="CONCORDO"
             class="allowMultiSubmit like-button"
             title="Eu concordo (clique novamente para desfazer o voto)"
             tal:attributes="id string:${context/id}_submit_like"
             />
-        <span class="total-thumbs-up">
-          <span class="tally-total" tal:content="total/concordancias" />
+          <span class="total-thumbs-up">
+            <span class="tally-total" tal:content="total/concordancias"></span>
+          </span>
+      </span>
+      <!-- Concordância com ressalva com paragrafo -->
+      <span tal:attributes="class python:'thumbs-up_ressalva' + (' selected' if meu_voto == 2 else '')">
+        <input type="submit" name="concordar_ressalva" value="CONCORDO COM RESSALVAS"
+            class="allowMultiSubmit like-button"
+            title="Eu concordo com ressalvas (clique novamente para desfazer o voto)"
+            tal:attributes="id string:${context/id}_submit_like"
+            />
+        <span class="total-thumbs-up_ressalva">
+          <span class="tally-total_ressalva" tal:content="total/concordancias_ressalva" />
         </span>
       </span>
+      <!-- Discordancia com paragrafo -->
       <span tal:attributes="class python:'thumbs-down' + (' selected' if meu_voto == -1 else '')">
-        <input type="submit" name="discordar" value="Discordo"
+        <input type="submit" name="discordar" value="DISCORDO"
             class="allowMultiSubmit dislike-button"
             title="Eu não concordo (clique novamente para desfazer o voto)"
             tal:attributes="id string:${context/id}_submit_dislike"

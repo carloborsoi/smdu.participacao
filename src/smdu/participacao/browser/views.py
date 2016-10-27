@@ -177,9 +177,11 @@ class AvaliacaoVotaView(BrowserView):
 
         if action == 'concordar':
             action = rate.concordar(self.context, paragrafo_id, userid=anonuid)
+        elif action == 'concordar_ressalva':
+            action = rate.concordar_ressalva(self.context, paragrafo_id, userid=anonuid)
         elif action == 'discordar':
             action = rate.discordar(self.context, paragrafo_id, userid=anonuid)
-        elif action == 'comentar':
+        elif action == 'comentar' and comentario != '':
             action = rate.comentar(self.context,
                                    paragrafo_id,
                                    comentario,
@@ -203,9 +205,10 @@ class AvaliacaoVotaView(BrowserView):
 
 def _get_message(action):
     msgs = {
-        'concordar': 'Você concordou com isto. Obrigado pela avaliação!',
+        'concordar': 'Você concordou com o trecho acima. Obrigado pela avaliação!',
+        'concordar_ressalva': 'Você concordou com ressalva. Obrigado pela avaliação!',
         'discordar': 'Você discordou disto. Obrigado pela avaliação!',
-        'comentar': 'Seu comentário foi registrado com sucesso. Obrigado!',
+        'comentar': 'A sua ressalva foi registrada com sucesso. Obrigado!',
         'desfazer': 'Seu voto foi removido.'
     }
     return msgs.get(action, '')
