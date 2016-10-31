@@ -62,7 +62,7 @@
       for="..interfaces.IMinuta"
       layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.ExportaMinutaPDFView"
-      template="templates/exportar-como-pdf.pt"
+      template="templates/pdf_minuta.pt"
       permission="cmf.ModifyPortalContent"
       />
 
@@ -73,7 +73,7 @@
       for="..interfaces.IMinuta"
       layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.AvaliacaoView"
-      template="templates/avaliacao_pdf.pt"
+      template="templates/pdf_avaliacao.pt"
       permission="zope2.View"
       />
 
@@ -108,15 +108,15 @@
       permission="zope2.View"
       />
 
-    <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
-    <browser:page
-        name="compartilhar"
-        for="..interfaces.IProposta"
-        layer="..interfaces.ISmduParticipacaoLayer"
-        class=".views.PropostaView"
-        template="templates/compartilhar.pt"
-        permission="zope2.View"
-        />
+  <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+  <browser:page
+      name="compartilhar"
+      for="..interfaces.IProposta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.PropostaView"
+      template="templates/compartilhar.pt"
+      permission="zope2.View"
+      />
 
   <!-- Browser view que recebe via ajax o apoio a uma Proposta -->
   <browser:page
@@ -135,5 +135,16 @@
       class=".views.ExportaConsultaCSVView"
       permission="cmf.ModifyPortalContent"
       />
+
+  <!-- Browser view de exportação de dados da minuta para formato PDF -->
+  <browser:page
+      name="exportacao-consulta-pdf"
+      for="..interfaces.IConsulta_Publica"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.ExportaConsultaPDFView"
+      template="templates/pdf_consulta_publica.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+
 
 </configure>

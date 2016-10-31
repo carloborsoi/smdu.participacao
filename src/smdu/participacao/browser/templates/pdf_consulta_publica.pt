@@ -1,0 +1,83 @@
+<html tal:define="portal_url context/@@plone_portal_state/portal_url;
+                  static_url string:${portal_url}/++resource++smdu.participacao">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" tal:attributes="href string:${static_url}/css/print.css">
+  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++smdu.participacao/css/proposta.css">
+ <link rel="stylesheet" tal:attributes="href string:${static_url}/css/print_proposta.css">
+</head>
+<body>
+  <base tal:attributes="href portal_url" />
+  <div class="portaltype-minuta relatorio-content">
+    <div class="relatorio-header">
+      <div class="relatorio-header-logo">
+        <img tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/logo-smdu.png">
+      </div>
+      <h1 class="relatorio-header-title">Consulta Pública</h1>
+      <h2 class="relatorio-header-subheading">Relatório de propostas e apoios</h2>
+    </div>
+
+    <h3 class="relatorio-title" tal:content="context/Title" />
+    <!-- <h4 class="relatorio-description" tal:content="context/Description" />
+    <p tal:condition="context/text"
+        tal:content="structure context/text/output">
+    </p> -->
+    <div id="content-core">
+          <!-- Inicio do loop de Propostas -->
+          <tal:propostas repeat="proposta view/propostas">
+            <div tal:define="proposta_obj python:proposta.getObject()">
+              <div class="resultado-proposta-detalhe" style="page-break-after: always;">
+                  <div id="proposta-imagem-detalhe" class="proposta-imagem-detalhe">
+                    <img class="imagem-detalhe" tal:attributes="src string:${proposta_obj/absolute_url}/@@download/imagem/preview" />
+                  </div>
+                  <div class="proposta-descritivo-detalhe">
+                    <div class="proposta-descritivo-titulo-detalhe" style="display: block;"
+                        tal:content="proposta_obj/title">TITULO</div>
+                    <div class="proposta-linha-detalhe"> </div>
+                    <div class="proposta-linha-descricao-detalhe" style="display: block;" >
+                      <span tal:content="proposta_obj/endereco"></span> - <span tal:content="proposta_obj/bairro"></span> - CEP <span tal:content="proposta_obj/cep"></span><br>
+                    </div>
+                  </div>
+                  <div >
+                      <div class="proposta-justificativa-titulo-detalhe">
+                        Descrição:
+                      </div>
+                      <div class="proposta-justificativa-detalhe">
+                        <div
+                            tal:content="proposta_obj/description">
+                          DESCRICAO
+                        </div>
+                      </div>
+                      <div class="proposta-justificativa-titulo-detalhe">
+                        Justificativa:
+                      </div>
+                      <div class="proposta-justificativa-detalhe">
+                        <div class="justificativa" style="display: block;"
+                            tal:content="proposta_obj/justificativa">
+                          JUSTIFICATIVA
+                        </div>
+                      </div>
+                      <div class="proposta-justificativa-titulo-detalhe">
+                        Apoios à esta proposta
+                      </div>
+                      <div class="proposta-justificativa-detalhe">
+                        <span>Total de apoios: </span>
+                        <span class="proposta-total-apoios" tal:content="proposta/apoios">118</span>
+                        <span>apoios</span>
+                      </div>
+                      <div class="proposta-justificativa-detalhe">
+                        <span>Usuários que apoiaram: </span>
+                        <span class="justificativa"
+                            tal:content="proposta_obj/view/usuarios_apoiam">
+                        </span>
+                      </div>
+                      <div class="proposta-linha-detalhe"> </div>
+                  </div>
+              </div>
+            </div>
+          </tal:propostas>
+          <!-- fim do loop de Propostas -->
+  </div>
+</div>
+</body>
+</html>

@@ -11,7 +11,6 @@
     <metal:content-core fill-slot="content-core">
       <div id="content-core">
         <div class="resultado-proposta-detalhe">
-          <div class="proposta-detalhe">
             <div id="proposta-imagem-detalhe" class="proposta-imagem-detalhe">
               <img class="imagem-detalhe" tal:attributes="src string:${context/absolute_url}/@@download/imagem/preview" />
             </div>
@@ -24,7 +23,7 @@
                   tal:content="context/title">TITULO</div>
               <div class="proposta-linha-detalhe"> </div>
               <div class="proposta-linha-descricao-detalhe" style="display: block;" >
-                <span tal:content="context/endereco"></span> - <span tal:content="context/bairro"></span> - CEP <span tal:content="context/cep"></span><br>
+                <span tal:content="context/endereco"></span> - <span tal:content="context/bairro"></span> - CEP <span tal:content="context/cep"></span><br><br><br>
                 <p tal:content="context/description">DESCRICAO</p>
               </div>
             </div>
@@ -71,7 +70,6 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </metal:content-core>

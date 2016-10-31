@@ -216,16 +216,13 @@
 /*Visualização do pop up com informações detalhadas de uma proposta*/
 
 .resultado-proposta-detalhe {
-    /*float: left;
-    width: 100%;*/
+    /*float: left;*/
+    width: 100%;
     margin: 10px 8px 8px;
     background-color: white;
-}
-
-.proposta-detalhe {
     max-width: 100%;
     /*background-color: #E6E6E6;*/
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .proposta-imagem-detalhe {
@@ -298,10 +295,7 @@
     color: #333;
 }
 
-.proposta-justificativa-detalhe {
-    width: 100%;
-    float: left;
-}
+
 
 .proposta-justificativa-titulo-detalhe {
     width: 100%;

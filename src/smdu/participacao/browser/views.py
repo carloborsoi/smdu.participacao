@@ -306,6 +306,9 @@ class PropostaView(BrowserView):
         annotations = IAnnotations(self.context)
         return len(annotations[APOIOS_KEY]) if APOIOS_KEY in annotations else 0
 
+    def usuarios_apoiam(self):
+        annotations = IAnnotations(self.context)
+        return annotations[APOIOS_KEY] if APOIOS_KEY in annotations else ''
 
 class PropostaApoiaView(BrowserView):
     """ Browser view que processa o apoio a uma Proposta.
@@ -371,6 +374,29 @@ class PropostaApoiaView(BrowserView):
                            'application/json; charset=utf-8')
         RESPONSE.setHeader('content-length', len(response_json))
         return response_json
+
+class ExportaConsultaPDFView(ConsultaPublicaView):
+    """ Browser view que exporta view principal do tipo Minuta como PDF
+    """
+
+    def __call__(self, REQUEST, RESPONSE):
+        content = super(ExportaConsultaPDFView, self).__call__(self)
+        portal_url = api.portal.get().absolute_url()
+        base_url = '{0}/++resource++smdu.participacao/'.format(portal_url)
+        html = HTML(string=content, base_url=base_url)
+        stylesheets = []
+        with open('src/smdu/participacao/browser/static/css/proposta.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        with open('src/smdu/participacao/browser/static/css/print_proposta.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        with open('src/smdu/participacao/browser/static/css/print.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        consulta_exportada_pdf = html.write_pdf(stylesheets=stylesheets)
+
+        RESPONSE.setHeader('Content-Type', 'application/pdf; charset=utf-8')
+        RESPONSE.setHeader('Content-Length', len(consulta_exportada_pdf))
+        RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.pdf"')
+        return consulta_exportada_pdf
 
 
 class ExportaConsultaCSVView(BrowserView):
