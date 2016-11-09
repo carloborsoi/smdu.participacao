@@ -6,7 +6,6 @@ from zope.interface import Invalid
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from plone.supermodel import model
 from plone.namedfile.field import NamedImage
-from plone.formwidget.geolocation.field import GeolocationField
 
 from z3c.form.interfaces import IWidget
 from zope.i18nmessageid import MessageFactory
@@ -111,11 +110,6 @@ class IProposta(model.Schema):
         required=False,
         constraint=validateCep
     )
-
-    # localizacao = GeolocationField(
-    #     title=(u"Insira a localização no mapa relativa à proposta"),
-    #     required=False,
-    # )
 
 class IMapa(Interface):
     latitude = schema.Float(title=(u'Latitude'))
