@@ -34,10 +34,10 @@
       <span tal:attributes="class unsubscribeIcon"></span>
     </a>
     <a tal:omit-tag="not:view/moderate"
+       tal:condition="view/moderate"
        tal:attributes="href string:${view/context/absolute_url}/moderate-inline-comments;
                       title moderateTitle;"
        >Moderar
-
      </a>
     <input
       tal:condition="python:view.can_subscribe or view.can_unsubscribe"

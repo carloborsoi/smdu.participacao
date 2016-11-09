@@ -1201,7 +1201,7 @@ Annotator = (function(_super) {
     this.editor = new Annotator.Editor();
     this.editor.hide().on('hide', this.onEditorHide).on('save', this.onEditorSubmit).addField({
       type: 'textarea',
-      label: _t('Comments') + '\u2026',
+      label: _t('Comentários') + '\u2026',
       load: function(field, annotation) {
         return $(field).find('textarea').val(annotation.text || '');
       },
@@ -1918,7 +1918,7 @@ Annotator.Editor = (function(_super) {
     focus: 'annotator-focus'
   };
 
-  Editor.prototype.html = "<div class=\"annotator-outer annotator-editor\">\n  <form class=\"annotator-widget\">\n    <ul class=\"annotator-listing\"></ul>\n    <div class=\"annotator-controls\">\n      <a href=\"#cancel\" class=\"annotator-cancel\">" + _t('Cancel') + "</a>\n<a href=\"#save\" class=\"annotator-save annotator-focus\">" + _t('Save') + "</a>\n    </div>\n  </form>\n</div>";
+  Editor.prototype.html = "<div class=\"annotator-outer annotator-editor\">\n  <form class=\"annotator-widget\">\n    <ul class=\"annotator-listing\"></ul>\n    <div class=\"annotator-controls\">\n      <a href=\"#cancel\" class=\"annotator-cancel\">" + _t('Cancelar') + "</a>\n<a href=\"#save\" class=\"annotator-save annotator-focus\">" + _t('Salvar') + "</a>\n    </div>\n  </form>\n</div>";
 
   Editor.prototype.options = {};
 
@@ -3867,7 +3867,7 @@ Annotator.Plugin.Comment = (function(_super) {
         }
       }
       if (!this.annotator.options.readOnly) {
-        item.append('<div class=\'replybox\'><textarea class="replyentry" placeholder="Reply..."></textarea>');
+        item.append('<div class=\'replybox\'><textarea class="replyentry" placeholder="Responder..."></textarea>');
       }
     }
     return viewer.checkOrientation();
@@ -3925,7 +3925,7 @@ Annotator.Plugin.Comment = (function(_super) {
     item = $(event.target).parent();
     controls = item.find('.annotator-reply-controls');
     if (controls.length === 0) {
-      item.append('<div class="annotator-reply-controls">\n<a href="#save" class="annotator-reply-save">Save</a>\n<a href="#cancel" class="annotator-cancel">Cancel</a>\n</div>\n</div>');
+      item.append('<div class="annotator-reply-controls">\n<a href="#save" class="annotator-reply-save">Salvar</a>\n<a href="#cancel" class="annotator-cancel">Cancelar</a>\n</div>\n</div>');
       this.annotator.viewer.checkOrientation();
     }
     if (event.keyCode === 27) {
@@ -4127,7 +4127,7 @@ Annotator.Erratum = (function(_super) {
     if (this.readOnly) {
       div.find('.annotator-controls').remove();
     } else if (!annotation.deleted) {
-      replybox = $('<div class=\'replybox\'><textarea class="replyentry-errata" placeholder="Reply..."></textarea>');
+      replybox = $('<div class=\'replybox\'><textarea class="replyentry-errata" placeholder="Responder..."></textarea>');
       replybox.appendTo(erratum);
       textarea = replybox.find('.replyentry-errata');
       textarea.bind('click', function(evt) {
@@ -4169,7 +4169,7 @@ Annotator.Erratum = (function(_super) {
     item = $(event.target).parent();
     controls = item.find('.annotator-reply-controls');
     if (controls.length === 0) {
-      reply_controls = $('<div class="annotator-reply-controls">\n<a href="#save" class="annotator-reply-save">Save</a>\n<a href="#cancel" class="annotator-cancel">Cancel</a>\n</div>\n</div>');
+      reply_controls = $('<div class="annotator-reply-controls">\n<a href="#save" class="annotator-reply-save">Salvar</a>\n<a href="#cancel" class="annotator-cancel">Cancelar</a>\n</div>\n</div>');
       item.append(reply_controls);
       save_btn = reply_controls.find('.annotator-reply-save');
       cancel_btn = reply_controls.find('.annotator-cancel');
