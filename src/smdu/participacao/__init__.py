@@ -11,3 +11,5 @@ concordancias = 'smdu.participacao.concordancias'
 discordancias = 'smdu.participacao.discordancias'
 
 APOIOS_KEY = 'smdu.participacao.apoios'
+
+MAPA_KEY = 'smdu.participacao.mapa'

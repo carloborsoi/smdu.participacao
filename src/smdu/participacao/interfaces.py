@@ -8,6 +8,11 @@ from plone.supermodel import model
 from plone.namedfile.field import NamedImage
 from plone.formwidget.geolocation.field import GeolocationField
 
+from z3c.form.interfaces import IWidget
+from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface
+from zope.schema.interfaces import IObject
+
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import form, dexterity
 from plone.app.textfield import RichText
@@ -81,6 +86,11 @@ class IProposta(model.Schema):
         title=u'Justificativa da proposta',
     )
 
+    imagem = NamedImage(
+        title=(u"Insira uma imagem relativa à proposta"),
+        required=True,
+    )
+
     endereco = schema.TextLine(
         title=u'Endereço',
         required=False,
@@ -102,12 +112,17 @@ class IProposta(model.Schema):
         constraint=validateCep
     )
 
-    imagem = NamedImage(
-        title=(u"Insira uma imagem relativa à proposta"),
-        required=True,
-    )
+    # localizacao = GeolocationField(
+    #     title=(u"Insira a localização no mapa relativa à proposta"),
+    #     required=False,
+    # )
 
-    localizacao = GeolocationField(
-        title=(u"Insira a localização no mapa relativa à proposta"),
-        required=False,
-    )
+class IMapa(Interface):
+    latitude = schema.Float(title=(u'Latitude'))
+    longitude = schema.Float(title=(u'Longitude'))
+
+class IMapaField(IObject):
+    pass
+
+class IMapaWidget(IWidget):
+    pass

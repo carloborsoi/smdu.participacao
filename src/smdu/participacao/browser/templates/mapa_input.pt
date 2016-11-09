@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      tal:omit-tag=""
+      tal:define="portal_url context/@@plone_portal_state/portal_url;
+                  static_url string:${portal_url}/++resource++smdu.participacao">
+
+
+
+    <head>
+    <title>Mapa</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v3.19.1/build/ol.js"></script>
+    <script tal:replace="structure view/getSetupJavascript"></script>
+    <script tal:attributes="src string:${static_url}/js/mapa.js"></script>
+    </head>
+    <body>
+      <input type="text" class="latitude"
+          tal:attributes="id string:${view/id}_latitude;
+                          name string:${view/name}:tuple;
+                          class string:${view/klass} latitude;
+                          style view/style;
+                          value python:view.value[0]" />
+      <input type="text" class="longitude"
+          tal:attributes="id string:${view/id}_longitude;
+                          name string:${view/name}:tuple;
+                          class string:${view/klass} longitude;
+                          style view/style;
+                          value python:view.value[1]" />
+      <div id="mapa" class="mapa"></div>
+      <div id="info"></div>
+      <div id="popup" class="ol-popup">
+          <div id="popup-content"></div>
+          <div class="popup-closer-iframe red" onclick="popupClose();"></div>
+      </div>
+
+    </body>
+  </html>

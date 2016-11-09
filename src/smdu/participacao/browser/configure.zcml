@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="smdu.participacao">
 
   <!-- Pasta para customizações a partir do addon z3c.jbot -->
@@ -146,5 +147,29 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <adapter factory=".widget.MapaFieldWidget" />
+  <adapter factory=".converter.MapaConverter" />
+
+  <z3c:widgetTemplate
+      mode="display"
+      widget="..interfaces.IMapaWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="templates/mapa_display.pt"
+      />
+
+  <z3c:widgetTemplate
+      mode="input"
+      widget="..interfaces.IMapaWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="templates/mapa_input.pt"
+      />
+
+  <browser:page
+      name="mapa-registrar"
+      for="..interfaces.IMapa"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.MapaRegistraView"
+      permission="zope2.View"
+      />
 
 </configure>
