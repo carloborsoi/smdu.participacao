@@ -164,12 +164,4 @@
       template="templates/mapa_input.pt"
       />
 
-  <browser:page
-      name="mapa-registrar"
-      for="..interfaces.IMapa"
-      layer="..interfaces.ISmduParticipacaoLayer"
-      class=".views.MapaRegistraView"
-      permission="zope2.View"
-      />
-
 </configure>
