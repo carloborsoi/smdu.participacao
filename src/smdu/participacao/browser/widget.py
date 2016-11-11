@@ -84,7 +84,7 @@ class MapaWidget(TextWidget):
         super(MapaWidget, self).update()
         if self.value is None and self.mode == 'input':
             self.value = self._default_loc()
-        if ('title' in self.context.keys()) and (self.value is not None) and (self.mode == 'input'):
+        if hasattr(self.context, 'title') and (self.value is not None) and (self.mode == 'input'):
             titulo = self.context.title
             latitude = self.value[0]
             longitude = self.value[1]
