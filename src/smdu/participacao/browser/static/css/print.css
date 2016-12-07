@@ -19,34 +19,34 @@
     }*/
 }
 
-.minuta-header {
+.relatorio-header {
     border-bottom: 1pt solid #ccc;
     text-align: center;
 }
 
-.minuta-header-logo {
+.relatorio-header-logo {
 }
 
-.minuta-header-title {
+.relatorio-header-title {
     color: #c00;
 }
 
-.minuta-header-subheading {
+.relatorio-header-subheading {
     color: #c33;
     font-size: 14pt;
     margin: 0 0 0.5cm;
 }
 
-.minuta-title {
+.relatorio-title {
     font-size: 24pt;
     -weasy-bookmark-level: none;
 }
 
-.minuta-description {
+.relatorio-description {
     font-size: 14pt;
 }
 
-.minuta-body {
+.relatorio-body {
     font-size: 10pt;
     text-align: justify;
 }

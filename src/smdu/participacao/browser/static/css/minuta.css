@@ -10,6 +10,37 @@
     text-align: left;
 }
 
+.total-thumbs-up_ressalva .tally-total_ressalva,
+.total-thumbs-up .tally-total{
+    color: #47ae53;
+}
+
+.total-thumbs-down .tally-total{
+    color: #C81917;
+}
+
+form input.like-button,
+form input.dislike-button {
+    padding: none;
+    background-color:transparent;
+    font-size: 100%;
+	  background-image: none ;
+    background-repeat: none;
+    border-width: 0;
+    cursor: pointer;
+    width: auto;
+    text-indent: 0;
+    white-space: nowrap;
+}
+
+form .selected input.like-button {
+    color: #47ae53;
+}
+
+form .selected input.dislike-button {
+    color: #C81917;
+}
+
 .twothumbs-feedback {
     display: table;
     font-size: 1em;
@@ -18,6 +49,8 @@
     position: relative;
     text-align: left;
     width: auto;
+    background-color: #fcfcfc;
+    border: 0;
 }
 
 #content .twothumbs-feedback .close-link {
@@ -33,10 +66,10 @@
     width: 99%;
 }
 
-.paragrafo-wrapper,
-.mce-content-body .paragrafo {
+/*.paragrafo-wrapper,*/
+.mceContentBody  .paragrafo{
     margin: 1em 0;
-    outline: 1px dashed orange;
+    outline: 0.5px dashed orange ;
     padding: 0.5em 1em;
 }
 
@@ -52,4 +85,11 @@
 #document-action-export_pdf {
     float: right;
     margin-left: 2em;
+}
+
+.avaliacao {
+    /*margin: 100px 0;*/
+    /*outline: 0.5px dashed orange ;*/
+    /*border: 1px solid green;*/
+    padding: 0em 0em 2em 1em;
 }

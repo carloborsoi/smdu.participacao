@@ -37,8 +37,14 @@ def get_total(context, paragrafo_id):
     """
     inicializa_anotacoes(context)
     annotations = IAnnotations(context)
+    ressalvas = 0
+
+    for voto in annotations[concordancias][paragrafo_id].itervalues():
+        if 'ressalva' in voto.keys():
+            ressalvas += 1
     return {
-        'concordancias': len(annotations[concordancias][paragrafo_id]),
+        'concordancias': (len(annotations[concordancias][paragrafo_id])-ressalvas),
+        'concordancias_ressalva': ressalvas,
         'discordancias': len(annotations[discordancias][paragrafo_id])
     }
 
@@ -80,7 +86,11 @@ def get_meu_voto(context, paragrafo_id, userid=None):
     annotations = IAnnotations(context)
     userid = userid or api.user.get_current().getUserName()
     if userid in annotations[concordancias][paragrafo_id]:
-        return 1
+        annotation = annotations[concordancias][paragrafo_id][userid]
+        if 'ressalva' in annotation.keys() :
+            return 2
+        else:
+            return 1
     elif userid in annotations[discordancias][paragrafo_id]:
         return -1
     return 0
@@ -96,11 +106,10 @@ def concordar(context, paragrafo_id, userid=None):
     action = None
     userid = userid or _get_user_id()
     annotations = IAnnotations(context)
-
     if userid in annotations[discordancias][paragrafo_id]:
         annotations[discordancias][paragrafo_id].pop(userid)
 
-    if userid in annotations[concordancias][paragrafo_id]:
+    if userid in annotations[concordancias][paragrafo_id] and 'ressalva' not in annotations[concordancias][paragrafo_id][userid] :
         annotations[concordancias][paragrafo_id].pop(userid)
         action = "desfazer"
         event.notify(UnlikeEvent(context))
@@ -113,6 +122,33 @@ def concordar(context, paragrafo_id, userid=None):
     context.reindexObject(idxs=['concordancias'])
     return action
 
+def concordar_ressalva(context, paragrafo_id, userid=None):
+    """ Concorda com um parágrafo de um item.
+    Se nenhum usuário for passado, o corrente será usado.
+    Se o usuário tinha concordado com o parágrafo previamente, remove tal voto.
+    Se o usuário tinha discordado do item previamente, remove o voto e adiciona
+    um novo de concordância.
+    """
+    action = None
+    userid = userid or _get_user_id()
+    annotations = IAnnotations(context)
+
+    if userid in annotations[discordancias][paragrafo_id]:
+        annotations[discordancias][paragrafo_id].pop(userid)
+
+    if  userid in annotations[concordancias][paragrafo_id] and 'ressalva' in annotations[concordancias][paragrafo_id][userid] :
+        annotations[concordancias][paragrafo_id].pop(userid)
+        action = "desfazer"
+        event.notify(UnlikeEvent(context))
+    else:
+        annotations[concordancias][paragrafo_id][userid] = PersistentDict()
+        annotations[concordancias][paragrafo_id][userid]["has_voted"] = True
+        annotations[concordancias][paragrafo_id][userid]["ressalva"] = ''
+        action = "concordar_ressalva"
+        event.notify(LikeEvent(context))
+
+    context.reindexObject(idxs=['concordancias'])
+    return action
 
 def _get_user_id():
     if api.user.is_anonymous():

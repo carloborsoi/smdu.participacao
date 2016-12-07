@@ -10,17 +10,16 @@
   <i18n:registerTranslations directory="locales" />
 
   <!-- Includes -->
-  <includeDependencies package="." /> <!-- TODO: get rid of this line -->
-  <include package="plone.app.iterate" />
-  <include package="plone.patternslib" />
+  <includeDependencies package="." />
   <include package=".browser" />
+  <include package=".behaviors" />
 
   <!-- Perfil Generic Setup de instalação -->
   <genericsetup:registerProfile
       name="default"
       title="SMDU - Participação"
       directory="profiles/default"
-      description="Instala o addon smdu.participacao (Plone 5)"
+      description="Instala o addon smdu.participacao (Plone 4.3)"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       post_handler=".setuphandlers.post_install"
       />
@@ -61,25 +60,25 @@
       title="smdu.participacao: Avaliar minuta"
       />
 
-  <!-- Geolocalização -->
-  <configure zcml:condition="installed plone.formwidget.geolocation">
-    <!-- Integração collective.easyform com plone.formwidget.geolocation -->
-    <utility
-        name="smdu.participacao.geolocation"
-        component=".geolocation.GeolocationFactory"
-        />
-    <utility
-        name="plone.formwidget.geolocation.field.GeolocationField"
-        component="plone.formwidget.geolocation.supermodel.GeolocationHandler"
-        />
-    <!-- Monkey patch para alterar exportação CSV da latitude e longitude -->
-    <include package="collective.monkeypatcher" />
-    <monkey:patch
-        description="Exporta campo de Geolocalização como tupla de latitude, longitude"
-        class="collective.easyform.actions.SaveData"
-        original="getSavedFormInputForEdit"
-        replacement=".geolocation.getSavedFormInputForEdit"
-        />
-  </configure>
+      <!-- Mapa -->
+      <configure >
+        <!-- Integração collective.easyform com campo Mapa -->
+        <utility
+            name="smdu.participacao.mapa"
+            component=".mapa.MapaFactory"
+            />
+        <utility
+            name="smdu.participacao.browser.field.MapaField"
+            component="smdu.participacao.supermodel.MapaHandler"
+            />
+        <!-- Monkey patch para alterar exportação CSV da latitude e longitude -->
+        <include package="collective.monkeypatcher" />
+        <monkey:patch
+            description="Exporta campo de Geolocalização como tupla de latitude, longitude"
+            class="collective.easyform.actions.SaveData"
+            original="getSavedFormInputForEdit"
+            replacement=".mapa.getSavedFormInputForEdit"
+            />
+      </configure>
 
 </configure>

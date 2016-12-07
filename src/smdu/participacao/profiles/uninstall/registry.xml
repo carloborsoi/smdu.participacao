@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registry>
+  <!-- eea.annotator: Habilita comentários inline para tipo de conteúdo Page -->
+  <record name="eea.annotator.controlpanel.interfaces.ISettings.portalTypes" interface="eea.annotator.controlpanel.interfaces.ISettings" field="portalTypes">
+    <value purge="true">
+      <element>Document</element>
+    </value>
+  </record>
+</registry>

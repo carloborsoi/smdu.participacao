@@ -43,7 +43,8 @@
                   </a>
                   <div class="proposta-icones">
                     <div class="proposta-icones-compartilhar">
-                      <a href="http://gestaourbana.prefeitura.sp.gov.br/wifi-sugestao-de-localidades/#" style="border: 0;">
+                      <a class="compartilhar-link pat-plone-modal" data-pat-plone-modal="{'content': '#content-core'}"
+                          tal:attributes="href string:${proposta/getURL}/compartilhar">
                         <img alt="Compartilhar" width="40" height="40"
                         tal:attributes="src string:${portal_url}/++resource++smdu.participacao/img/compartilhar.png" />
                       </a>

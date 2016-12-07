@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="smdu.participacao">
 
   <!-- Pasta para customizações a partir do addon z3c.jbot -->
@@ -62,7 +63,7 @@
       for="..interfaces.IMinuta"
       layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.ExportaMinutaPDFView"
-      template="templates/exportar-como-pdf.pt"
+      template="templates/pdf_minuta.pt"
       permission="cmf.ModifyPortalContent"
       />
 
@@ -73,7 +74,7 @@
       for="..interfaces.IMinuta"
       layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.AvaliacaoView"
-      template="templates/avaliacao_pdf.pt"
+      template="templates/pdf_avaliacao.pt"
       permission="zope2.View"
       />
 
@@ -108,6 +109,16 @@
       permission="zope2.View"
       />
 
+  <!-- Browser view principal do tipo de conteúdo Consulta Pública -->
+  <browser:page
+      name="compartilhar"
+      for="..interfaces.IProposta"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.PropostaView"
+      template="templates/compartilhar.pt"
+      permission="zope2.View"
+      />
+
   <!-- Browser view que recebe via ajax o apoio a uma Proposta -->
   <browser:page
       name="proposta-apoiar"
@@ -124,6 +135,33 @@
       layer="..interfaces.ISmduParticipacaoLayer"
       class=".views.ExportaConsultaCSVView"
       permission="cmf.ModifyPortalContent"
+      />
+
+  <!-- Browser view de exportação de dados da minuta para formato PDF -->
+  <browser:page
+      name="exportacao-consulta-pdf"
+      for="..interfaces.IConsulta_Publica"
+      layer="..interfaces.ISmduParticipacaoLayer"
+      class=".views.ExportaConsultaPDFView"
+      template="templates/pdf_consulta_publica.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <adapter factory=".widget.MapaFieldWidget" />
+  <adapter factory=".converter.MapaConverter" />
+
+  <z3c:widgetTemplate
+      mode="display"
+      widget="..interfaces.IMapaWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="templates/mapa_display.pt"
+      />
+
+  <z3c:widgetTemplate
+      mode="input"
+      widget="..interfaces.IMapaWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="templates/mapa_input.pt"
       />
 
 </configure>

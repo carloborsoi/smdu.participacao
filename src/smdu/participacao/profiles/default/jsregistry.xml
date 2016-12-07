@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+  <javascript id="++resource++cioppino.twothumbs.javascripts/twothumbs.js" remove="true" />
+  <javascript id="++resource++jquery.annotator.js" remove="true" />
+  <javascript id="++resource++smdu.participacao/js/annotator.js" />
+  <javascript id="++resource++eea.annotator.view.js" remove="true" />
+  <javascript id="++resource++smdu.participacao/js/view.js" />
+  <javascript id="++resource++smdu.participacao/js/minuta.js" />
+  <javascript id="++resource++smdu.participacao/js/proposta.js" />
+  <javascript id="++resource++orderedselect_input.js" />
+</object>

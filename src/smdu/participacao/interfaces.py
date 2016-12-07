@@ -6,8 +6,15 @@ from zope.interface import Invalid
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from plone.supermodel import model
 from plone.namedfile.field import NamedImage
-from plone.formwidget.geolocation.field import GeolocationField
 
+from z3c.form.interfaces import IWidget
+from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface
+from zope.schema.interfaces import IObject
+
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.directives import form, dexterity
+from plone.app.textfield import RichText
 
 class ISmduParticipacaoLayer(IDefaultBrowserLayer):
     """Interface de marcação que define um browser layer.
@@ -17,7 +24,26 @@ class ISmduParticipacaoLayer(IDefaultBrowserLayer):
 class IMinuta(model.Schema):
     """Modelagem do tipo de conteúdo Minuta: campos e widgets.
     """
+    # Aba com dados de coteúdo extra
+    model.fieldset(
+        'extra_texto',
+        label=u"Texto extra",
+        fields=['titulo_extra','texto_extra']
+    )
 
+    titulo_extra = schema.TextLine(
+        title=u'Título do conteúdo extra',
+        required=False,
+        max_length=200
+    )
+
+    texto_extra = RichText(
+        title=u"Texto de conteúdo extra. (Exemplo: Lei Original)",
+        required=False,
+    )
+
+
+    # Aba com configurações de comentários
     model.fieldset(
         'extra',
         label=u"Comentários inline",
@@ -59,6 +85,11 @@ class IProposta(model.Schema):
         title=u'Justificativa da proposta',
     )
 
+    imagem = NamedImage(
+        title=(u"Insira uma imagem relativa à proposta"),
+        required=True,
+    )
+
     endereco = schema.TextLine(
         title=u'Endereço',
         required=False,
@@ -80,12 +111,12 @@ class IProposta(model.Schema):
         constraint=validateCep
     )
 
-    imagem = NamedImage(
-        title=(u"Caso possua, insira uma imagem relativa à proposta"),
-        required=False,
-    )
+class IMapa(Interface):
+    latitude = schema.Float(title=(u'Latitude'))
+    longitude = schema.Float(title=(u'Longitude'))
 
-    localizacao = GeolocationField(
-        title=(u"Insira a localização no mapa relativa à proposta"),
-        required=False,
-    )
+class IMapaField(IObject):
+    pass
+
+class IMapaWidget(IWidget):
+    pass

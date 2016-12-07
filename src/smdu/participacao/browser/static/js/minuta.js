@@ -62,6 +62,7 @@
                 var $comentario = $form.parent().find('textarea');
                 var comentario = (action == 'comentar' && $comentario.length) ? $comentario.val() : null;
                 var $upResults = $form.find('.total-thumbs-up .tally-total');
+                var $ressalvaResults = $form.find('.total-thumbs-up_ressalva .tally-total_ressalva');
                 var $downResults = $form.find('.total-thumbs-down .tally-total');
                 if ($form) {
                     var params = {
@@ -79,11 +80,14 @@
                             // No caso de voto
                             // Atualiza totais
                             $upResults.text(data.concordancias);
+                            $ressalvaResults.text(data.concordancias_ressalva);
                             $downResults.text(data.discordancias);
                             // Atualiza exibição do voto do usuário atual
-                            $form.find('.thumbs-up, .thumbs-down').removeClass('selected');
+                            $form.find('.thumbs-up, .thumbs-up_ressalva, .thumbs-down').removeClass('selected');
                             if (data.action == 'concordar') {
                                 $form.find('.thumbs-up').addClass('selected');
+                            } else if (data.action == 'concordar_ressalva') {
+                                $form.find('.thumbs-up_ressalva').addClass('selected');
                             } else if (data.action == 'discordar') {
                                 $form.find('.thumbs-down').addClass('selected');
                             }
@@ -94,14 +98,18 @@
                             $feedback.remove();
                         }
                         feedback_id = 'ttf-' + (new Date()).getTime();
-                        $feedback = $('<div class="twothumbs-feedback">').attr('id', feedback_id)
-                            .html(data.msg)
-                            .prepend('<a class="close-link" title="Fechar" href="#">&nbsp;</a>');
-                        if (data.action == 'concordar') {
-                            $feedback.append($('<h5 />').append('Gostaria de registrar alguma ressalva?'))
-                                .append('<textarea name="comentario" rows="4" cols="50" maxlength="1000">')
-                                .append('<input type="submit" name="comentar" value="Enviar">');
+                        if (data.action == 'concordar_ressalva') {
+                          $feedback = $('<div class="twothumbs-feedback" style="background-color: #fff">').attr('id', feedback_id)
+                          .html(data.msg)
+                          .append($('<h5 />').append('Gostaria de registrar alguma ressalva?'))
+                          .append('<textarea name="comentario" rows="4" cols="50" maxlength="1000" style="background-color: #fcfcfc">')
+                          .append('<input type="submit" name="comentar" value="Enviar">');
+                        } else {
+                          $feedback = $('<div class="twothumbs-feedback">').attr('id', feedback_id)
+                          .html(data.msg)
+                          .prepend('<a class="close-link" title="Fechar" href="#">&nbsp;</a>');
                         }
+
                         $feedback.appendTo($form).hide().slideDown().find('.close-link').click(function(e) {
                             e.preventDefault();
                             $(this).closest('.twothumbs-feedback').slideUp();

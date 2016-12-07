@@ -91,12 +91,13 @@ class AvaliacaoView(LikeWidgetView):
         a partir da configuração do cioppino.twothumbs no painel de
         controle Configuration Registry.
         """
-        pode_votar_anonimo = api.portal.get_registry_record(
-            'cioppino.twothumbs.anonymousvoting')
-        if pode_votar_anonimo:
-            return True
-        else:
-            return not api.user.is_anonymous()
+        return False
+        # pode_votar_anonimo = api.portal.get_registry_record(
+        #     'cioppino.twothumbs.anonymousvoting')
+        # if pode_votar_anonimo:
+        #     return True
+        # else:
+        #     return not api.user.is_anonymous()
 
     @property
     def avaliacao_aberta(self):
@@ -148,17 +149,20 @@ class AvaliacaoVotaView(BrowserView):
 
     def __call__(self, REQUEST, RESPONSE):
         anonuid = None
-        pode_votar_anonimo = api.portal.get_registry_record(
-            'cioppino.twothumbs.anonymousvoting')
+        #pode_votar_anonimo = api.portal.portal.getProperty(
+        #    'cioppino.twothumbs.anonymousvoting')
         if api.user.is_anonymous():
-            if not pode_votar_anonimo:
-                return RESPONSE.redirect(
-                    '%s/login?came_from=%s' %
-                    (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
-            anonuid = self.request.cookies.get(COOKIENAME, None)
-            if anonuid is None:
-                anonuid = str(uuid4())
-                RESPONSE.setCookie(COOKIENAME, anonuid)
+            return RESPONSE.redirect(
+                '%s/login?came_from=%s' %
+                (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+            # if not pode_votar_anonimo:
+            #     return RESPONSE.redirect(
+            #         '%s/login?came_from=%s' %
+            #         (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+            # anonuid = self.request.cookies.get(COOKIENAME, None)
+            # if anonuid is None:
+            #     anonuid = str(uuid4())
+            #     RESPONSE.setCookie(COOKIENAME, anonuid)
 
         form = self.request.form
 
@@ -173,9 +177,11 @@ class AvaliacaoVotaView(BrowserView):
 
         if action == 'concordar':
             action = rate.concordar(self.context, paragrafo_id, userid=anonuid)
+        elif action == 'concordar_ressalva':
+            action = rate.concordar_ressalva(self.context, paragrafo_id, userid=anonuid)
         elif action == 'discordar':
             action = rate.discordar(self.context, paragrafo_id, userid=anonuid)
-        elif action == 'comentar':
+        elif action == 'comentar' and comentario != '':
             action = rate.comentar(self.context,
                                    paragrafo_id,
                                    comentario,
@@ -199,9 +205,10 @@ class AvaliacaoVotaView(BrowserView):
 
 def _get_message(action):
     msgs = {
-        'concordar': 'Você concordou com isto. Obrigado pela avaliação!',
+        'concordar': 'Você concordou com o trecho acima. Obrigado pela avaliação!',
+        'concordar_ressalva': 'Você concordou com ressalva. Obrigado pela avaliação!',
         'discordar': 'Você discordou disto. Obrigado pela avaliação!',
-        'comentar': 'Seu comentário foi registrado com sucesso. Obrigado!',
+        'comentar': 'A sua ressalva foi registrada com sucesso. Obrigado!',
         'desfazer': 'Seu voto foi removido.'
     }
     return msgs.get(action, '')
@@ -299,6 +306,9 @@ class PropostaView(BrowserView):
         annotations = IAnnotations(self.context)
         return len(annotations[APOIOS_KEY]) if APOIOS_KEY in annotations else 0
 
+    def usuarios_apoiam(self):
+        annotations = IAnnotations(self.context)
+        return annotations[APOIOS_KEY] if APOIOS_KEY in annotations else ''
 
 class PropostaApoiaView(BrowserView):
     """ Browser view que processa o apoio a uma Proposta.
@@ -306,9 +316,20 @@ class PropostaApoiaView(BrowserView):
     def __call__(self, REQUEST, RESPONSE):
         annotations = apoiar_proposta.get_anno_apoios(self.context)
         if api.user.is_anonymous():
-            return RESPONSE.redirect(
-                '%s/login?came_from=%s' %
-                (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
+            resultado = {
+                'msg': u"É necessário logar na plataforma para votar",
+                'action': "",
+                'total': len(annotations[APOIOS_KEY])
+            }
+            # Devolve resposta json para solicitação ajax
+            response_json = json.dumps(resultado)
+            RESPONSE.setHeader('Content-Type',
+                               'application/json; charset=utf-8')
+            RESPONSE.setHeader('content-length', len(response_json))
+            return response_json
+            # return RESPONSE.redirect(
+            #     '%s/login?came_from=%s' %
+            #     (api.portal.get().absolute_url(), REQUEST['HTTP_REFERER']))
 
         userid = api.user.get_current().getUserName()
 
@@ -317,17 +338,21 @@ class PropostaApoiaView(BrowserView):
         propostas = consulta_publica.listFolderContents(
             contentFilter={"portal_type": "Proposta"}
         )
+        apoio_existente = False
         for proposta in propostas:
             if proposta.id == self.context.id:
                 continue
             annotations_proposta = IAnnotations(proposta)
             if userid in annotations_proposta[APOIOS_KEY]:
-                msg = u'Você já apoiou outra proposta: "%s".' % proposta.title
-                return msg
+                apoio_existente = True
+                break
 
         # Verifica se a proposta já foi apoiada pelo usuário.
         # Caso positivo, o apoio é desfeito.
-        if userid in annotations[APOIOS_KEY]:
+        if apoio_existente == True:
+            action = ''
+            msg = u'Você já apoiou outra proposta: "%s".' % proposta.title
+        elif userid in annotations[APOIOS_KEY]:
             annotations[APOIOS_KEY].remove(userid)
             action = 'desfazer'
             msg = u'O seu apoio foi desfeito com sucesso.'
@@ -349,6 +374,29 @@ class PropostaApoiaView(BrowserView):
                            'application/json; charset=utf-8')
         RESPONSE.setHeader('content-length', len(response_json))
         return response_json
+
+class ExportaConsultaPDFView(ConsultaPublicaView):
+    """ Browser view que exporta view principal do tipo Minuta como PDF
+    """
+
+    def __call__(self, REQUEST, RESPONSE):
+        content = super(ExportaConsultaPDFView, self).__call__(self)
+        portal_url = api.portal.get().absolute_url()
+        base_url = '{0}/++resource++smdu.participacao/'.format(portal_url)
+        html = HTML(string=content, base_url=base_url)
+        stylesheets = []
+        with open('src/smdu/participacao/browser/static/css/proposta.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        with open('src/smdu/participacao/browser/static/css/print_proposta.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        with open('src/smdu/participacao/browser/static/css/print.css', 'r') as css:
+            stylesheets.append(CSS(string=css.read()))
+        consulta_exportada_pdf = html.write_pdf(stylesheets=stylesheets)
+
+        RESPONSE.setHeader('Content-Type', 'application/pdf; charset=utf-8')
+        RESPONSE.setHeader('Content-Length', len(consulta_exportada_pdf))
+        RESPONSE.setHeader('Content-Disposition', 'attachment; filename="Relatorio.pdf"')
+        return consulta_exportada_pdf
 
 
 class ExportaConsultaCSVView(BrowserView):

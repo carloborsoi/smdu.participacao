@@ -23,6 +23,17 @@
    </property>
    <property name="visible">True</property>
   </object>
+  <object name="exporta_consulta_pdf" meta_type="CMF Action">
+   <property name="title">Exportar PDF</property>
+   <property name="description">Exporta a consulta pública em formato PDF</property>
+   <property name="url_expr">string:$object_url/@@exportacao-consulta-pdf</property>
+   <property name="icon_expr">string:$portal_url/++resource++smdu.participacao/img/pdf.png</property>
+   <property name="available_expr">python:object.portal_type == 'Consulta_Publica'</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
   <object name="exporta_consulta_csv" meta_type="CMF Action">
    <property name="title">Exportar CSV</property>
    <property name="description">Exporta a Consulta Pública em formato CSV</property>

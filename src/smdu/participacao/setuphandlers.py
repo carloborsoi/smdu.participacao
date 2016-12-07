@@ -61,11 +61,8 @@ class HiddenProfiles(object):
             'plone.app.widgets:default',
             'plone.formwidget.autocomplete:default',
             'plone.formwidget.contenttree:default',
-            # 'plone.formwidget.geolocation:default',
-            'plone.formwidget.geolocation:uninstall'
             'plone.formwidget.recurrence:default',
             'plone.formwidget.querystring:default',
-            'plone.patternslib:default',
             'Products.ATContentTypes:base',
             'Products.ATContentTypes:content',
             'Products.ATContentTypes:default',
