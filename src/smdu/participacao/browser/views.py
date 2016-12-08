@@ -2,6 +2,7 @@
 
 import json
 from uuid import uuid4
+import requests
 
 from DateTime import DateTime
 
@@ -272,8 +273,9 @@ class ExportaMinutaPDFView(MinutaView):
         base_url = '{0}/++resource++smdu.participacao/'.format(portal_url)
         html = HTML(string=content, base_url=base_url)
         stylesheets = []
-        with open('src/smdu/participacao/browser/static/css/print.css', 'r') as css:
-            stylesheets.append(CSS(string=css.read()))
+        css_path = '{0}/++resource++smdu.participacao/css/print.css'.format(portal_url)
+        r = requests.get(css_path)
+        stylesheets.append(CSS(string=r.content))
         minuta_exportada_pdf = html.write_pdf(stylesheets=stylesheets)
 
         RESPONSE.setHeader('Content-Type', 'application/pdf; charset=utf-8')
@@ -385,12 +387,16 @@ class ExportaConsultaPDFView(ConsultaPublicaView):
         base_url = '{0}/++resource++smdu.participacao/'.format(portal_url)
         html = HTML(string=content, base_url=base_url)
         stylesheets = []
-        with open('src/smdu/participacao/browser/static/css/proposta.css', 'r') as css:
-            stylesheets.append(CSS(string=css.read()))
-        with open('src/smdu/participacao/browser/static/css/print_proposta.css', 'r') as css:
-            stylesheets.append(CSS(string=css.read()))
-        with open('src/smdu/participacao/browser/static/css/print.css', 'r') as css:
-            stylesheets.append(CSS(string=css.read()))
+        css_path = '{0}/++resource++smdu.participacao/css/proposta.css'.format(portal_url)
+        r = requests.get(css_path)
+        stylesheets.append(CSS(string=r.content))
+        css_path = '{0}/++resource++smdu.participacao/css/print_proposta.css'.format(portal_url)
+        r = requests.get(css_path)
+        stylesheets.append(CSS(string=r.content))
+        css_path = '{0}/++resource++smdu.participacao/css/print.css'.format(portal_url)
+        r = requests.get(css_path)
+        stylesheets.append(CSS(string=r.content))
+        
         consulta_exportada_pdf = html.write_pdf(stylesheets=stylesheets)
 
         RESPONSE.setHeader('Content-Type', 'application/pdf; charset=utf-8')
