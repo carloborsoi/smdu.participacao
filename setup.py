@@ -28,7 +28,7 @@ setup(
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
     keywords='Python Plone',
-    author='Carlo Moura',
+    author='Carlo Borsoi Moura',
     author_email='carlo.moura@alliare.com.br',
     url='https://pypi.python.org/pypi/smdu.participacao',
     license='GPL version 2',
@@ -52,6 +52,9 @@ setup(
         'plone.app.stagingbehavior',
         'pyquery',
         'WeasyPrint',
+        'requests',
+        'plone.app.contenttypes',
+
     ],
     extras_require={
         'test': [
