@@ -66,9 +66,9 @@
                 type: 'icon_localizacao',
               })
       var localizacaoLayer = new ol.layer.Vector({
-  			name: 'localizacaoLayer',
+              name: 'localizacaoLayer',
         source: new ol.source.Vector(),
-  			style: function(featureProposta) {
+              style: function(featureProposta) {
           return styles[featureProposta.get('type')];
         }
       });
@@ -112,9 +112,9 @@
         content.innerHTML = popupHtml;
         overlay.setPosition(coordinate);
 
-      	featureProposta.setGeometry(new ol.geom.Point(coordinate));
+          featureProposta.setGeometry(new ol.geom.Point(coordinate));
         localizacaoLayer.getSource().clear();
-      	localizacaoLayer.getSource().addFeature(featureProposta);
+          localizacaoLayer.getSource().addFeature(featureProposta);
 
         });
 
